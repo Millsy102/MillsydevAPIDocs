@@ -8,7 +8,9 @@ description: "Professional Star Citizen kill tracking system with Discord bot in
 
 > **Professional kill tracking system for Star Citizen with Discord bot integration**
 
-Welcome to MILLSY.dev's Star Citizen Kill Tracker - a comprehensive system for tracking kills, deaths, and statistics in Star Citizen. Our system provides real-time tracking, Discord bot integration, and detailed analytics for the Star Citizen community.
+Welcome to MILLSY.dev's Star Citizen Kill Tracker - a comprehensive system for tracking kills, deaths, and statistics in
+Star Citizen. Our system provides real-time tracking, Discord bot integration, and detailed analytics for the
+Star Citizen community.
 
 ## System Overview
 
@@ -22,20 +24,18 @@ Our kill tracking system provides comprehensive features for Star Citizen player
 ## Core Features
 
 <div class="features-grid">
-    {% include feature-card.html 
-        icon="fas fa-crosshairs" 
-        title="Kill Tracking" 
+    {% include feature-card.html
+        icon="fas fa-crosshairs"
+        title="Kill Tracking"
         description="Real-time kill and death tracking with detailed statistics and analytics for Star Citizen gameplay."
         link="/api/"
         status="available" %}
-    
-    {% include feature-card.html 
-        icon="fab fa-discord" 
-        title="Discord Bot" 
+    {% include feature-card.html
+        icon="fab fa-discord"
+        title="Discord Bot"
         description="Discord bot integration for sharing kill statistics, leaderboards, and notifications in your server."
         link="/developers/"
         status="available" %}
-    
     {% include feature-card.html 
         icon="fas fa-chart-line" 
         title="Web Dashboard" 
@@ -54,7 +54,7 @@ Our kill tracking system provides comprehensive features for Star Citizen player
 ## <i class="fas fa-rocket"></i> Quick Start
 
 <div class="quick-start-section">
-    {% include quick-start-card.html 
+    {% include quick-start-card.html
         title="Get Started in 3 Steps"
         description="Start using the Star Citizen Kill Tracker API in minutes"
         steps=site.data.quick_start_steps
@@ -69,7 +69,8 @@ Our kill tracking system provides comprehensive features for Star Citizen player
     <button class="tutorial-start-btn" onclick="startTutorial('getting-started')">
         {% include icon.html name="play" size="20" %} <span data-translate="tutorial_start">Start Interactive Tutorial</span>
     </button>
-    <p class="tutorial-description" data-translate="tutorial_description">Take a guided tour through the Kill Tracker API setup process</p>
+    <p class="tutorial-description" data-translate="tutorial_description">Take a guided tour through the Kill Tracker API
+        setup process</p>
 </div>
 
 ## Technology Stack
@@ -173,7 +174,7 @@ Our kill tracking system automatically detects and records your Star Citizen gam
 
 ## Documentation
 
-### Getting Started
+### Setup Guides
 - [Environment Setup](./getting-started/environment.md) - Set up the kill tracking system
 - [Discord Bot Setup](./developers/README.md) - Configure your Discord bot
 - [API Reference](./api/) - Complete API documentation

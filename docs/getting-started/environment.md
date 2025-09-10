@@ -1,306 +1,198 @@
-# Environment Configuration
+# API Configuration Guide
 
-> **Configure your Star Citizen Kill Tracker system settings**
+> **Configure your Star Citizen Kill Tracker API integration**
 
-## What Are Environment Variables
+## Getting Started
 
-Think of them as **settings for your application**. They tell your app:
+The Star Citizen Kill Tracker API is a cloud-based service that doesn't require local installation or configuration. Simply get your API key and start making requests!
 
-- Where to find the database
+## Step 1: Get Your API Key
 
-- What Discord bot to use
+### **1. Create Account**
+1. Go to https://millsy.dev
+2. Click "Sign Up" or "Login with Discord"
+3. Complete the registration process
 
-- How to connect to APIs
+### **2. Generate API Key**
+1. Log into your dashboard
+2. Navigate to "API Settings"
+3. Click "Generate New API Key"
+4. Copy your API key (keep it secure!)
 
-- And much more!
+### **3. Test Your API Key**
+```bash
+# Test your API key
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.millsy.dev/health
+```
 
+## Step 2: Configure Your Application
 
-## Step 1: Create Your .env File
-
+### **Environment Variables**
+Store your API key securely in your application:
 
 ```bash
-
-## Copy the example file
-
-cp env.example .env
-
-## Now edit the .env file with your settings
-
-```text
-
-## Step 2: Required Settings
-
-
-### **Database Settings**
-
-```env
-
-## PostgreSQL database connection
-
-DATABASE_URL="postgresql://dbot2_user:your_password@localhost:5432/dbot2"
-
-```text
-
-### **Discord Bot Settings**
-
-```env
-
-## Your Discord bot token (get this from Discord Developer Portal)
-
-DISCORD_BOT_TOKEN="your_discord_bot_token_here"
-
-## Discord OAuth settings (for dashboard login)
-
-DISCORD_CLIENT_ID="your_discord_client_id"
-DISCORD_CLIENT_SECRET="your_discord_client_secret"
-DISCORD_REDIRECT_URI="http://localhost:3000/auth/discord/callback"
-
-```text
-
-### **Security Settings**
-
-```env
-
-## Create strong, random secrets for these
-
-JWT_SECRET="your_super_secret_jwt_key_here"
-AUTH_SECRET="your_super_secret_auth_key_here"
-
-```text
-
-### **Server Settings**
-
-```env
-
-## Port for the backend API
-
-PORT="3001"
-
-## Environment (development or production)
-
-NODE_ENV="development"
-
-```text
-
-### **Redis Settings**
-
-```env
-
-## Redis connection (usually these defaults work)
-
-REDIS_HOST="localhost"
-REDIS_PORT="6379"
-REDIS_PASSWORD=""
-REDIS_DB="0"
-
-```text
-
-## Step 3: Discord Bot Setup
-
-
-### **1. Create Discord Application**
-
-1. Go to https://discord.com/developers/applications
-2. Click **"New Application"**
-3. Give it a name (like "Star Citizen Kill Tracker")
-4. Click **"Create"**
-
-### **2. Create Bot**
-
-1. Go to **"Bot"** section in the left menu
-2. Click **"Add Bot"**
-3. Copy the **Token** → This goes in `DISCORD_BOT_TOKEN`
-
-### **3. Set Bot Permissions**
-
-Your bot needs these permissions:
-
-- ✅ Send Messages
-
-- ✅ Use Slash Commands
-
-- ✅ Read Message History
-
-- ✅ Embed Links
-
-- ✅ Attach Files
-
-
-### **4. Invite Bot to Server**
-
-1. Go to **"OAuth2"** → **"URL Generator"**
-2. Select **"bot"** and **"applications.commands"** scopes
-3. Select the permissions above
-4. Copy the generated URL and open it
-5. Choose your server and click **"Authorize"**
-
-## Step 4: Optional Settings
-
-
-### **Star Citizen API Keys (Optional)**
-
-These give you better data, but aren't required:
-
-```env
-
-## SC Universe API - https://api.scuniverse.com
-
-SC_UNIVERSE_API_KEY="your_sc_universe_api_key_here"
-
-## PyRSI API - https://api.pyrsi.com (early development)
-
-PYRSI_API_KEY="your_pyrsi_api_key_here"
-
-## Star Citizen Wiki API - https://starcitizen.tools/api.php
-
-SC_WIKI_API_KEY="your_sc_wiki_api_key_here"
-
-## SC Stats API - https://api.scstats.com
-
-SC_STATS_API_KEY="your_sc_stats_api_key_here"
-
-```text
-
-### **Log Parser Settings (Optional)**
-
-```env
-
-## Enable automatic log parsing
-
-ENABLE_LOG_PARSING="true"
-
-## How long to wait for log parsing (milliseconds)
-
-LOG_PARSER_TIMEOUT="30000"
-
-## Maximum log file size (bytes)
-
-MAX_LOG_FILE_SIZE="104857600"
-
-## Where to store uploaded logs
-
-UPLOAD_DIR="/app/uploads/logs"
-
-```text
-
-### **Frontend Settings**
-
-```env
-
-## WebSocket URL for real-time updates
-
-REACT_APP_WS_URL="ws://localhost:3001"
-
-## API port
-
-REACT_APP_API_PORT="3001"
-
-```text
-
-## Step 5: Test Your Setup
-
-
-### **1. Test Database Connection**
-
+# .env file (for development)
+SCKILLTRACKER_API_KEY=your_api_key_here
+SCKILLTRACKER_BASE_URL=https://api.millsy.dev
+```
+
+### **JavaScript/TypeScript**
+```javascript
+const config = {
+  apiKey: process.env.SCKILLTRACKER_API_KEY,
+  baseURL: process.env.SCKILLTRACKER_BASE_URL || 'https://api.millsy.dev'
+};
+```
+
+### **Python**
+```python
+import os
+
+config = {
+    'api_key': os.getenv('SCKILLTRACKER_API_KEY'),
+    'base_url': os.getenv('SCKILLTRACKER_BASE_URL', 'https://api.millsy.dev')
+}
+```
+
+## Step 3: Make Your First Request
+
+### **Get Your Statistics**
 ```bash
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.millsy.dev/api/v1/users/me/stats
+```
 
-cd backend
-npm run test:db
-
-```text
-
-### **2. Test Redis Connection**
-
+### **Create a Kill Record**
 ```bash
+curl -X POST \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "victimId": "victim_user_id",
+    "serverId": "server_id",
+    "weapon": "Laser Cannon",
+    "location": "Stanton System"
+  }' \
+  https://api.millsy.dev/api/v1/kills
+```
 
-cd backend
-npm run test:redis
+## API Endpoints
 
-```text
+### **Base URL**
+- **Production**: `https://api.millsy.dev`
+- **API Version**: `/api/v1`
 
-### **3. Test Discord Bot**
+### **Authentication**
+All requests require an API key in the Authorization header:
+```
+Authorization: Bearer YOUR_API_KEY
+```
 
+### **Common Endpoints**
+- `GET /health` - API health check
+- `GET /api/v1/users/me/stats` - Your statistics
+- `GET /api/v1/kills` - List kills
+- `POST /api/v1/kills` - Create kill record
+- `GET /api/v1/leaderboards` - Get leaderboards
+
+## Rate Limits
+
+### **Free Tier**
+- **Requests**: 1,000 per hour
+- **Burst**: 100 requests per minute
+- **Webhooks**: 10 webhooks per hour
+
+### **Rate Limit Headers**
+```http
+X-RateLimit-Limit: 1000
+X-RateLimit-Remaining: 999
+X-RateLimit-Reset: 1640995200
+```
+
+## Error Handling
+
+### **Common Error Codes**
+- `400` - Bad Request (invalid data)
+- `401` - Unauthorized (invalid API key)
+- `403` - Forbidden (insufficient permissions)
+- `404` - Not Found (resource doesn't exist)
+- `429` - Too Many Requests (rate limit exceeded)
+- `500` - Internal Server Error
+
+### **Error Response Format**
+```json
+{
+  "error": {
+    "code": "INVALID_API_KEY",
+    "message": "The provided API key is invalid",
+    "details": "Please check your API key and try again"
+  }
+}
+```
+
+## Security Best Practices
+
+### **API Key Security**
+- ✅ Store API keys in environment variables
+- ✅ Never commit API keys to version control
+- ✅ Rotate API keys regularly
+- ✅ Use different keys for different environments
+
+### **Request Security**
+- ✅ Always use HTTPS
+- ✅ Validate input data
+- ✅ Implement proper error handling
+- ✅ Monitor your API usage
+
+## Testing Your Integration
+
+### **Health Check**
 ```bash
+curl https://api.millsy.dev/health
+```
 
-cd backend
-npm run dev
-
-## Look for "Discord bot is ready!" message
-
-```text
-
-### **4. Test Dashboard**
-
+### **Authentication Test**
 ```bash
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.millsy.dev/api/v1/users/me
+```
 
-cd dashboard
-npm run dev
-
-## Open http://localhost:3000
-
-```text
-
-## 🔐 **Security Tips**
-
-
-### **Keep Your Secrets Secret!**
-
-- ❌ **Never** commit your `.env` file to git
-
-- ❌ **Never** share your bot token publicly
-
-- ✅ Use strong, random passwords
-
-- ✅ Rotate your secrets regularly
-
-
-### **Generate Strong Secrets**
-
+### **Full Integration Test**
 ```bash
+# 1. Get your stats
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.millsy.dev/api/v1/users/me/stats
 
-## Generate a random JWT secret
+# 2. Create a test kill
+curl -X POST \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"victimId": "test", "weapon": "Test Weapon"}' \
+  https://api.millsy.dev/api/v1/kills
 
-node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
-
-## Generate a random auth secret
-
-node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-
-```text
-
-## 🆘 **Common Problems**
-
-
-### **"Invalid bot token"**
-
-→ Check your Discord bot token is correct
-
-### **"Database connection failed"**
-
-→ Make sure PostgreSQL is running and DATABASE_URL is correct
-
-### **"Redis connection failed"**
-
-→ Make sure Redis is running
-
-### **"Port already in use"**
-
-→ Stop other applications using port 3001
-
-## Configuration Complete
-
-Your environment is now properly configured. Next steps:
-
-1. **Start the application** → `npm run dev`
-2. **Test the Discord bot** → Try `/help` in Discord
-3. **Access the dashboard** → Go to http://localhost:3000
+# 3. Get recent kills
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.millsy.dev/api/v1/kills?limit=5
+```
 
 ## Next Steps
 
-- [**Dashboard Guide**](../usage/dashboard.md) - Learn to use the web interface
-- [**Discord Commands**](../usage/discord-commands.md) - All bot commands
-- [**Updated Dashboard Guide**](../usage/updated-dashboard-guide.md) - Latest features
+### **Explore the API**
+- [API Endpoints](./api/endpoints.md) - Complete endpoint reference
+- [SDK Examples](./api/sdk-examples.md) - Code examples and SDKs
+- [Rate Limits](./api/rate-limits.md) - Usage limits and quotas
+
+### **Build Your Integration**
+- [Discord Bot Integration](./advanced/bot-integration.md)
+- [Web Dashboard Integration](./usage/dashboard.md)
+- [Webhook Integration](./api/webhooks.md)
+
+### **Get Help**
+- [Troubleshooting](./help/troubleshooting.md) - Common issues and solutions
+- [FAQ](./help/faq.md) - Frequently asked questions
+- Join our Discord support server
 
 ---
 
-*Professional Star Citizen Integration Solutions*
+*Your API integration is ready! Start building amazing Star Citizen applications! 🚀*

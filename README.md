@@ -53,4 +53,4 @@ MIT License - See [LICENSE](LICENSE) file for details.
 
 ---
 
-*© 2025 MILLSY.dev | Professional Star Citizen Integration Solutions*
+© 2025 MILLSY.dev | Professional Star Citizen Integration Solutions

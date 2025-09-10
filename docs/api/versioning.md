@@ -17,7 +17,7 @@ title: "API Versioning & Changelog"
 ### Versioning Approach
 We use **header-based versioning** with URL versioning planned for future versions:
 
-```
+```text
 # Current implementation (v1.0.0)
 https://api.millsy.dev/api/endpoint
 X-API-Version: v1.0.0

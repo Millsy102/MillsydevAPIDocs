@@ -13,7 +13,8 @@ title: "API Documentation"
     <button class="playground-trigger-btn" onclick="openCodePlayground()">
         {% include icon.html name="code" size="20" %} Open Interactive API Explorer
     </button>
-    <p class="playground-description">Test API endpoints, explore code examples, and experiment with the Kill Tracker API in real-time.</p>
+    <p class="playground-description">Test API endpoints, explore code examples, and experiment with the Kill Tracker API
+        in real-time.</p>
 </div>
 
 ## <i class="fas fa-rocket"></i> Quick Start

@@ -1,4 +1,4 @@
-# 🔌 Star Citizen Kill Tracker API
+# {% include icon.html name="key" size="20" %} Star Citizen Kill Tracker API
 
 
 > **Complete API documentation for developers**
@@ -6,7 +6,8 @@
 ## Overview
 
 
-The Star Citizen Kill Tracker API provides comprehensive endpoints for managing Discord bots, tracking kills, and integrating with external applications.
+The Star Citizen Kill Tracker API provides comprehensive endpoints for managing Discord bots, tracking kills, and
+integrating with external applications.
 
 **Base URL:** `https://api.millsy.dev` (Production) / `http://localhost:3001` (Local Development)  
 **API Version:** v1  
@@ -203,7 +204,7 @@ Authorization: Bearer YOUR_JWT_TOKEN
 
 ```text
 
-### **⚔️ Kill Tracking**
+### **{% include icon.html name="fire" size="16" %} Kill Tracking**
 
 
 #### **Get Kills**
@@ -328,7 +329,7 @@ Authorization: Bearer YOUR_JWT_TOKEN
 
 ```text
 
-### **🏆 Leaderboards**
+### **{% include icon.html name="trophy" size="16" %} Leaderboards**
 
 
 #### **Get Leaderboard**
@@ -382,7 +383,7 @@ Authorization: Bearer YOUR_JWT_TOKEN
 
 ```text
 
-### **🖥️ Server Management**
+### **{% include icon.html name="monitor" size="16" %} Server Management**
 
 
 #### **Get Servers**

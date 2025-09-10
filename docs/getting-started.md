@@ -19,7 +19,8 @@ description: "Quick start guide for integrating with the MILLSY.dev Star Citizen
 
 ### 1. Get API Access
 
-1. **Visit the Dashboard**: Go to [https://dbot.millsy.dev](https://dbot.millsy.dev) (Production) or [http://localhost:3000](http://localhost:3000) (Local Development)
+1. **Visit the Dashboard**: Go to [https://dbot.millsy.dev](https://dbot.millsy.dev) (Production) or 
+   [http://localhost:3000](http://localhost:3000) (Local Development)
 2. **Login with Discord**: Click "Login with Discord" and authorize the application
 3. **Generate API Key**: Go to the "API Keys" section and create a new API key
 4. **Copy Your Credentials**: Save your API key and user ID

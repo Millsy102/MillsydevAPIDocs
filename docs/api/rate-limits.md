@@ -24,6 +24,7 @@ title: "Rate Limits & Quotas"
 ## 🔢 Detailed Rate Limits
 
 ### General API Endpoints
+
 | Endpoint Category | Limit | Window | Description |
 |------------------|-------|--------|-------------|
 | All API requests | 1000 | 1 hour | General API usage |
@@ -33,6 +34,7 @@ title: "Rate Limits & Quotas"
 | Leaderboards | 100 | 1 hour | Ranking requests |
 
 ### Administrative Endpoints
+
 | Endpoint Category | Limit | Window | Description |
 |------------------|-------|--------|-------------|
 | Admin operations | 10 | 1 minute | Administrative tasks |
@@ -41,6 +43,7 @@ title: "Rate Limits & Quotas"
 | System operations | 5 | 1 minute | System maintenance |
 
 ### Star Citizen Integration
+
 | Endpoint Category | Limit | Window | Description |
 |------------------|-------|--------|-------------|
 | Ship data | 200 | 1 hour | Ship information |
@@ -49,6 +52,7 @@ title: "Rate Limits & Quotas"
 | System data | 100 | 1 hour | System information |
 
 ### Log Parser & Snare Planner
+
 | Endpoint Category | Limit | Window | Description |
 |------------------|-------|--------|-------------|
 | Log parsing | 50 | 1 hour | Log processing |

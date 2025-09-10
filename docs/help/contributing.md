@@ -1,582 +1,181 @@
-# <i class="fas fa-handshake"></i> Contributing Guide
+# <i class="fas fa-handshake"></i> Contributing to Documentation
 
-> **Help make the Star Citizen Kill Tracker even better!**
+> **Help improve the Star Citizen Kill Tracker API documentation!**
 
 ## How to Contribute
 
-We welcome contributions from everyone! Whether you're fixing bugs, adding features, or improving documentation, your help makes this project better for everyone.
+We welcome contributions to improve our API documentation! Since the Star Citizen Kill Tracker software is closed-source, contributions are limited to documentation improvements only.
 
 ## Ways to Contribute
 
-### **<i class="fas fa-bug"></i> Bug Fixes**
+### **<i class="fas fa-book"></i> Documentation Improvements**
 
-- Fix bugs you encounter
+- Fix typos and grammatical errors
+- Improve clarity and readability
+- Add missing information or examples
+- Update outdated information
+- Translate documentation to other languages
 
-- Improve error handling
+### **<i class="fas fa-bug"></i> Report Issues**
 
-- Add better validation
+- Report documentation errors or inconsistencies
+- Suggest improvements to existing guides
+- Request new documentation topics
+- Report broken links or formatting issues
 
-- Optimize performance
+### **<i class="fas fa-lightbulb"></i> Suggest Improvements**
 
-
-### **<i class="fas fa-star"></i> New Features**
-
-- Add new Discord commands
-
-- Improve the dashboard
-
-- Enhance the desktop app
-
-- Add new integrations
-
-
-### **<i class="fas fa-book"></i> Documentation**
-
-- Improve existing guides
-
-- Add new tutorials
-
-- Fix typos and errors
-
-- Translate to other languages
-
-
-### **🧪 Testing**
-
-- Test new features
-
-- Report bugs
-
-- Improve test coverage
-
-- Performance testing
-
+- Propose new documentation sections
+- Suggest better organization of content
+- Recommend additional examples or use cases
+- Share feedback on documentation clarity
 
 ## Getting Started
 
+### **1. Fork the Documentation Repository**
 
-### **1. Fork the Repository**
-
-1. Go to the GitHub repository
+1. Go to the GitHub repository for this documentation
 2. Click "Fork" in the top right
 3. Clone your fork locally:
 
    ```bash
-
-   git clone https://github.com/YOUR_USERNAME/dbot2.git
-   cd dbot2
-
+   git clone https://github.com/YOUR_USERNAME/MillsydevAPIDocs.git
+   cd MillsydevAPIDocs
    ```
 
-### **2. Set Up Development Environment**
+### **2. Make Your Changes**
 
-```bash
+- Edit the relevant documentation files
+- Test your changes locally if possible
+- Ensure proper markdown formatting
+- Check for typos and grammar
 
-## Install dependencies
-
-npm run install:all
-
-## Set up environment
-
-cp env.example .env
-
-## Edit .env with your settings
-
-
-## Set up database
-
-cd backend
-npx prisma migrate dev
-npx prisma generate
-
-```text
-
-### **3. Create a Branch**
-
-```bash
-
-## Create a new branch for your changes
-
-git checkout -b feature/your-feature-name
-
-## Or for bug fixes
-
-git checkout -b fix/your-bug-fix
-
-```text
-
-### **4. Make Your Changes**
-
-- Write your code
-
-- Add tests if applicable
-
-- Update documentation
-
-- Test your changes
-
-
-### **5. Test Your Changes**
-
-```bash
-
-## Test backend
-
-cd backend
-npm test
-
-## Test frontend
-
-cd dashboard
-npm test
-
-## Test desktop app
-
-cd killtracker
-npm test
-
-```text
-
-### **6. Submit a Pull Request**
+### **3. Submit a Pull Request**
 
 1. Commit your changes:
 
    ```bash
-
    git add .
-   git commit -m "Add: your feature description"
-
+   git commit -m "Fix: typo in API endpoint documentation"
    ```
 
 2. Push to your fork:
 
    ```bash
-
-   git push origin feature/your-feature-name
-
+   git push origin your-branch-name
    ```
 
 3. Create a Pull Request on GitHub
 
-## Development Guidelines
+## Documentation Guidelines
 
+### **Writing Style**
 
-### **Code Style**
+- Use clear, simple language
+- Be concise but comprehensive
+- Include practical examples
+- Use consistent formatting
+- Follow the existing documentation structure
 
-- Use TypeScript for all new code
+### **Markdown Formatting**
 
-- Follow existing code patterns
+- Use proper heading hierarchy
+- Include code blocks with syntax highlighting
+- Use tables for structured data
+- Add links to related documentation
+- Include emojis sparingly and professionally
 
-- Use meaningful variable names
+### **Content Guidelines**
 
-- Add comments for complex logic
+- Focus on user-facing documentation only
+- Avoid technical implementation details
+- Include relevant API examples
+- Keep information up to date
+- Test all code examples
 
-- Keep functions small and focused
+## What We're Looking For
 
+### **High Priority**
 
-### **Commit Messages**
+- Fixing typos and grammatical errors
+- Improving API endpoint documentation
+- Adding missing parameter descriptions
+- Clarifying confusing instructions
+- Updating outdated information
 
-Use clear, descriptive commit messages:
+### **Medium Priority**
 
-```text
+- Adding more code examples
+- Improving navigation and organization
+- Adding troubleshooting sections
+- Creating visual diagrams or flowcharts
+- Translating to other languages
 
-Add: New Discord command for kill statistics
-Fix: Database connection timeout issue
-Update: Improve error handling in dashboard
-Remove: Unused API endpoint
+### **Low Priority**
 
-```text
+- Styling and formatting improvements
+- Adding more detailed explanations
+- Creating additional tutorial content
+- Expanding FAQ sections
 
-### **Pull Request Guidelines**
+## What We Cannot Accept
 
-- **Title**: Clear description of changes
+### **Not Allowed**
 
-- **Description**: Explain what you changed and why
+- Code changes to the actual software
+- Feature requests for the software itself
+- Bug reports for the software (use Discord support)
+- Security vulnerability reports (use private channels)
+- Requests for access to source code
 
-- **Testing**: Describe how you tested your changes
+### **Documentation Only**
 
-- **Screenshots**: Include screenshots for UI changes
+Remember: This repository is for documentation only. The Star Citizen Kill Tracker software itself is closed-source and not available for public contribution.
 
-- **Breaking Changes**: Note any breaking changes
+## Review Process
 
-
-### **Code Review Process**
-
-1. **Automated Checks**: CI/CD runs tests and linting
-2. **Manual Review**: Maintainers review your code
+1. **Automated Checks**: Basic formatting and link validation
+2. **Manual Review**: Documentation team reviews your changes
 3. **Feedback**: Address any requested changes
 4. **Approval**: Once approved, your PR will be merged
 
-## Project Structure
-
-
-### **Backend (`/backend`)**
-
-- **`src/bot/`** - Discord bot implementation
-
-- **`src/routes/`** - API routes
-
-- **`src/services/`** - Business logic
-
-- **`src/utils/`** - Utility functions
-
-- **`prisma/`** - Database schema and migrations
-
-
-### **Frontend (`/dashboard`)**
-
-- **`src/components/`** - React components
-
-- **`src/pages/`** - Page components
-
-- **`src/hooks/`** - Custom React hooks
-
-- **`src/services/`** - API services
-
-- **`src/utils/`** - Utility functions
-
-
-### **Desktop App (`/killtracker`)**
-
-- **`src/main.ts`** - Electron main process
-
-- **`src/renderer/`** - Renderer process
-
-- **`src/services/`** - Kill tracking services
-
-- **`src/utils/`** - Utility functions
-
-
-### **Shared (`/shared`)**
-
-- **`src/components/`** - Shared React components
-
-- **`src/styles/`** - Shared styles and themes
-
-- **`src/types/`** - Shared TypeScript types
-
-- **`src/utils/`** - Shared utility functions
-
-
-## Testing
-
-
-### **Backend Testing**
-
-```bash
-
-cd backend
-npm test              # Run all tests
-npm run test:watch    # Watch mode
-npm run test:coverage # Coverage report
-
-```text
-
-### **Frontend Testing**
-
-```bash
-
-cd dashboard
-npm test              # Run all tests
-npm run test:watch    # Watch mode
-npm run test:coverage # Coverage report
-
-```text
-
-### **Desktop App Testing**
-
-```bash
-
-cd killtracker
-npm test              # Run all tests
-npm run test:e2e      # End-to-end tests
-
-```text
-
-## Documentation
-
-
-### **Documentation Structure**
-
-- **`docs/getting-started/`** - Setup and installation guides
-
-- **`docs/usage/`** - How to use the system
-
-- **`docs/technical/`** - Technical documentation
-
-- **`docs/advanced/`** - Advanced features
-
-- **`docs/help/`** - Help and support
-
-
-### **Writing Documentation**
-
-- Use clear, simple language
-
-- Include code examples
-
-- Add screenshots for UI changes
-
-- Keep it up to date
-
-- Test all instructions
-
-
-## Feature Development
-
-
-### **New Discord Commands**
-
-1. **Add Command Definition**
-
-   ```typescript
-
-   // In backend/src/bot/commands/index.ts
-   export const newCommand = {
-     name: 'newcommand',
-     description: 'Description of what it does',
-     options: [
-       {
-         name: 'option',
-         description: 'Option description',
-         type: ApplicationCommandOptionType.String,
-         required: false
-       }
-     ]
-   };
-
-   ```
-
-2. **Implement Command Handler**
-
-   ```typescript
-
-   // In backend/src/bot/events/interaction.ts
-   if (interaction.commandName === 'newcommand') {
-     // Handle the command
-   }
-
-   ```
-
-3. **Add Tests**
-
-   ```typescript
-
-   // Test the command
-   describe('New Command', () => {
-     it('should respond correctly', async () => {
-       // Test implementation
-     });
-   });
-
-   ```
-
-### **New Dashboard Features**
-
-1. **Create Component**
-
-   ```typescript
-
-   // In dashboard/src/components/NewFeature.tsx
-   export const NewFeature: React.FC = () => {
-     // Component implementation
-   };
-
-   ```
-
-2. **Add Route**
-
-   ```typescript
-
-   // In dashboard/src/App.tsx
-   <Route path="/new-feature" element={<NewFeature />} />
-
-   ```
-
-3. **Add Navigation**
-
-   ```typescript
-
-   // In dashboard/src/config/navigation.ts
-   {
-     name: 'New Feature',
-     path: '/new-feature',
-     icon: 'icon-name'
-   }
-
-   ```
-
-## Bug Reports
-
-
-### **Before Reporting a Bug**
-
-1. Check if it's already reported
-2. Try the latest version
-3. Check the troubleshooting guide
-4. Test with minimal configuration
-
-### **Bug Report Template**
-
-```markdown
-
-## Bug Description
-
-A clear description of the bug.
-
-## Steps to Reproduce
-
-1. Go to '...'
-2. Click on '...'
-3. See error
-
-## Expected Behavior
-
-What you expected to happen.
-
-## Actual Behavior
-
-What actually happened.
-
-## Environment
-
-- OS: [e.g., Windows 10]
-
-- Node.js: [e.g., 18.17.0]
-
-- Browser: [e.g., Chrome 91]
-
-
-## Additional Context
-
-Any other relevant information.
-
-```text
-
-## Feature Requests
-
-
-### **Feature Request Template**
-
-```markdown
-
-## Feature Description
-
-A clear description of the feature.
-
-## Use Case
-
-Why would this feature be useful?
-
-## Proposed Solution
-
-How should this feature work?
-
-## Alternatives
-
-Other solutions you've considered.
-
-## Additional Context
-
-Any other relevant information.
-
-```text
-
-## Community Guidelines
-
-
-### **Be Respectful**
-
-- Be kind and respectful to everyone
-
-- Use inclusive language
-
-- Help others learn and grow
-
-- Constructive feedback only
-
-
-### **Be Helpful**
-
-- Answer questions when you can
-
-- Share knowledge and experience
-
-- Help newcomers get started
-
-- Contribute to discussions
-
-
-### **Be Professional**
-
-- Keep discussions on-topic
-
-- Use appropriate language
-
-- Follow the code of conduct
-
-- Respect others' time and effort
-
-
-## Recognition
-
-
-### **Contributors**
-
-We recognize all contributors in:
-
-- GitHub contributors list
-
-- Project README
-
-- Release notes
-
-- Community highlights
-
-
-### **Types of Contributions**
-
-- **Code**: Bug fixes, features, improvements
-
-- **Documentation**: Guides, tutorials, translations
-
-- **Testing**: Bug reports, test cases, QA
-
-- **Community**: Support, discussions, feedback
-
-
 ## Getting Help
-
 
 ### **Need Help Contributing?**
 
-- **Documentation**: Check the docs folder
-
-- **Discord**: Join our community server
-
+- **Documentation**: Check existing guides for examples
+- **Discord**: Join our community server for questions
 - **GitHub**: Create an issue with questions
+- **Pull Request**: Ask for help in PR comments
 
-- **Code Review**: Ask for help in PR comments
+### **Questions About the API?**
 
+- Use the Discord support server for API-related questions
+- Check the existing documentation first
+- Create an issue if documentation is unclear
 
-### **Mentorship**
+## Recognition
 
-- New contributors can request mentorship
+### **Contributors**
 
-- Experienced contributors can offer to mentor
+We recognize all documentation contributors in:
 
-- We pair newcomers with experienced developers
+- GitHub contributors list
+- Documentation acknowledgments
+- Community highlights
+- Release notes for documentation updates
 
+### **Types of Contributions**
 
-## License
-
-
-By contributing to this project, you agree that your contributions will be licensed under the same license as the project (MIT License).
+- **Documentation**: Guides, tutorials, translations
+- **Bug Reports**: Documentation errors and issues
+- **Suggestions**: Improvements and new content ideas
+- **Community**: Support and feedback
 
 ## Thank You
 
-Thank you for considering contributing to the Star Citizen Kill Tracker! Your contributions help make this project better for everyone in the Star Citizen community.
+Thank you for considering contributing to the Star Citizen Kill Tracker API documentation! Your contributions help make our API more accessible and easier to use for the entire Star Citizen community.
 
 ---
 
-*Together, we can build something amazing! <i class="fas fa-rocket"></i>*
+*Together, we can make great documentation! <i class="fas fa-rocket"></i>*

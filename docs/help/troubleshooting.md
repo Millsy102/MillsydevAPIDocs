@@ -1,688 +1,344 @@
-# 🆘 Troubleshooting Guide
+# 🆘 API Troubleshooting Guide
 
-
-> **Fix common problems with your Star Citizen Kill Tracker**
+> **Fix common problems with the Star Citizen Kill Tracker API**
 
 ## Quick Fixes
 
+### **🚨 Common API Issues (Try These First)**
 
-### **🚨 Emergency Fixes (Try These First)**
+#### **API Not Responding**
+- Check if the API server is online at https://api.millsy.dev
+- Verify your internet connection
+- Try the API health endpoint: `GET https://api.millsy.dev/health`
 
+#### **Authentication Errors**
+- Verify your API key is correct
+- Check if your API key has expired
+- Ensure you're using the correct authentication header format
 
-## Bot Not Responding
-```bash
-
-## Check if bot is online in Discord
-
-## Look for bot in member list - should show "Online" 🟢
-
-
-## If offline, restart the backend
-
-cd backend
-npm run dev
-
-```text
-
-## Dashboard Won't Load
-```bash
-
-## Check if backend is running
-
-curl http://localhost:3001/api/health
-
-## If not responding, start backend
-
-cd backend
-npm run dev
-
-```text
-
-## Database Errors
-```bash
-
-## Check PostgreSQL is running
-
-## Windows: Check Services
-
-## macOS: brew services list | grep postgres
-
-## Linux: sudo systemctl status postgresql
-
-
-## If not running, start it
-
-## Windows: Start PostgreSQL service
-
-## macOS: brew services start postgresql
-
-## Linux: sudo systemctl start postgresql
-
-```text
+#### **Rate Limit Exceeded**
+- Check your current rate limit status
+- Wait for the rate limit window to reset
+- Consider implementing request throttling in your application
 
 ## Common Problems & Solutions
 
+### **🔑 Authentication Issues**
 
-### **🤖 Discord Bot Issues**
+#### **Problem: "Invalid API Key" Error**
 
+**Symptoms:**
+- API returns 401 Unauthorized
+- "Invalid API key" error message
+- Authentication header not recognized
 
-#### **Problem: Bot Not Responding to Commands**
+**Solutions:**
 
-## Symptoms:
-
-- Bot shows as online but doesn't respond
-
-- Commands like `/help` don't work
-
-- No error messages
-
-
-## Solutions:
-
-1. **Check Bot Permissions**
-
-   ```
-
-   - Go to Discord Server Settings
-
-   - Go to Roles → @your-bot
-
-   - Make sure these are enabled:
-
-     ✅ Send Messages
-     ✅ Use Slash Commands
-     ✅ Read Message History
-     ✅ Embed Links
-
-   ```
-
-2. **Re-invite Bot**
-
-   ```
-
-   - Go to Discord Developer Portal
-
-   - OAuth2 → URL Generator
-
-   - Select "bot" and "applications.commands"
-
-   - Copy URL and re-invite bot
-
-   ```
-
-3. **Check Bot Token**
-
+1. **Verify API Key Format**
    ```bash
-
-   # Verify token in .env file
-   cat .env | grep DISCORD_BOT_TOKEN
-   # Should show: DISCORD_BOT_TOKEN=your_token_here
-
+   # Check your API key format
+   curl -H "Authorization: Bearer YOUR_API_KEY" \
+     https://api.millsy.dev/health
    ```
 
-#### **Problem: Bot Goes Offline Randomly**
+2. **Check API Key Validity**
+   - Log into the dashboard at https://millsy.dev
+   - Go to API Settings
+   - Verify your API key is active
+   - Generate a new key if needed
 
-## Symptoms:
-
-- Bot shows as offline in Discord
-
-- Backend logs show disconnection errors
-
-- Bot reconnects after a few minutes
-
-
-## Solutions:
-
-1. **Check Network Connection**
-
+3. **Verify Header Format**
    ```bash
-
-   # Test internet connectivity
-   ping discord.com
-
+   # Correct format
+   Authorization: Bearer YOUR_API_KEY
+   
+   # Incorrect formats
+   Authorization: YOUR_API_KEY
+   X-API-Key: YOUR_API_KEY
    ```
 
-2. **Check Bot Token Validity**
+#### **Problem: "API Key Expired" Error**
 
+**Symptoms:**
+- API returns 401 Unauthorized
+- "API key expired" error message
+- Previously working requests now fail
+
+**Solutions:**
+
+1. **Generate New API Key**
+   - Log into the dashboard
+   - Go to API Settings
+   - Generate a new API key
+   - Update your application with the new key
+
+2. **Check Key Expiration**
+   - API keys expire after 90 days
+   - Set up monitoring for key expiration
+   - Implement automatic key renewal if possible
+
+### **🌐 Connection Issues**
+
+#### **Problem: "Connection Timeout" Error**
+
+**Symptoms:**
+- Requests take too long to respond
+- Timeout errors in your application
+- Intermittent connection failures
+
+**Solutions:**
+
+1. **Check API Status**
    ```bash
-
-   # Test token with Discord API
-   curl -H "Authorization: Bot YOUR_BOT_TOKEN" \
-     https://discord.com/api/v10/users/@me
-
+   # Test basic connectivity
+   curl -w "@curl-format.txt" https://api.millsy.dev/health
    ```
 
-3. **Increase Reconnect Attempts**
-
+2. **Implement Retry Logic**
    ```javascript
-
-   // In backend/src/bot/index.ts
-   const client = new Client({
-     intents: [GatewayIntentBits.Guilds],
-     reconnect: true,
-     retryLimit: 10
-   });
-
+   // Example retry implementation
+   async function apiCallWithRetry(url, options, maxRetries = 3) {
+     for (let i = 0; i < maxRetries; i++) {
+       try {
+         const response = await fetch(url, options);
+         return response;
+       } catch (error) {
+         if (i === maxRetries - 1) throw error;
+         await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
+       }
+     }
+   }
    ```
 
-### **🌐 Dashboard Issues**
+3. **Check Network Configuration**
+   - Verify firewall settings
+   - Check proxy configuration
+   - Ensure HTTPS is not blocked
 
+#### **Problem: "SSL Certificate" Errors**
 
-#### **Problem: Dashboard Shows "Connection Failed"**
+**Symptoms:**
+- SSL/TLS handshake failures
+- Certificate verification errors
+- "Untrusted certificate" warnings
 
-## Symptoms:
+**Solutions:**
 
-- Dashboard loads but shows connection error
+1. **Update Certificate Store**
+   - Update your system's certificate store
+   - Ensure your application trusts the API's certificate
 
-- API calls fail
+2. **Check API Endpoint**
+   - Use the correct HTTPS endpoint: `https://api.millsy.dev`
+   - Avoid HTTP endpoints in production
 
-- WebSocket connection fails
+### **📊 Data Issues**
 
+#### **Problem: "Invalid Request Format" Error**
 
-## Solutions:
+**Symptoms:**
+- API returns 400 Bad Request
+- "Invalid JSON" or "Missing required field" errors
+- Request body not accepted
 
-1. **Check Backend is Running**
+**Solutions:**
 
+1. **Verify Request Format**
    ```bash
-
-   # Test API endpoint
-   curl http://localhost:3001/api/health
-   # Should return: {"status": "ok"}
-
+   # Check JSON format
+   curl -X POST https://api.millsy.dev/kills \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Bearer YOUR_API_KEY" \
+     -d '{"player_id": "12345", "victim_id": "67890"}'
    ```
 
-2. **Check Environment Variables**
+2. **Check Required Fields**
+   - Review the API documentation for required fields
+   - Ensure all mandatory parameters are included
+   - Verify data types match the expected format
 
-   ```bash
-
-   # Verify API URL in dashboard
-   cat dashboard/.env
-   # Should show: VITE_API_URL=http://localhost:3001/api
-
-   ```
-
-3. **Check CORS Settings**
-
+3. **Validate JSON Structure**
    ```javascript
-
-   // In backend/src/index.ts
-   app.use(cors({
-     origin: ['http://localhost:3000', '[https://your-domain.com]([https://your-domain.com)](https://your-domain.com))'],
-     credentials: true
-   }));
-
-   ```
-
-#### **Problem: Login with Discord Fails**
-
-## Symptoms:
-
-- Click "Login with Discord" but nothing happens
-
-- Redirects to error page
-
-- "Invalid OAuth" error
-
-
-## Solutions:
-
-1. **Check Discord OAuth Settings**
-
-   ```
-
-   - Go to Discord Developer Portal
-
-   - OAuth2 → General
-
-   - Add redirect URI: http://localhost:3000/auth/discord/callback
-
-   - For production: https://your-domain.com/auth/discord/callback
-
-   ```
-
-2. **Verify Environment Variables**
-
-   ```bash
-
-   # Check OAuth settings
-   cat .env | grep DISCORD_CLIENT
-   # Should show
-   # DISCORD_CLIENT_ID=your_client_id
-   # DISCORD_CLIENT_SECRET=your_client_secret
-
-   ```
-
-3. **Check Redirect URI**
-
-   ```bash
-
-   # Make sure redirect URI matches exactly
-   # Development: http://localhost:3000/auth/discord/callback
-   # Production: https://your-domain.com/auth/discord/callback
-
-   ```
-
-### **🗄️ Database Issues**
-
-
-#### **Problem: "Database Connection Failed"**
-
-## Symptoms:
-
-- Backend won't start
-
-- Database errors in logs
-
-- "Connection refused" errors
-
-
-## Solutions:
-
-1. **Check PostgreSQL is Running**
-
-   ```bash
-
-   # Windows
-   services.msc → PostgreSQL
+   // Example validation
+   const requestData = {
+     player_id: "12345",
+     victim_id: "67890",
+     timestamp: new Date().toISOString()
+   };
    
-   # macOS
-   brew services list | grep postgres
+   // Ensure all required fields are present
+   if (!requestData.player_id || !requestData.victim_id) {
+     throw new Error("Missing required fields");
+   }
+   ```
+
+#### **Problem: "Data Not Found" Error**
+
+**Symptoms:**
+- API returns 404 Not Found
+- "Player not found" or "Kill record not found" errors
+- Empty response data
+
+**Solutions:**
+
+1. **Verify Data Exists**
+   - Check if the player exists in the system
+   - Verify the kill record ID is correct
+   - Ensure the data hasn't been deleted
+
+2. **Check Query Parameters**
+   ```bash
+   # Verify query parameters
+   curl "https://api.millsy.dev/players/12345/kills?limit=10&offset=0" \
+     -H "Authorization: Bearer YOUR_API_KEY"
+   ```
+
+3. **Handle Empty Results**
+   ```javascript
+   // Handle empty responses gracefully
+   const response = await fetch(url, options);
+   const data = await response.json();
    
-   # Linux
-   sudo systemctl status postgresql
-
+   if (data.length === 0) {
+     console.log("No data found for the given criteria");
+     return [];
+   }
    ```
 
-2. **Check Database URL**
+### **⚡ Rate Limiting Issues**
 
+#### **Problem: "Rate Limit Exceeded" Error**
+
+**Symptoms:**
+- API returns 429 Too Many Requests
+- "Rate limit exceeded" error message
+- Requests are being throttled
+
+**Solutions:**
+
+1. **Check Rate Limit Status**
    ```bash
-
-   # Verify DATABASE_URL format
-   cat .env | grep DATABASE_URL
-   # Should be: postgresql://user:password@localhost:5432/database
-
+   # Check rate limit headers
+   curl -I https://api.millsy.dev/health \
+     -H "Authorization: Bearer YOUR_API_KEY"
    ```
 
-3. **Test Database Connection**
-
-   ```bash
-
-   # Test connection
-   psql "postgresql://user:password@localhost:5432/database"
-
+2. **Implement Rate Limiting**
+   ```javascript
+   // Example rate limiting implementation
+   class RateLimiter {
+     constructor(requestsPerMinute) {
+       this.requests = [];
+       this.limit = requestsPerMinute;
+     }
+     
+     async waitIfNeeded() {
+       const now = Date.now();
+       this.requests = this.requests.filter(time => now - time < 60000);
+       
+       if (this.requests.length >= this.limit) {
+         const waitTime = 60000 - (now - this.requests[0]);
+         await new Promise(resolve => setTimeout(resolve, waitTime));
+       }
+       
+       this.requests.push(now);
+     }
+   }
    ```
 
-4. **Create Database if Missing**
-
-   ```sql
-
-   -- Connect to PostgreSQL
-   psql -U postgres
-   
-   -- Create database
-   CREATE DATABASE dbot2;
-   CREATE USER dbot2_user WITH PASSWORD 'your_password';
-   GRANT ALL PRIVILEGES ON DATABASE dbot2 TO dbot2_user;
-
-   ```
-
-#### **Problem: "Table Doesn't Exist"**
-
-## Symptoms:
-
-- Database connection works
-
-- But tables are missing
-
-- Migration errors
-
-
-## Solutions:
-
-1. **Run Database Migrations**
-
-   ```bash
-
-   cd backend
-   npx prisma migrate dev
-   npx prisma generate
-
-   ```
-
-2. **Reset Database (Development Only)**
-
-   ```bash
-
-   # WARNING: This deletes all data!
-   npx prisma migrate reset
-
-   ```
-
-3. **Check Prisma Schema**
-
-   ```bash
-
-   # Verify schema file exists
-   ls backend/prisma/schema.prisma
-
-   ```
-
-### **💻 Desktop App Issues**
-
-
-#### **Problem: Desktop App Won't Start**
-
-## Symptoms:
-
-- Electron app doesn't open
-
-- Error messages on startup
-
-- App crashes immediately
-
-
-## Solutions:
-
-1. **Check Node.js Version**
-
-   ```bash
-
-   node --version
-   # Should be 18+ for Electron
-
-   ```
-
-2. **Reinstall Dependencies**
-
-   ```bash
-
-   cd killtracker
-   rm -rf node_modules
-   npm install
-
-   ```
-
-3. **Check Electron Installation**
-
-   ```bash
-
-   # Reinstall Electron
-   npm install electron --save-dev
-
-   ```
-
-#### **Problem: Can't Find Star Citizen Logs**
-
-## Symptoms:
-
-- Desktop app starts but shows "No logs found"
-
-- Kill tracking doesn't work
-
-- Log path errors
-
-
-## Solutions:
-
-1. **Find Star Citizen Installation**
-
-   ```
-
-   Default paths:
-
-   - Windows: C:/Users/%USERNAME%/AppData/Local/Star Citizen/Crashes
-
-   - Linux: ~/.wine/drive_c/users/%USERNAME%/AppData/Local/Star Citizen/Crashes
-
-   ```
-
-2. **Check Log File Permissions**
-
-   ```bash
-
-   # Make sure app can read log files
-   ls -la "path/to/star/citizen/logs"
-
-   ```
-
-3. **Manual Log Path Setup**
-
-   ```
-
-   - Open desktop app
-
-   - Go to Settings
-
-   - Set custom log path
-
-   - Test log reading
-
-   ```
-
-### **🔧 General Issues**
-
-
-#### **Problem: "Port Already in Use"**
-
-## Symptoms:
-
-- Backend won't start
-
-- "EADDRINUSE" error
-
-- Port 3001 is busy
-
-
-## Solutions:
-
-1. **Find What's Using the Port**
-
-   ```bash
-
-   # Windows
-   netstat -ano | findstr :3001
-   
-   # macOS/Linux
-   lsof -i :3001
-
-   ```
-
-2. **Kill the Process**
-
-   ```bash
-
-   # Windows
-   taskkill /PID <process_id> /F
-   
-   # macOS/Linux
-   kill -9 <process_id>
-
-   ```
-
-3. **Use Different Port**
-
-   ```bash
-
-   # Change port in .env
-   echo "PORT=3002" >> .env
-
-   ```
-
-#### **Problem: "Module Not Found"**
-
-## Symptoms:
-
-- Backend won't start
-
-- "Cannot find module" errors
-
-- Missing dependencies
-
-
-## Solutions:
-
-1. **Reinstall Dependencies**
-
-   ```bash
-
-   # Clean install
-   rm -rf node_modules package-lock.json
-   npm install
-
-   ```
-
-2. **Check Node.js Version**
-
-   ```bash
-
-   node --version
-   # Should be 18+
-
-   ```
-
-3. **Update Dependencies**
-
-   ```bash
-
-   npm update
-
-   ```
+3. **Optimize Request Patterns**
+   - Batch multiple requests when possible
+   - Use pagination to limit data per request
+   - Cache responses to reduce API calls
 
 ## Debug Mode
 
-
-### **Enable Debug Logging**
-
-```bash
-
-## Set debug environment variable
-
-export DEBUG=*
-export NODE_ENV=development
-
-## Start with debug logging
-
-npm run dev
-
-```text
-
-### **Check Logs**
-
-```bash
-
-## Backend logs
-
-cd backend
-npm run dev
-
-## Dashboard logs
-
-cd dashboard
-npm run dev
-
-## Desktop app logs
-
-cd killtracker
-npm run dev
-
-```text
-
-### **Browser Debug**
+### **Enable Detailed Logging**
 
 ```javascript
+// Enable debug logging in your application
+const DEBUG = true;
 
-// Open browser console (F12)
-// Check for errors in Console tab
-// Check Network tab for failed requests
-// Check Application tab for localStorage issues
+function logRequest(url, options, response) {
+  if (DEBUG) {
+    console.log('Request:', { url, options });
+    console.log('Response:', response);
+  }
+}
+```
 
-```text
+### **Check Response Headers**
+
+```bash
+# Check all response headers
+curl -I https://api.millsy.dev/health \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+### **Monitor API Usage**
+
+```javascript
+// Track API usage and errors
+class APIMonitor {
+  constructor() {
+    this.requests = [];
+    this.errors = [];
+  }
+  
+  logRequest(url, status, duration) {
+    this.requests.push({ url, status, duration, timestamp: Date.now() });
+  }
+  
+  logError(url, error) {
+    this.errors.push({ url, error, timestamp: Date.now() });
+  }
+}
+```
 
 ## Getting Help
-
 
 ### **Before Asking for Help**
 
 1. ✅ Check this troubleshooting guide
-2. ✅ Try the quick fixes above
-3. ✅ Enable debug mode and check logs
-4. ✅ Search existing issues on GitHub
+2. ✅ Verify your API key is valid
+3. ✅ Test with a simple request
+4. ✅ Check the API status page
 
 ### **When Asking for Help**
 
 Include this information:
 
-- **Operating System** (Windows/macOS/Linux)
-
-- **Node.js Version** (`node --version`)
-
-- **Error Messages** (copy exact error text)
-
-- **Steps to Reproduce** (what you did before the error)
-
-- **Debug Logs** (if available)
-
+- **API Endpoint** (the URL you're calling)
+- **Request Method** (GET, POST, etc.)
+- **Error Message** (copy exact error text)
+- **Request Headers** (especially Authorization)
+- **Request Body** (if applicable)
+- **Response Status Code** (200, 400, 401, etc.)
 
 ### **Where to Get Help**
 
-- **GitHub Issues** - Create an issue with details
-
-- **Discord Server** - Join our support server
-
-- **Documentation** - Check other guides in this docs folder
-
+- **Discord Server** - Join our support server for real-time help
+- **API Documentation** - Check the complete API reference
+- **Status Page** - Check if there are known issues
 
 ## Prevention Tips
 
+### **Best Practices**
 
-### **Keep Things Updated**
-
-```bash
-
-## Update Node.js regularly
-
-## Update dependencies monthly
-
-npm update
-
-## Keep Discord bot token secure
-
-## Rotate secrets regularly
-
-```text
+- **Use HTTPS** - Always use secure connections
+- **Handle Errors Gracefully** - Implement proper error handling
+- **Implement Retry Logic** - Handle temporary failures
+- **Monitor Rate Limits** - Track your API usage
+- **Cache Responses** - Reduce unnecessary API calls
+- **Validate Data** - Check data before sending requests
 
 ### **Regular Maintenance**
 
-```bash
-
-## Check database health
-
-npx prisma db pull
-
-## Monitor disk space
-
-df -h
-
-## Check system resources
-
-top
-
-```text
-
-### **Backup Important Data**
-
-```bash
-
-## Export database
-
-pg_dump dbot2 > backup.sql
-
-## Backup configuration
-
-cp .env .env.backup
-
-```text
+- **Rotate API Keys** - Generate new keys before expiration
+- **Monitor Usage** - Track your API consumption
+- **Update Documentation** - Keep your integration up to date
+- **Test Regularly** - Verify your integration works
 
 ---
 
-*Most problems have simple solutions - don't panic! 🛠️*
+*Most API issues have simple solutions - check your authentication and request format first! 🛠️*

@@ -4,7 +4,10 @@ Usage: {% include icon.html name="home" size="24" class="custom-class" %}
 Available icons: home, search, menu, close, chevron-left, chevron-right, 
 play, pause, check, x-mark, exclamation-triangle, information-circle,
 lightbulb, trophy, key, robot, chart-line, cog, download, book,
-question-circle, star, heart, shield, bolt, fire, sparkles
+question-circle, star, heart, shield, bolt, fire, sparkles, rocket,
+code, palette, copy, sync, globe, chevron-down, accessibility, minus,
+plus, refresh, volume, sword, crossed-swords, monitor, computer, map,
+location, gamepad, controller, control-panel, dashboard, ping-pong, paddle
 {% endcomment %}
 
 {% assign icon_name = include.name | default: 'home' %}
@@ -147,6 +150,32 @@ question-circle, star, heart, shield, bolt, fire, sparkles
     {% when 'volume' %}
       <polygon points="11,5 6,9 2,9 2,15 6,15 11,19"></polygon>
       <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+    {% when 'sword' or 'crossed-swords' %}
+      <path d="M3 3l18 18"></path>
+      <path d="M8.5 8.5l7 7"></path>
+      <path d="M12 2l3 3-3 3-3-3 3-3z"></path>
+      <path d="M12 16l3 3-3 3-3-3 3-3z"></path>
+    {% when 'monitor' or 'computer' %}
+      <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+      <line x1="8" x2="16" y1="21" y2="21"></line>
+      <line x1="12" x2="12" y1="17" y2="21"></line>
+    {% when 'map' or 'location' %}
+      <polygon points="1,6 1,22 8,18 16,22 23,18 23,2 16,6 8,2"></polygon>
+    {% when 'gamepad' or 'controller' %}
+      <line x1="6" x2="10" y1="11" y2="11"></line>
+      <line x1="8" x2="8" y1="9" y2="13"></line>
+      <line x1="15" x2="15.01" y1="12" y2="12"></line>
+      <line x1="18" x2="18.01" y1="10" y2="10"></line>
+    {% when 'control-panel' or 'dashboard' %}
+      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+      <rect x="7" y="7" width="3" height="3"></rect>
+      <rect x="14" y="7" width="3" height="3"></rect>
+      <rect x="7" y="14" width="3" height="3"></rect>
+      <rect x="14" y="14" width="3" height="3"></rect>
+    {% when 'ping-pong' or 'paddle' %}
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M8 12h8"></path>
+      <path d="M12 8v8"></path>
     {% else %}
       <!-- Default fallback icon -->
       <circle cx="12" cy="12" r="10"></circle>

@@ -113,14 +113,16 @@
                 <!-- Search Container -->
                 <div class="search-container">
                     <i class="fas fa-search search-icon"></i>
-                    <input type="text" class="search-input" placeholder="Search documentation..." id="search-input">
-                    <div class="search-results" id="search-results"></div>
-                    <div class="search-suggestions" id="search-suggestions"></div>
+                    <input type="text" class="search-input" placeholder="Search documentation..." id="search-input" aria-label="Search documentation" aria-describedby="search-help" role="searchbox">
+                    <div class="search-results" id="search-results" role="listbox" aria-label="Search results" aria-live="polite"></div>
+                    <div class="search-suggestions" id="search-suggestions" role="listbox" aria-label="Search suggestions" aria-live="polite"></div>
+                    <div id="search-help" class="sr-only">Use arrow keys to navigate results, Enter to select, Escape to close</div>
+                    <div id="search-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
                 </div>
                 
                 <!-- Theme Toggle -->
                 <label class="switch">
-                    <input id="input" type="checkbox" checked="darkTheme" />
+                    <input id="input" type="checkbox" checked="darkTheme" aria-label="Toggle dark mode" role="switch" aria-checked="true" />
                     <div class="slider round">
                         <div class="sun-moon">
                             <svg id="moon-dot-1" class="moon-dot" viewBox="0 0 100 100">
@@ -597,16 +599,29 @@
                 
                 copyButton.addEventListener('click', async () => {
                     try {
+                        // Check if clipboard API is available
+                        if (!navigator.clipboard) {
+                            throw new Error('Clipboard API not supported');
+                        }
+                        
                         await navigator.clipboard.writeText(block.textContent);
                         copyButton.innerHTML = '<i class="fas fa-check"></i>';
                         copyButton.classList.add('copied');
                         
-                        setTimeout(() => {
+                        timerManager.setTimeout('copy-button-reset-1', () => {
                             copyButton.innerHTML = '<i class="fas fa-copy"></i>';
                             copyButton.classList.remove('copied');
                         }, 2000);
                     } catch (err) {
                         console.error('Failed to copy text: ', err);
+                        // Fallback: show error state
+                        copyButton.innerHTML = '<i class="fas fa-times"></i>';
+                        copyButton.classList.add('error');
+                        
+                        timerManager.setTimeout('copy-button-error-reset-1', () => {
+                            copyButton.innerHTML = '<i class="fas fa-copy"></i>';
+                            copyButton.classList.remove('error');
+                        }, 2000);
                     }
                 });
                 
@@ -836,58 +851,127 @@
             const progressContainer = document.getElementById('loading-progress');
             const enhancedLoader = document.getElementById('enhanced-loader');
             
+            // Check if elements exist
+            if (!progressBar || !progressContainer || !enhancedLoader) {
+                console.warn('Loader elements not found, skipping loader initialization');
+                return;
+            }
+            
+            let isLoaderHidden = false;
+            let progressInterval = null;
+            let maxLoadTimeout = null;
+            
             // Show enhanced loader initially
             enhancedLoader.style.display = 'flex';
             enhancedLoader.style.opacity = '1';
             enhancedLoader.style.visibility = 'visible';
             
-            // Fallback to hide loader after maximum time
-            const maxLoadTime = setTimeout(() => {
-                hideLoader();
-            }, 3000);
-            
             function hideLoader() {
-                enhancedLoader.style.opacity = '0';
-                enhancedLoader.style.visibility = 'hidden';
-                enhancedLoader.classList.add('hidden');
+                // Prevent multiple calls
+                if (isLoaderHidden) return;
+                isLoaderHidden = true;
                 
-                setTimeout(() => {
-                    progressContainer.style.opacity = '0';
+                try {
+                // Clear all timers and intervals
+                timerManager.clearInterval('loader-progress');
+                timerManager.clearTimeout('loader-max-timeout');
+                timerManager.clearTimeout('loader-hide');
+                timerManager.clearTimeout('loader-ready-complete');
+                timerManager.clearTimeout('loader-window-load');
+                timerManager.clearTimeout('loader-dom-ready');
+                timerManager.clearTimeout('loader-emergency');
+                
+                if (progressInterval) {
+                    progressInterval = null;
+                }
+                if (maxLoadTimeout) {
+                    maxLoadTimeout = null;
+                }
+                    
+                    // Hide loader with smooth transition
+                    enhancedLoader.style.opacity = '0';
+                    enhancedLoader.style.visibility = 'hidden';
+                    enhancedLoader.classList.add('hidden');
+                    
+                    // Remove from DOM after transition
                     setTimeout(() => {
-                        progressContainer.style.display = 'none';
+                        if (progressContainer) {
+                            progressContainer.style.opacity = '0';
+                            setTimeout(() => {
+                                progressContainer.style.display = 'none';
+                                enhancedLoader.style.display = 'none';
+                            }, 300);
+                        }
+                    }, 200);
+                } catch (error) {
+                    console.error('Error hiding loader:', error);
+                    // Force hide as fallback
+                    if (enhancedLoader) {
                         enhancedLoader.style.display = 'none';
-                    }, 300);
-                }, 200);
+                    }
+                    if (progressContainer) {
+                        progressContainer.style.display = 'none';
+                    }
+                }
             }
             
-            // Simulate loading progress
+            // Simulate loading progress with more predictable behavior
             let progress = 0;
-            const interval = setInterval(() => {
-                progress += Math.random() * 20;
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(interval);
-                    clearTimeout(maxLoadTime);
+            progressInterval = timerManager.setInterval('loader-progress', () => {
+                try {
+                    // More controlled progress increments
+                    const increment = Math.min(Math.random() * 15 + 5, 100 - progress);
+                    progress += increment;
                     
-                    // Hide enhanced loader immediately when progress reaches 100%
+                    if (progress >= 100) {
+                        progress = 100;
+                        if (progressBar) {
+                            progressBar.style.width = '100%';
+                        }
+                        timerManager.clearInterval('loader-progress');
+                        progressInterval = null;
+                        
+                        // Hide loader after progress completes
+                        timerManager.setTimeout('loader-hide', hideLoader, 200);
+                    } else {
+                        if (progressBar) {
+                            progressBar.style.width = progress + '%';
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error updating progress:', error);
+                    timerManager.clearInterval('loader-progress');
+                    progressInterval = null;
                     hideLoader();
                 }
-                progressBar.style.width = progress + '%';
-            }, 80);
+            }, 100);
             
-            // Also hide loader when page is fully loaded
+            // Maximum load time fallback (reduced from 3s to 2.5s)
+            maxLoadTimeout = timerManager.setTimeout('loader-max-timeout', hideLoader, 2500);
+            
+            // Hide loader when page is fully loaded
             if (document.readyState === 'complete') {
-                setTimeout(hideLoader, 500);
+                timerManager.setTimeout('loader-ready-complete', hideLoader, 300);
             } else {
                 window.addEventListener('load', () => {
-                    setTimeout(hideLoader, 500);
+                    timerManager.setTimeout('loader-window-load', hideLoader, 300);
                 });
             }
             
-            // Additional fallback - hide loader when DOM is ready and after a short delay
-            document.addEventListener('DOMContentLoaded', () => {
-                setTimeout(hideLoader, 1000);
-            });
+            // Additional fallback - hide loader when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => {
+                    timerManager.setTimeout('loader-dom-ready', hideLoader, 800);
+                });
+            }
+            
+            // Emergency fallback - hide loader after 5 seconds no matter what
+            timerManager.setTimeout('loader-emergency', () => {
+                if (!isLoaderHidden) {
+                    console.warn('Loader still visible after 5 seconds, forcing hide');
+                    hideLoader();
+                }
+            }, 5000);
         }
 
         // Enhanced Search with Suggestions
@@ -967,19 +1051,26 @@
                 
                 copyButton.addEventListener('click', async () => {
                     try {
+                        // Check if clipboard API is available
+                        if (!navigator.clipboard) {
+                            throw new Error('Clipboard API not supported');
+                        }
+                        
                         await navigator.clipboard.writeText(block.textContent);
                         copyButton.innerHTML = '<i class="fas fa-check"></i> Copied!';
                         copyButton.classList.add('copied');
                         
-                        setTimeout(() => {
+                        timerManager.setTimeout('copy-button-reset-2', () => {
                             copyButton.innerHTML = '<i class="fas fa-copy"></i> Copy';
                             copyButton.classList.remove('copied');
                         }, 2000);
                     } catch (err) {
                         console.error('Failed to copy text: ', err);
                         copyButton.innerHTML = '<i class="fas fa-times"></i> Failed';
-                        setTimeout(() => {
+                        copyButton.classList.add('error');
+                        timerManager.setTimeout('copy-button-error-reset-2', () => {
                             copyButton.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                            copyButton.classList.remove('error');
                         }, 2000);
                     }
                 });
@@ -988,6 +1079,69 @@
             });
         }
 
+        // Centralized Timer Management System
+        class TimerManager {
+            constructor() {
+                this.timers = new Map();
+                this.intervals = new Map();
+            }
+            
+            setTimeout(id, callback, delay) {
+                // Clear existing timer with same ID
+                this.clearTimeout(id);
+                
+                const timerId = setTimeout(() => {
+                    callback();
+                    this.timers.delete(id);
+                }, delay);
+                
+                this.timers.set(id, timerId);
+                return timerId;
+            }
+            
+            setInterval(id, callback, delay) {
+                // Clear existing interval with same ID
+                this.clearInterval(id);
+                
+                const intervalId = setInterval(callback, delay);
+                this.intervals.set(id, intervalId);
+                return intervalId;
+            }
+            
+            clearTimeout(id) {
+                if (this.timers.has(id)) {
+                    clearTimeout(this.timers.get(id));
+                    this.timers.delete(id);
+                }
+            }
+            
+            clearInterval(id) {
+                if (this.intervals.has(id)) {
+                    clearInterval(this.intervals.get(id));
+                    this.intervals.delete(id);
+                }
+            }
+            
+            clearAll() {
+                this.timers.forEach(timerId => clearTimeout(timerId));
+                this.intervals.forEach(intervalId => clearInterval(intervalId));
+                this.timers.clear();
+                this.intervals.clear();
+            }
+        }
+        
+        // Global timer manager instance
+        const timerManager = new TimerManager();
+        
+        // Global cleanup function for page unload
+        function globalCleanup() {
+            timerManager.clearAll();
+        }
+        
+        // Register cleanup on page unload
+        window.addEventListener('beforeunload', globalCleanup);
+        window.addEventListener('pagehide', globalCleanup);
+        
         // Initialize all enhanced features
         function initEnhancedFeatures() {
             initThemeToggle();
@@ -1007,6 +1161,15 @@
             const searchResults = document.getElementById('search-results');
             const sectionFilter = document.getElementById('section-filter');
             const typeFilter = document.getElementById('type-filter');
+            
+            // Check if required elements exist
+            if (!searchModal || !searchToggle || !searchInput) {
+                console.warn('Search system elements not found, skipping initialization');
+                return;
+            }
+            
+            // Store event listeners for cleanup
+            const eventListeners = [];
             
             let searchIndex = [
                 { title: "Home", url: "/", content: "Star Citizen Kill Tracker API documentation", section: "home", type: "overview" },
@@ -1031,20 +1194,25 @@
             // Open search modal
             function openSearch() {
                 searchModal.style.display = 'flex';
-                setTimeout(() => {
+                timerManager.setTimeout('search-modal-open', () => {
                     searchModal.classList.add('active');
                     searchInput.focus();
+                    // Update ARIA attributes
+                    searchToggle.setAttribute('aria-expanded', 'true');
                 }, 10);
             }
             
             // Close search modal
             function closeSearch() {
                 searchModal.classList.remove('active');
-                setTimeout(() => {
+                timerManager.setTimeout('search-modal-close', () => {
                     searchModal.style.display = 'none';
                     searchInput.value = '';
                     searchResults.innerHTML = '<div class="search-placeholder"><i class="fas fa-search"></i><p>Start typing to search documentation...</p></div>';
                     selectedIndex = -1;
+                    // Update ARIA attributes
+                    searchToggle.setAttribute('aria-expanded', 'false');
+                    searchToggle.focus(); // Return focus to toggle button
                 }, 300);
             }
             
@@ -1072,13 +1240,22 @@
             
             // Display search results
             function displayResults(results) {
+                const statusElement = document.getElementById('search-status');
+                
                 if (results.length === 0) {
                     searchResults.innerHTML = '<div class="search-no-results"><i class="fas fa-search"></i><p>No results found</p></div>';
+                    if (statusElement) {
+                        statusElement.textContent = 'No search results found';
+                    }
                     return;
                 }
                 
+                if (statusElement) {
+                    statusElement.textContent = `${results.length} result${results.length === 1 ? '' : 's'} found`;
+                }
+                
                 const resultsHTML = results.map((result, index) => `
-                    <div class="search-result ${index === selectedIndex ? 'selected' : ''}" data-index="${index}">
+                    <div class="search-result ${index === selectedIndex ? 'selected' : ''}" data-index="${index}" role="option" aria-selected="${index === selectedIndex}" tabindex="-1">
                         <div class="result-title">${result.title}</div>
                         <div class="result-content">${result.content}</div>
                         <div class="result-meta">
@@ -1091,55 +1268,104 @@
                 searchResults.innerHTML = resultsHTML;
             }
             
-            // Event listeners
-            searchToggle.addEventListener('click', openSearch);
-            searchOverlay.addEventListener('click', closeSearch);
-            searchClose.addEventListener('click', closeSearch);
-            searchClear.addEventListener('click', () => {
-                searchInput.value = '';
-                searchInput.focus();
-                performSearch('');
-            });
+            // Cleanup function
+            function cleanup() {
+                eventListeners.forEach(({ element, event, handler }) => {
+                    if (element && element.removeEventListener) {
+                        element.removeEventListener(event, handler);
+                    }
+                });
+                eventListeners.length = 0;
+                
+                // Clear search-related timers
+                timerManager.clearTimeout('search-modal-open');
+                timerManager.clearTimeout('search-modal-close');
+            }
             
-            searchInput.addEventListener('input', (e) => {
+            // Helper function to add tracked event listeners
+            function addEventListener(element, event, handler) {
+                if (element && element.addEventListener) {
+                    element.addEventListener(event, handler);
+                    eventListeners.push({ element, event, handler });
+                }
+            }
+            
+            // Event listeners with cleanup tracking
+            addEventListener(searchToggle, 'click', openSearch);
+            if (searchOverlay) addEventListener(searchOverlay, 'click', closeSearch);
+            if (searchClose) addEventListener(searchClose, 'click', closeSearch);
+            if (searchClear) {
+                const clearHandler = () => {
+                    searchInput.value = '';
+                    searchInput.focus();
+                    performSearch('');
+                };
+                addEventListener(searchClear, 'click', clearHandler);
+            }
+            
+            const inputHandler = (e) => {
                 performSearch(e.target.value);
-                searchClear.style.display = e.target.value ? 'block' : 'none';
-            });
+                if (searchClear) {
+                    searchClear.style.display = e.target.value ? 'block' : 'none';
+                }
+            };
+            addEventListener(searchInput, 'input', inputHandler);
             
-            sectionFilter.addEventListener('change', () => {
-                performSearch(searchInput.value);
-            });
+            if (sectionFilter) {
+                const sectionFilterHandler = () => {
+                    performSearch(searchInput.value);
+                };
+                addEventListener(sectionFilter, 'change', sectionFilterHandler);
+            }
             
-            typeFilter.addEventListener('change', () => {
-                performSearch(searchInput.value);
-            });
+            if (typeFilter) {
+                const typeFilterHandler = () => {
+                    performSearch(searchInput.value);
+                };
+                addEventListener(typeFilter, 'change', typeFilterHandler);
+            }
             
             // Keyboard navigation
-            searchInput.addEventListener('keydown', (e) => {
+            const keyboardHandler = (e) => {
                 if (e.key === 'Escape') {
                     closeSearch();
                 } else if (e.key === 'ArrowDown') {
                     e.preventDefault();
                     selectedIndex = Math.min(selectedIndex + 1, currentResults.length - 1);
                     displayResults(currentResults);
+                    updateAriaSelected();
                 } else if (e.key === 'ArrowUp') {
                     e.preventDefault();
                     selectedIndex = Math.max(selectedIndex - 1, -1);
                     displayResults(currentResults);
+                    updateAriaSelected();
                 } else if (e.key === 'Enter' && selectedIndex >= 0) {
                     e.preventDefault();
                     const selectedResult = currentResults[selectedIndex];
                     window.location.href = selectedResult.url;
                 }
-            });
+            };
+            
+            // Update ARIA selected attributes
+            function updateAriaSelected() {
+                const resultItems = searchResults.querySelectorAll('.search-result');
+                resultItems.forEach((item, index) => {
+                    item.setAttribute('aria-selected', index === selectedIndex);
+                });
+            }
+            addEventListener(searchInput, 'keydown', keyboardHandler);
             
             // Global keyboard shortcut
-            document.addEventListener('keydown', (e) => {
+            const globalKeyboardHandler = (e) => {
                 if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
                     e.preventDefault();
                     openSearch();
                 }
-            });
+            };
+            addEventListener(document, 'keydown', globalKeyboardHandler);
+            
+            // Return cleanup function for external use
+            return cleanup;
         }
 
         // Enhanced Mobile Experience
@@ -1231,6 +1457,16 @@
             const themeOptions = document.querySelectorAll('.theme-option');
             const autoThemeCheckbox = document.getElementById('auto-theme');
             const smoothTransitionsCheckbox = document.getElementById('smooth-transitions');
+            
+            // Check if required elements exist
+            if (!themeToggle || !themeSelector) {
+                console.warn('Theme system elements not found, skipping initialization');
+                return;
+            }
+            
+            // Store event listeners for cleanup
+            const eventListeners = [];
+            let mediaQueryListener = null;
             
             // Available themes
             const themes = {
@@ -1367,7 +1603,7 @@
             // Open theme selector
             function openThemeSelector() {
                 themeSelector.style.display = 'flex';
-                setTimeout(() => {
+                timerManager.setTimeout('theme-selector-open', () => {
                     themeSelector.classList.add('active');
                 }, 10);
             }
@@ -1375,64 +1611,106 @@
             // Close theme selector
             function closeThemeSelector() {
                 themeSelector.classList.remove('active');
-                setTimeout(() => {
+                timerManager.setTimeout('theme-selector-close', () => {
                     themeSelector.style.display = 'none';
                 }, 300);
             }
             
-            // Event listeners
-            themeToggle.addEventListener('click', openThemeSelector);
-            themeOverlay.addEventListener('click', closeThemeSelector);
-            themeClose.addEventListener('click', closeThemeSelector);
+            // Cleanup function
+            function cleanup() {
+                eventListeners.forEach(({ element, event, handler }) => {
+                    if (element && element.removeEventListener) {
+                        element.removeEventListener(event, handler);
+                    }
+                });
+                eventListeners.length = 0;
+                
+                if (mediaQueryListener) {
+                    mediaQueryListener.mediaQuery.removeEventListener('change', mediaQueryListener.handler);
+                    mediaQueryListener = null;
+                }
+                
+                // Clear theme-related timers
+                timerManager.clearTimeout('theme-selector-open');
+                timerManager.clearTimeout('theme-selector-close');
+                timerManager.clearTimeout('theme-selector-auto-close');
+            }
+            
+            // Helper function to add tracked event listeners
+            function addEventListener(element, event, handler) {
+                if (element && element.addEventListener) {
+                    element.addEventListener(event, handler);
+                    eventListeners.push({ element, event, handler });
+                }
+            }
+            
+            // Event listeners with cleanup tracking
+            addEventListener(themeToggle, 'click', openThemeSelector);
+            if (themeOverlay) addEventListener(themeOverlay, 'click', closeThemeSelector);
+            if (themeClose) addEventListener(themeClose, 'click', closeThemeSelector);
             
             // Theme option selection
             themeOptions.forEach(option => {
-                option.addEventListener('click', () => {
+                const handler = () => {
                     const themeName = option.dataset.theme;
-                    const smooth = smoothTransitionsCheckbox.checked;
+                    const smooth = smoothTransitionsCheckbox ? smoothTransitionsCheckbox.checked : true;
                     
                     applyTheme(themeName, smooth);
                     updateThemeSelection(themeName);
                     localStorage.setItem('selectedTheme', themeName);
                     
                     // Close selector after selection
-                    setTimeout(closeThemeSelector, 500);
-                });
+                    timerManager.setTimeout('theme-selector-auto-close', closeThemeSelector, 500);
+                };
+                addEventListener(option, 'click', handler);
             });
             
             // Auto theme toggle
-            autoThemeCheckbox.addEventListener('change', (e) => {
-                localStorage.setItem('autoTheme', e.target.checked);
-                if (e.target.checked) {
-                    loadTheme();
-                }
-            });
+            if (autoThemeCheckbox) {
+                const autoThemeHandler = (e) => {
+                    localStorage.setItem('autoTheme', e.target.checked);
+                    if (e.target.checked) {
+                        loadTheme();
+                    }
+                };
+                addEventListener(autoThemeCheckbox, 'change', autoThemeHandler);
+            }
             
             // Smooth transitions toggle
-            smoothTransitionsCheckbox.addEventListener('change', (e) => {
-                localStorage.setItem('smoothTransitions', e.target.checked);
-            });
+            if (smoothTransitionsCheckbox) {
+                const smoothTransitionsHandler = (e) => {
+                    localStorage.setItem('smoothTransitions', e.target.checked);
+                };
+                addEventListener(smoothTransitionsCheckbox, 'change', smoothTransitionsHandler);
+            }
             
             // System theme change detection
-            if (window.matchMedia) {
-                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (window.matchMedia && autoThemeCheckbox) {
+                const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+                const mediaQueryHandler = (e) => {
                     if (autoThemeCheckbox.checked) {
-                        const smooth = smoothTransitionsCheckbox.checked;
+                        const smooth = smoothTransitionsCheckbox ? smoothTransitionsCheckbox.checked : true;
                         applyTheme(e.matches ? 'dark' : 'light', smooth);
                     }
-                });
+                };
+                mediaQuery.addEventListener('change', mediaQueryHandler);
+                mediaQueryListener = { mediaQuery, handler: mediaQueryHandler };
             }
             
             // Keyboard shortcuts
-            document.addEventListener('keydown', (e) => {
+            const keyboardHandler = (e) => {
                 if (e.ctrlKey && e.shiftKey && e.key === 'T') {
                     e.preventDefault();
                     openThemeSelector();
                 }
-            });
+            };
+            addEventListener(document, 'keydown', keyboardHandler);
             
             // Initialize
             loadTheme();
+            
+            // Return cleanup function for external use
+            return cleanup;
         }
 
         // Development Warning System
@@ -1491,6 +1769,16 @@
             const tutorialStep = document.getElementById('tutorial-step');
             const progressFill = document.getElementById('tutorial-progress-fill');
             const progressText = document.getElementById('tutorial-progress-text');
+            
+            // Check if required elements exist
+            if (!tutorialContainer || !tutorialOverlay) {
+                console.warn('Tutorial system elements not found, skipping initialization');
+                return;
+            }
+            
+            // Store event listeners for cleanup
+            const eventListeners = [];
+            let autoStartTimeout = null;
             
             let currentTutorial = null;
             let currentStepIndex = 0;
@@ -1684,7 +1972,7 @@
             function showTutorial() {
                 tutorialContainer.style.display = 'block';
                 tutorialOverlay.style.display = 'block';
-                setTimeout(() => {
+                timerManager.setTimeout('tutorial-show', () => {
                     tutorialContainer.classList.add('active');
                     tutorialOverlay.classList.add('active');
                 }, 10);
@@ -1694,7 +1982,7 @@
             function hideTutorial() {
                 tutorialContainer.classList.remove('active');
                 tutorialOverlay.classList.remove('active');
-                setTimeout(() => {
+                timerManager.setTimeout('tutorial-hide', () => {
                     tutorialContainer.style.display = 'none';
                     tutorialOverlay.style.display = 'none';
                 }, 300);
@@ -1758,26 +2046,54 @@
                 showNotification('Tutorial skipped', 'info');
             }
             
-            // Event listeners
-            tutorialClose.addEventListener('click', hideTutorial);
-            tutorialOverlay.addEventListener('click', hideTutorial);
-            tutorialPrev.addEventListener('click', prevStep);
-            tutorialNext.addEventListener('click', nextStep);
-            tutorialSkip.addEventListener('click', skipTutorial);
-            tutorialComplete.addEventListener('click', completeTutorial);
+            // Cleanup function
+            function cleanup() {
+                eventListeners.forEach(({ element, event, handler }) => {
+                    if (element && element.removeEventListener) {
+                        element.removeEventListener(event, handler);
+                    }
+                });
+                eventListeners.length = 0;
+                
+                if (autoStartTimeout) {
+                    timerManager.clearTimeout('tutorial-auto-start');
+                    autoStartTimeout = null;
+                }
+                
+                // Clear tutorial-related timers
+                timerManager.clearTimeout('tutorial-show');
+                timerManager.clearTimeout('tutorial-hide');
+            }
+            
+            // Helper function to add tracked event listeners
+            function addEventListener(element, event, handler) {
+                if (element && element.addEventListener) {
+                    element.addEventListener(event, handler);
+                    eventListeners.push({ element, event, handler });
+                }
+            }
+            
+            // Event listeners with cleanup tracking
+            if (tutorialClose) addEventListener(tutorialClose, 'click', hideTutorial);
+            if (tutorialOverlay) addEventListener(tutorialOverlay, 'click', hideTutorial);
+            if (tutorialPrev) addEventListener(tutorialPrev, 'click', prevStep);
+            if (tutorialNext) addEventListener(tutorialNext, 'click', nextStep);
+            if (tutorialSkip) addEventListener(tutorialSkip, 'click', skipTutorial);
+            if (tutorialComplete) addEventListener(tutorialComplete, 'click', completeTutorial);
             
             // Keyboard navigation
-            document.addEventListener('keydown', (e) => {
+            const keyboardHandler = (e) => {
                 if (tutorialContainer.classList.contains('active')) {
                     if (e.key === 'Escape') {
                         hideTutorial();
-                    } else if (e.key === 'ArrowLeft' && !tutorialPrev.disabled) {
+                    } else if (e.key === 'ArrowLeft' && tutorialPrev && !tutorialPrev.disabled) {
                         prevStep();
-                    } else if (e.key === 'ArrowRight' && !tutorialNext.disabled) {
+                    } else if (e.key === 'ArrowRight' && tutorialNext && !tutorialNext.disabled) {
                         nextStep();
                     }
                 }
-            });
+            };
+            addEventListener(document, 'keydown', keyboardHandler);
             
             // Global function to start tutorials
             window.startTutorial = startTutorial;
@@ -1785,10 +2101,13 @@
             // Auto-start tutorial for new users
             const hasSeenTutorial = localStorage.getItem('tutorial_getting-started_completed');
             if (!hasSeenTutorial && window.location.pathname === '/') {
-                setTimeout(() => {
+                autoStartTimeout = timerManager.setTimeout('tutorial-auto-start', () => {
                     startTutorial('getting-started');
                 }, 3000);
             }
+            
+            // Return cleanup function for external use
+            return cleanup;
         }
 
         // Translation System
@@ -2530,12 +2849,20 @@
 
                 // Setup copy buttons
                 document.querySelectorAll('.copy-code-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
+                    btn.addEventListener('click', async (e) => {
                         const target = e.target.closest('.copy-code-btn').dataset.target;
                         const codeElement = document.getElementById(target);
                         if (codeElement) {
-                            navigator.clipboard.writeText(codeElement.textContent);
-                            this.showCopyFeedback(e.target);
+                            try {
+                                if (!navigator.clipboard) {
+                                    throw new Error('Clipboard API not supported');
+                                }
+                                await navigator.clipboard.writeText(codeElement.textContent);
+                                this.showCopyFeedback(e.target);
+                            } catch (err) {
+                                console.error('Failed to copy code: ', err);
+                                this.showCopyFeedback(e.target, false);
+                            }
                         }
                     });
                 });
@@ -2558,10 +2885,18 @@
                     });
                 });
 
-                copyBtn?.addEventListener('click', () => {
+                copyBtn?.addEventListener('click', async () => {
                     const responseText = document.getElementById('response-json').textContent;
-                    navigator.clipboard.writeText(responseText);
-                    this.showCopyFeedback(copyBtn);
+                    try {
+                        if (!navigator.clipboard) {
+                            throw new Error('Clipboard API not supported');
+                        }
+                        await navigator.clipboard.writeText(responseText);
+                        this.showCopyFeedback(copyBtn);
+                    } catch (err) {
+                        console.error('Failed to copy response: ', err);
+                        this.showCopyFeedback(copyBtn, false);
+                    }
                 });
             }
 

@@ -48,7 +48,7 @@ The dashboard adapts based on your role:
 ## Dashboard Sections
 
 
-### **🏠 Dashboard (Home)**
+### **{% include icon.html name="home" size="16" %} Dashboard (Home)**
 
 **What you see:** Overview of your statistics and recent activity
 
@@ -117,7 +117,7 @@ Channels:
 
 ```text
 
-### **⚔️ Kills**
+### **{% include icon.html name="fire" size="16" %} Kills**
 
 **What you see:** Detailed kill history and statistics
 
@@ -257,16 +257,16 @@ Resource Usage:
 
 ## Features:
 
-- 📈 **Kill Trends** - Kill patterns over time
+- {% include icon.html name="chart-line" size="16" %} **Kill Trends** - Kill patterns over time
 
 - <i class="fas fa-crosshairs"></i> **Weapon Statistics** - Most used weapons
 
-- 🗺️ **Location Data** - Popular kill locations
+- {% include icon.html name="map" size="16" %} **Location Data** - Popular kill locations
 
 - ⏰ **Time Analysis** - Peak activity times
 
 
-### **🔧 Bot Integration**
+### **{% include icon.html name="cog" size="16" %} Bot Integration**
 
 **What you see:** Real-time bot control and monitoring
 

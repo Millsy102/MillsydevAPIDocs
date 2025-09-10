@@ -1,573 +1,207 @@
-# <i class="fas fa-rocket"></i> Complete Feature Set - Star Citizen Kill Tracker
+# <i class="fas fa-rocket"></i> API Features Overview
 
+> **Comprehensive overview of the Star Citizen Kill Tracker API capabilities**
 
-> **Comprehensive documentation of all features and capabilities**
+## <i class="fas fa-chart-bar"></i> **API Overview**
 
-## <i class="fas fa-chart-bar"></i> **Project Overview**
+The Star Citizen Kill Tracker API provides comprehensive endpoints for managing Discord bots, tracking kills, and integrating with external applications. The API is designed for developers who want to build custom integrations with the Star Citizen Kill Tracker system.
 
+## <i class="fas fa-building"></i> **API Architecture**
 
-The Star Citizen Kill Tracker is a **full-stack Discord bot ecosystem** with web dashboard, desktop application, and comprehensive API. It's designed to track Star Citizen gameplay, manage Discord servers, and provide analytics for the Star Citizen community.
-
-## <i class="fas fa-building"></i> **System Architecture**
-
-
-```mermaid
-graph TB
-    subgraph "Client Applications"
-        A[Discord Bot<br/>Node.js]
-        B[Web Dashboard<br/>React]
-        C[Kill Tracker<br/>Desktop App]
-    end
-    
-    subgraph "Backend Services"
-        D[Backend API<br/>Node.js + Express]
-    end
-    
-    subgraph "Data Layer"
-        E[PostgreSQL<br/>Primary Database]
-        F[Redis<br/>Cache & Sessions]
-    end
-    
-    A --> D
-    B --> D
-    C --> D
-    D --> E
-    D --> F
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Your App      │    │   Web Dashboard │    │  Discord Bot    │
+│                 │    │                 │    │                 │
+└─────────┬───────┘    └─────────┬───────┘    └─────────┬───────┘
+          │                      │                      │
+          └──────────────────────┼──────────────────────┘
+                                 │
+                    ┌─────────────▼─────────────┐
+                    │    Star Citizen Kill      │
+                    │    Tracker API            │
+                    │    https://api.millsy.dev │
+                    └─────────────┬─────────────┘
+                                 │
+                    ┌─────────────▼─────────────┐
+                    │    Data Layer             │
+                    │    PostgreSQL + Redis     │
+                    └───────────────────────────┘
 ```
 
-## <i class="fas fa-robot"></i> **Discord Bot Features**
-
-
-### **Core Commands**
-
-- **`/help`** - Show all available commands and help
-
-- **`/ping`** - Test bot connectivity and response time
-
-- **`/stats`** - Display server kill statistics
-
-- **`/leaderboard`** - Show kill leaderboards (kills, deaths, K/D ratio)
-
-- **`/mykills`** - Personal kill statistics and history
-
-
-### **Star Citizen Data Commands**
-
-- **`/ship <name>`** - Get detailed ship information
-
-- **`/player <handle>`** - Look up player statistics
-
-- **`/location <name>`** - Get location/system information
-
-- **`/fleet`** - Manage personal fleet (add, list, remove, value)
-
-- **`/org`** - Organization information and management
-
-
-### **Server Management Commands**
-
-- **`/server setup`** - Initial server configuration
-
-- **`/server settings`** - View/update server settings
-
-- **`/server toggle <feature>`** - Enable/disable features
-
-- **`/server channel <type> <channel>`** - Set notification channels
-
-
-### **Privacy & User Commands**
-
-- **`/privacy`** - View current privacy settings
-
-- **`/privacy set <level>`** - Change privacy level (public/private/friends)
-
-- **`/privacy optout/optin`** - Opt out/in of kill tracking
-
-
-### **API Management Commands**
-
-- **`/apikey create`** - Generate new API key
-
-- **`/apikey list`** - View all API keys
-
-- **`/apikey revoke`** - Revoke API key
-
-
-### **Economy System Commands**
-
-- **`/balance`** - Check user balance and economy stats
-
-- **`/daily`** - Claim daily reward
-
-- **`/work <job>`** - Complete jobs to earn credits
-
-- **`/gamble <amount>`** - Gamble credits (with risk/reward)
-
-- **`/shop`** - View available items to purchase
-
-
-### **AI-Powered Features**
-
-- **`/ai ask <question>`** - Ask AI questions about Star Citizen
-
-- **`/ai analyze <text>`** - AI content analysis
-
-- **`/ai moderate`** - AI-powered moderation assistance
-
-
-### **Advanced Features**
-
-- **Real-time kill notifications** - Instant Discord notifications
-
-- **Role-based permissions** - Owner, Admin, Moderator, Member levels
-
-- **Multi-server support** - Manage multiple Discord servers
-
-- **Custom command creation** - Create server-specific commands
-
-- **Webhook integration** - Send data to external services
-
-
-## <i class="fas fa-globe"></i> **Web Dashboard Features**
-
-
-### **Public Website (Landing Page)**
-
-- **Hero section** with feature overview
-
-- **Feature showcase** with interactive demos
-
-- **Statistics display** (total users, kills, servers)
-
-- **Download links** for desktop app
-
-- **Documentation links** and support
-
-- **Responsive design** for all devices
-
-
-### **User Dashboard**
-
-- **Personal statistics** - Kills, deaths, K/D ratio, rank
-
-- **Recent activity** - Latest kills and events
-
-- **Privacy controls** - Data visibility settings
-
-- **API key management** - Create and manage API keys
-
-- **Notification preferences** - Customize alerts
-
-- **Account settings** - Profile management
-
-
-### **Server Owner Dashboard**
-
-- **Server overview** - Member count, activity, settings
-
-- **Bot configuration** - Commands, features, channels
-
-- **User management** - Member roles and permissions
-
-- **Analytics** - Server-specific statistics
-
-- **Message broadcasting** - Send announcements
-
-- **Integration settings** - Webhooks, external services
-
-
-### **Admin Dashboard**
-
-- **System overview** - Global statistics and health
-
-- **Bot management** - Start/stop, restart, status
-
-- **User administration** - Global user management
-
-- **Server monitoring** - All connected servers
-
-- **Analytics** - System-wide performance metrics
-
-- **Feature toggles** - Enable/disable system features
-
-
-### **Analytics Dashboard**
-
-- **Kill trends** - Time-based kill analysis
-
-- **Weapon statistics** - Most used weapons
-
-- **Location data** - Popular kill locations
-
-- **User activity** - Player engagement metrics
-
-- **Server performance** - Server-specific analytics
-
-- **Real-time charts** - Live data visualization
-
-
-### **Settings & Configuration**
-
-- **Theme customization** - Dark/light mode, custom themes
-
-- **Notification settings** - Email, Discord, in-app alerts
-
-- **Privacy controls** - Data sharing preferences
-
-- **API configuration** - External service integration
-
-- **Security settings** - Two-factor auth, session management
-
-
-## <i class="fas fa-desktop"></i> **Desktop Application Features**
-
-
-### **Core Functionality**
-
-- **Real-time log monitoring** - Continuous Star Citizen log watching
-
-- **Automatic kill detection** - Parse game logs for kill events
-
-- **In-game overlay** - Transparent overlay showing kill feed
-
-- **System tray integration** - Background operation
-
-- **Discord integration** - Send notifications to Discord
-
-
-### **Advanced Features**
-
-- **Multi-event tracking** - Spawns, locations, weapons, ships, missions
-
-- **Smart log parsing** - Advanced regex patterns for accurate detection
-
-- **Performance optimized** - Minimal resource usage
-
-- **Cross-platform** - Windows, macOS, Linux support
-
-- **Modular architecture** - Easy expansion to other games
-
-
-### **User Interface**
-
-- **Modern UI** - Beautiful, responsive interface with dark theme
-
-- **Real-time updates** - Live kill feed with animations
-
-- **Statistics dashboard** - Comprehensive stats and analytics
-
-- **Settings management** - Configurable log paths and preferences
-
-- **Overlay controls** - Toggle visibility and positioning
-
-
-### **Log Parsing Capabilities**
-
-- **PvP Kills** - Player vs Player combat
-
-- **PvE Kills** - Player vs Environment
-
-- **Suicides** - Self-inflicted deaths
-
-- **Environmental deaths** - Environmental damage
-
-- **Ship events** - Vehicle boarding and piloting
-
-- **Mission events** - Quest and objective tracking
-
-
-## 🔌 **API Features**
-
+## 🔌 **Core API Features**
 
 ### **Authentication & Authorization**
 
-- **JWT-based authentication** - Secure token-based auth
-
-- **Discord OAuth integration** - Login with Discord
-
-- **Role-based access control** - Granular permissions
-
+- **JWT-based authentication** - Secure token-based authentication
+- **Discord OAuth integration** - Login with Discord accounts
 - **API key management** - Generate and manage API keys
-
+- **Role-based access control** - Granular permissions system
 - **Rate limiting** - Prevent abuse and ensure stability
 
+### **User Management**
 
-### **Core API Endpoints**
+- **User profiles** - Complete user information and settings
+- **Privacy controls** - Granular data sharing preferences
+- **Statistics tracking** - Personal kill/death statistics
+- **Account management** - Profile updates and preferences
 
-- **User Management** - Profile, stats, settings
+### **Kill Tracking**
 
-- **Kill Tracking** - Create, read, update, delete kills
+- **Kill records** - Create, read, update, delete kill data
+- **Real-time tracking** - Live kill event processing
+- **Detailed metadata** - Weapon, location, timestamp information
+- **PvP/PvE classification** - Automatic combat type detection
 
-- **Server Management** - Server settings and configuration
+### **Server Management**
 
-- **Analytics** - Statistics and reporting
+- **Discord server integration** - Manage multiple Discord servers
+- **Bot configuration** - Server-specific bot settings
+- **Channel management** - Configure notification channels
+- **Permission management** - Role-based access control
 
-- **Webhooks** - Real-time event notifications
+## 📊 **Analytics & Reporting**
 
+### **Statistics API**
 
-### **Real-time Features**
+- **User statistics** - Personal performance metrics
+- **Server analytics** - Server-specific statistics
+- **Leaderboards** - Competitive rankings and comparisons
+- **Historical data** - Time-based analysis and trends
+
+### **Real-time Data**
 
 - **WebSocket support** - Live updates and notifications
-
 - **Event streaming** - Real-time kill events
-
 - **Live statistics** - Up-to-date metrics
-
 - **Bot status updates** - Real-time bot monitoring
 
+## 🔗 **Integration Features**
+
+### **Webhook System**
+
+- **Event notifications** - Real-time webhook delivery
+- **Custom endpoints** - Configure your own webhook URLs
+- **Event filtering** - Subscribe to specific event types
+- **Retry mechanism** - Reliable webhook delivery
 
 ### **External Integrations**
 
-- **Multiple provider support** - AutoTrackR2, SCStats, SCUniverse
+- **Multiple provider support** - Integration with various Star Citizen data sources
+- **API versioning** - Backward compatibility and migration support
+- **Comprehensive documentation** - Developer-friendly API docs
+- **SDK support** - Pre-built libraries for popular languages
 
-- **Webhook system** - Send data to external services
-
-- **API versioning** - Backward compatibility
-
-- **Comprehensive documentation** - Developer-friendly docs
-
-
-## <i class="fas fa-database"></i> **Database Features**
-
-
-### **Data Models**
-
-- **Users** - Discord users with privacy controls
-
-- **Servers** - Discord servers with settings
-
-- **Kills** - Detailed kill records with metadata
-
-- **Leaderboards** - Cached leaderboard data
-
-- **API Keys** - User API key management
-
-- **Webhooks** - External service integration
-
-- **Events** - System event logging
-
-
-### **Advanced Features**
-
-- **Data sharing consent** - GDPR compliance
-
-- **Provider API keys** - External service integration
-
-- **Data sharing settings** - Granular privacy controls
-
-- **User economy** - Virtual economy system
-
-- **User hangar** - Ship collection tracking
-
-
-### **Performance Optimizations**
-
-- **Database indexing** - Optimized queries
-
-- **Connection pooling** - Efficient database connections
-
-- **Caching layer** - Redis for performance
-
-- **Data archiving** - Historical data management
-
-
-## 🔒 **Security Features**
-
-
-### **Authentication Security**
-
-- **JWT tokens** - Secure authentication
-
-- **Password hashing** - bcrypt with salt rounds
-
-- **Session management** - Secure session handling
-
-- **OAuth2 integration** - Discord authentication
-
+## 🛡️ **Security Features**
 
 ### **Data Protection**
 
+- **HTTPS encryption** - All API communication encrypted
 - **Input validation** - Comprehensive data validation
-
-- **XSS protection** - Cross-site scripting prevention
-
-- **CSRF protection** - Cross-site request forgery prevention
-
-- **SQL injection prevention** - Parameterized queries
-
 - **Rate limiting** - API abuse prevention
-
+- **Audit logging** - Complete request/response logging
 
 ### **Privacy Controls**
 
 - **GDPR compliance** - Data protection regulations
-
 - **User consent management** - Granular consent controls
-
 - **Data export** - User data portability
-
 - **Data deletion** - Right to be forgotten
 
-- **Privacy levels** - Public, private, friends-only
+## 📈 **Performance Features**
 
+### **Optimization**
 
-## <i class="fas fa-chart-line"></i> **Analytics & Monitoring**
+- **Response caching** - Intelligent caching for frequently requested data
+- **Pagination** - Efficient large dataset handling
+- **Compression** - Optimized response sizes
+- **CDN integration** - Global content delivery
 
-
-### **System Monitoring**
+### **Monitoring**
 
 - **Health checks** - Service availability monitoring
-
-- **Performance metrics** - Response times, throughput
-
+- **Performance metrics** - Response times and throughput
 - **Error tracking** - Comprehensive error logging
+- **Usage analytics** - API usage patterns and trends
 
-- **Resource monitoring** - CPU, memory, disk usage
+## 🎯 **Use Cases**
 
+### **For Discord Bot Developers**
 
-### **User Analytics**
+- **Custom bot integration** - Build bots that interact with kill data
+- **Server management** - Automate server configuration and moderation
+- **Real-time notifications** - Send kill alerts to Discord channels
+- **Analytics integration** - Display server statistics in Discord
 
-- **Kill statistics** - Detailed kill analysis
+### **For Web Developers**
 
-- **User engagement** - Activity patterns
+- **Dashboard integration** - Build custom web interfaces
+- **Data visualization** - Create charts and graphs from kill data
+- **User management** - Implement custom user interfaces
+- **Real-time updates** - Live data streaming to web applications
 
-- **Server analytics** - Server-specific metrics
+### **For Mobile Developers**
 
-- **Trend analysis** - Time-based insights
+- **Mobile app integration** - Build iOS and Android apps
+- **Push notifications** - Real-time kill notifications
+- **Offline support** - Cache data for offline viewing
+- **Cross-platform** - Use the same API across all platforms
 
+### **For Data Analysts**
 
-### **Business Intelligence**
+- **Kill data analysis** - Access comprehensive kill statistics
+- **Trend analysis** - Time-based insights and patterns
+- **Custom reporting** - Generate custom reports and dashboards
+- **Data export** - Export data for external analysis
 
-- **Usage patterns** - Feature adoption rates
+## 🚀 **Getting Started**
 
-- **Performance insights** - System optimization data
+### **Quick Start**
 
-- **User behavior** - Interaction analytics
+1. **Get API Access** - Register at https://millsy.dev
+2. **Generate API Key** - Create your API key in the dashboard
+3. **Make First Request** - Test your API key with a simple request
+4. **Explore Endpoints** - Browse the complete API documentation
 
-- **Growth metrics** - User and server growth
+### **API Endpoints**
 
+- **Base URL**: `https://api.millsy.dev/api/v1`
+- **Authentication**: Bearer token in Authorization header
+- **Content Type**: `application/json`
+- **Rate Limits**: 1,000 requests per hour (free tier)
 
-## <i class="fas fa-tools"></i> **Development Features**
+### **Example Request**
 
+```bash
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+     -H "Content-Type: application/json" \
+     https://api.millsy.dev/api/v1/users/me/stats
+```
 
-### **Developer Tools**
+## 📚 **Documentation & Support**
 
-- **Comprehensive API** - RESTful API with documentation
+### **API Documentation**
 
-- **SDK support** - JavaScript/TypeScript and Python SDKs
+- **Complete endpoint reference** - All available API endpoints
+- **Code examples** - Sample code in multiple languages
+- **SDK documentation** - Pre-built library documentation
+- **Webhook guide** - Real-time event integration
 
-- **Webhook system** - Real-time event notifications
+### **Developer Resources**
 
-- **Testing tools** - Automated testing suite
+- **Postman collection** - Ready-to-use API collection
+- **SDK libraries** - JavaScript/TypeScript and Python SDKs
+- **Code examples** - Sample implementations
+- **Best practices** - Security and performance guidelines
 
+### **Support**
 
-### **Deployment & DevOps**
-
-- **Docker support** - Containerized deployment
-
-- **CI/CD ready** - Automated deployment pipelines
-
-- **Environment management** - Development, staging, production
-
-- **Monitoring integration** - Health checks and logging
-
-
-### **Extensibility**
-
-- **Plugin system** - Modular architecture
-
-- **Custom commands** - Server-specific functionality
-
-- **External integrations** - Third-party service support
-
-- **API versioning** - Backward compatibility
-
-
-## <i class="fas fa-crosshairs"></i> **Use Cases**
-
-
-### **For Discord Server Owners**
-
-- **Kill tracking** - Monitor server PvP activity
-
-- **Community engagement** - Leaderboards and competitions
-
-- **Server management** - Bot configuration and moderation
-
-- **Analytics** - Server performance insights
-
-
-### **For Star Citizen Players**
-
-- **Personal statistics** - Track your kill/death ratio
-
-- **Achievement tracking** - Monitor progress and goals
-
-- **Community features** - Compare with other players
-
-- **Game integration** - Desktop app for automatic tracking
-
-
-### **For Developers**
-
-- **API integration** - Build custom applications
-
-- **Data analysis** - Access kill data for research
-
-- **Bot development** - Create custom Discord bots
-
-- **Webhook integration** - Real-time event processing
-
-
-### **For Organizations**
-
-- **Guild management** - Track organization activity
-
-- **Competition hosting** - Organize kill tournaments
-
-- **Member analytics** - Monitor member performance
-
-- **Recruitment tools** - Showcase organization stats
-
-
-## <i class="fas fa-rocket"></i> **Future Roadmap**
-
-
-### **Planned Features**
-
-- **Mobile app** - iOS and Android applications
-
-- **Advanced analytics** - Machine learning insights
-
-- **Voice integration** - Voice commands and notifications
-
-- **Stream integration** - OBS and streaming support
-
-- **Multi-game support** - Expand to other games
-
-
-### **Community Features**
-
-- **Tournament system** - Organized competitions
-
-- **Achievement system** - Unlockable achievements
-
-- **Social features** - Friend lists and groups
-
-- **Marketplace** - Virtual item trading
-
-
-### **Enterprise Features**
-
-- **White-label solution** - Custom branding
-
-- **Advanced analytics** - Business intelligence
-
-- **API monetization** - Premium API access
-
-- **Custom deployments** - On-premise solutions
-
+- **Discord community** - Real-time developer support
+- **Email support** - developers@millsy.dev
+- **Status page** - API uptime and status monitoring
+- **GitHub issues** - Bug reports and feature requests
 
 ---
 
-## This is a comprehensive, production-ready Discord bot ecosystem with enterprise-level features! <i class="fas fa-rocket"></i>
+## Ready to build amazing Star Citizen integrations! 🚀
+
+The Star Citizen Kill Tracker API provides everything you need to build powerful applications that integrate with the Star Citizen community. Whether you're building a Discord bot, web dashboard, mobile app, or data analysis tool, our API has the features and flexibility you need.

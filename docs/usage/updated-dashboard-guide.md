@@ -1,4 +1,4 @@
-# 🎛️ Updated Dashboard - Complete Feature Guide
+# {% include icon.html name="control-panel" size="20" %} Updated Dashboard - Complete Feature Guide
 
 > **Your unified dashboard now includes all scripts, features, and functionality we've built**
 
@@ -31,7 +31,7 @@ The updated dashboard is a comprehensive control center that gives you complete 
 - Total users
 - System resource usage
 
-### 2. **VPS Tab** 🖥️
+### 2. **VPS Tab** {% include icon.html name="monitor" size="16" %}
 **Available to:** VPS Admins only
 
 **Features:**
@@ -61,7 +61,7 @@ The updated dashboard is a comprehensive control center that gives you complete 
 - View bot performance metrics
 - Manage bot-wide settings
 
-### 4. **Project Tab** 📁
+### 4. **Project Tab** {% include icon.html name="home" size="16" %}
 **Available to:** VPS Admins, Project Admins
 
 **Features:**
@@ -75,7 +75,7 @@ The updated dashboard is a comprehensive control center that gives you complete 
 - API (`api.millsy.dev`)
 - Portfolio (`millsy.dev`)
 
-### 5. **Server Tab** 🏠
+### 5. **Server Tab** {% include icon.html name="home" size="16" %}
 **Available to:** Server Owners
 
 **Features:**
@@ -84,7 +84,7 @@ The updated dashboard is a comprehensive control center that gives you complete 
 - Server command management
 - Server analytics
 
-### 6. **Commands Tab** ⚙️
+### 6. **Commands Tab** {% include icon.html name="cog" size="16" %}
 **Available to:** VPS Admins, Server Owners
 
 **Features:**
@@ -130,7 +130,7 @@ The updated dashboard is a comprehensive control center that gives you complete 
 - **Restart Services** - Restart systemd services
 - **Database Backup** - Create database backups
 
-### 9. **Monitor Tab** 📊
+### 9. **Monitor Tab** {% include icon.html name="chart-line" size="16" %}
 **Available to:** VPS Admins only
 
 **Features:**
