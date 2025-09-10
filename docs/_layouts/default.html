@@ -78,6 +78,9 @@
                 <button class="theme-toggle" id="theme-toggle" title="Change Theme" aria-label="Open theme selector" aria-expanded="false" aria-controls="theme-selector">
                     {% include icon.html name="palette" size="20" %}
                 </button>
+                <button class="dark-mode-toggle" id="dark-mode-toggle" title="Toggle Dark Mode" aria-label="Toggle dark mode" style="display: none;">
+                    {% include icon.html name="moon" size="20" %}
+                </button>
                 {% include language-switcher.html %}
                 <a href="{{ '/' | relative_url }}" class="nav-link {% if page.url == '/' %}active{% endif %}">
                     {% include icon.html name="home" size="18" %} <span data-translate="nav_home">Home</span>
@@ -3061,6 +3064,25 @@
         document.addEventListener('DOMContentLoaded', () => {
             const languageManager = new LanguageManager();
             languageManager.init();
+            
+            // Simple dark mode toggle fallback
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            if (darkModeToggle) {
+                darkModeToggle.addEventListener('click', () => {
+                    const body = document.body;
+                    const isDark = body.classList.contains('light-theme');
+                    
+                    if (isDark) {
+                        body.classList.remove('light-theme');
+                        body.classList.add('dark-theme');
+                        localStorage.setItem('theme', 'dark');
+                    } else {
+                        body.classList.remove('dark-theme');
+                        body.classList.add('light-theme');
+                        localStorage.setItem('theme', 'light');
+                    }
+                });
+            }
         });
     </script>
 </body>
