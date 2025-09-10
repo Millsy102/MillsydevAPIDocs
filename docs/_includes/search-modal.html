@@ -1,0 +1,59 @@
+<!-- Search Modal -->
+<div class="search-modal" id="search-modal">
+    <div class="search-overlay" id="search-overlay"></div>
+    <div class="search-container">
+        <div class="search-header">
+        <div class="search-input-container">
+            {% include icon.html name="search" size="20" class="search-icon" %}
+            <input type="text" id="search-input" placeholder="Search documentation..." autocomplete="off">
+            <button class="search-clear" id="search-clear" style="display: none;">
+                {% include icon.html name="close" size="16" %}
+            </button>
+        </div>
+        <button class="search-close" id="search-close">
+            {% include icon.html name="close" size="20" %}
+        </button>
+        </div>
+        
+        <div class="search-filters">
+            <div class="filter-group">
+                <label>Section:</label>
+                <select id="section-filter">
+                    <option value="">All Sections</option>
+                    <option value="getting-started">Getting Started</option>
+                    <option value="usage">Usage</option>
+                    <option value="api">API Reference</option>
+                    <option value="developers">Integration</option>
+                    <option value="technical">Technical</option>
+                    <option value="advanced">Advanced</option>
+                    <option value="help">Help</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Type:</label>
+                <select id="type-filter">
+                    <option value="">All Types</option>
+                    <option value="guide">Guides</option>
+                    <option value="reference">Reference</option>
+                    <option value="tutorial">Tutorials</option>
+                    <option value="api">API Docs</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="search-results" id="search-results">
+            <div class="search-placeholder">
+                {% include icon.html name="search" size="32" %}
+                <p>Start typing to search documentation...</p>
+            </div>
+        </div>
+        
+        <div class="search-footer">
+            <div class="search-shortcuts">
+                <span class="shortcut"><kbd>Enter</kbd> to select</span>
+                <span class="shortcut"><kbd>Esc</kbd> to close</span>
+                <span class="shortcut"><kbd>↑↓</kbd> to navigate</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,226 @@
+# Interactive Tutorials Data
+tutorials:
+  getting-started:
+    title: "Getting Started with Kill Tracker API"
+    description: "Learn the basics of setting up and using the Kill Tracker API"
+    estimated_time: "5 minutes"
+    steps:
+      - id: "welcome"
+        title: "Welcome to Kill Tracker API"
+        content: |
+          <div class="tutorial-step-content">
+            <h3>Welcome to the Kill Tracker API! 🚀</h3>
+            <p>This tutorial will guide you through setting up and using the Kill Tracker API for Star Citizen.</p>
+            <div class="tutorial-highlight">
+              <i class="fas fa-info-circle"></i>
+              <p>By the end of this tutorial, you'll be able to track kills, view statistics, and integrate with Discord!</p>
+            </div>
+          </div>
+        type: "welcome"
+        
+      - id: "api-key"
+        title: "Get Your API Key"
+        content: |
+          <div class="tutorial-step-content">
+            <h3>Step 1: Get Your API Key</h3>
+            <p>First, you'll need to obtain an API key to access the Kill Tracker API.</p>
+            <div class="tutorial-action">
+              <button class="tutorial-action-btn" onclick="window.open('/api/', '_blank')">
+                <i class="fas fa-key"></i> Get API Key
+              </button>
+            </div>
+            <div class="tutorial-tip">
+              <i class="fas fa-lightbulb"></i>
+              <p>Your API key is unique to your account and should be kept secure!</p>
+            </div>
+          </div>
+        type: "action"
+        
+      - id: "first-request"
+        title: "Make Your First Request"
+        content: |
+          <div class="tutorial-step-content">
+            <h3>Step 2: Make Your First API Request</h3>
+            <p>Let's test your API key by making a simple request to get your profile information.</p>
+            <div class="tutorial-code">
+              <div class="code-header">
+                <span class="language-badge">cURL</span>
+                <button class="copy-button" onclick="copyToClipboard('curl-example')">
+                  <i class="fas fa-copy"></i>
+                </button>
+              </div>
+              <pre><code id="curl-example">curl -X GET "https://api.millsydev.com/v1/profile" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json"</code></pre>
+            </div>
+            <div class="tutorial-check">
+              <label class="tutorial-checkbox">
+                <input type="checkbox" id="request-made">
+                <span class="checkmark"></span>
+                I've made my first API request
+              </label>
+            </div>
+          </div>
+        type: "code"
+        
+      - id: "discord-setup"
+        title: "Set Up Discord Integration"
+        content: |
+          <div class="tutorial-step-content">
+            <h3>Step 3: Discord Bot Integration</h3>
+            <p>Connect your Discord server to receive kill notifications and use bot commands.</p>
+            <div class="tutorial-steps">
+              <div class="step-item">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                  <h4>Invite the Bot</h4>
+                  <p>Add the Kill Tracker bot to your Discord server</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                  <h4>Configure Settings</h4>
+                  <p>Set up your kill tracking preferences</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                  <h4>Test Commands</h4>
+                  <p>Try <code>/help</code> and <code>/stats</code> commands</p>
+                </div>
+              </div>
+            </div>
+            <div class="tutorial-action">
+              <button class="tutorial-action-btn" onclick="window.open('/developers/', '_blank')">
+                <i class="fas fa-robot"></i> Discord Setup Guide
+              </button>
+            </div>
+          </div>
+        type: "steps"
+        
+      - id: "dashboard"
+        title: "Explore the Dashboard"
+        content: |
+          <div class="tutorial-step-content">
+            <h3>Step 4: Web Dashboard</h3>
+            <p>Access your personal dashboard to view detailed statistics and manage your settings.</p>
+            <div class="tutorial-features">
+              <div class="feature-item">
+                <i class="fas fa-chart-line"></i>
+                <h4>Statistics</h4>
+                <p>View your kill/death ratios and performance metrics</p>
+              </div>
+              <div class="feature-item">
+                <i class="fas fa-cog"></i>
+                <h4>Settings</h4>
+                <p>Configure notifications and privacy options</p>
+              </div>
+              <div class="feature-item">
+                <i class="fas fa-download"></i>
+                <h4>Export Data</h4>
+                <p>Download your data in various formats</p>
+              </div>
+            </div>
+            <div class="tutorial-action">
+              <button class="tutorial-action-btn" onclick="window.open('/usage/dashboard.md', '_blank')">
+                <i class="fas fa-tachometer-alt"></i> Dashboard Guide
+              </button>
+            </div>
+          </div>
+        type: "features"
+        
+      - id: "complete"
+        title: "Tutorial Complete!"
+        content: |
+          <div class="tutorial-step-content tutorial-complete">
+            <div class="completion-icon">
+              <i class="fas fa-trophy"></i>
+            </div>
+            <h3>Congratulations! 🎉</h3>
+            <p>You've successfully completed the Kill Tracker API tutorial!</p>
+            <div class="completion-summary">
+              <h4>What you've learned:</h4>
+              <ul>
+                <li>✅ How to get and use your API key</li>
+                <li>✅ Making your first API request</li>
+                <li>✅ Setting up Discord integration</li>
+                <li>✅ Using the web dashboard</li>
+              </ul>
+            </div>
+            <div class="tutorial-next-steps">
+              <h4>Next Steps:</h4>
+              <div class="next-step-buttons">
+                <a href="/api/" class="tutorial-action-btn">
+                  <i class="fas fa-book"></i> Read Full API Docs
+                </a>
+                <a href="/help/faq.md" class="tutorial-action-btn">
+                  <i class="fas fa-question-circle"></i> Check FAQ
+                </a>
+              </div>
+            </div>
+          </div>
+        type: "complete"
+
+  api-basics:
+    title: "API Basics Tutorial"
+    description: "Learn the fundamentals of using the Kill Tracker API"
+    estimated_time: "8 minutes"
+    steps:
+      - id: "authentication"
+        title: "API Authentication"
+        content: |
+          <div class="tutorial-step-content">
+            <h3>API Authentication</h3>
+            <p>Learn how to authenticate with the Kill Tracker API using your API key.</p>
+            <div class="tutorial-code">
+              <div class="code-header">
+                <span class="language-badge">JavaScript</span>
+                <button class="copy-button" onclick="copyToClipboard('auth-example')">
+                  <i class="fas fa-copy"></i>
+                </button>
+              </div>
+              <pre><code id="auth-example">const apiKey = 'your-api-key-here';
+const headers = {
+  'Authorization': `Bearer ${apiKey}`,
+  'Content-Type': 'application/json'
+};
+
+fetch('https://api.millsydev.com/v1/profile', { headers })
+  .then(response => response.json())
+  .then(data => console.log(data));</code></pre>
+            </div>
+          </div>
+        type: "code"
+        
+      - id: "endpoints"
+        title: "Key API Endpoints"
+        content: |
+          <div class="tutorial-step-content">
+            <h3>Key API Endpoints</h3>
+            <p>Explore the main endpoints available in the Kill Tracker API.</p>
+            <div class="tutorial-endpoints">
+              <div class="endpoint-item">
+                <span class="method-badge get">GET</span>
+                <code>/v1/profile</code>
+                <span class="endpoint-desc">Get your profile information</span>
+              </div>
+              <div class="endpoint-item">
+                <span class="method-badge get">GET</span>
+                <code>/v1/kills</code>
+                <span class="endpoint-desc">Retrieve your kill history</span>
+              </div>
+              <div class="endpoint-item">
+                <span class="method-badge get">GET</span>
+                <code>/v1/stats</code>
+                <span class="endpoint-desc">Get detailed statistics</span>
+              </div>
+              <div class="endpoint-item">
+                <span class="method-badge post">POST</span>
+                <code>/v1/kills</code>
+                <span class="endpoint-desc">Report a new kill</span>
+              </div>
+            </div>
+          </div>
+        type: "endpoints"

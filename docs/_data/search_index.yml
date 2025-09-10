@@ -1,0 +1,192 @@
+# Search Index for Documentation
+# This file contains all searchable content for the documentation site
+
+pages:
+  - title: "Home"
+    url: "/"
+    content: "Star Citizen Kill Tracker API documentation. Professional API service for tracking kills, statistics, and analytics in Star Citizen. Discord bot integration, web dashboard, real-time data streaming."
+    section: "home"
+    type: "overview"
+    tags: ["home", "overview", "introduction"]
+
+  - title: "Getting Started"
+    url: "/getting-started/"
+    content: "Complete guide to getting started with the Star Citizen Kill Tracker API. Environment setup, API key generation, first request, authentication, rate limiting, error handling."
+    section: "getting-started"
+    type: "guide"
+    tags: ["setup", "installation", "quickstart", "beginner"]
+
+  - title: "Environment Setup"
+    url: "/getting-started/environment.md"
+    content: "Detailed environment setup guide for the Star Citizen Kill Tracker system. Discord bot configuration, API server setup, database configuration, security settings."
+    section: "getting-started"
+    type: "guide"
+    tags: ["environment", "setup", "configuration", "discord", "bot"]
+
+  - title: "Usage Guides"
+    url: "/usage/"
+    content: "Complete usage guides for the Star Citizen Kill Tracker system. Discord commands, dashboard usage, command visibility management, updated dashboard features."
+    section: "usage"
+    type: "guide"
+    tags: ["usage", "guides", "discord", "dashboard", "commands"]
+
+  - title: "Discord Commands"
+    url: "/usage/discord-commands.md"
+    content: "Complete Discord bot command reference. All available commands, permissions, usage examples, command categories, admin commands, user commands."
+    section: "usage"
+    type: "reference"
+    tags: ["discord", "commands", "bot", "reference", "permissions"]
+
+  - title: "Dashboard Usage"
+    url: "/usage/dashboard.md"
+    content: "Web dashboard usage guide. Interface overview, navigation, settings, statistics, analytics, user management, configuration options."
+    section: "usage"
+    type: "guide"
+    tags: ["dashboard", "web", "interface", "analytics", "statistics"]
+
+  - title: "Updated Dashboard Guide"
+    url: "/usage/updated-dashboard-guide.md"
+    content: "Latest dashboard features and updates. New functionality, improved interface, enhanced analytics, advanced settings, recent improvements."
+    section: "usage"
+    type: "guide"
+    tags: ["dashboard", "updates", "new features", "latest", "improvements"]
+
+  - title: "Command Visibility Management"
+    url: "/usage/command-visibility-management.md"
+    content: "Manage command visibility and permissions. Control which commands are visible to users, permission levels, role-based access, command categories."
+    section: "usage"
+    type: "guide"
+    tags: ["commands", "visibility", "permissions", "management", "roles"]
+
+  - title: "API Reference"
+    url: "/api/"
+    content: "Complete API documentation. REST endpoints, authentication, rate limiting, error codes, response formats, SDKs, WebSocket API, webhooks."
+    section: "api"
+    type: "reference"
+    tags: ["api", "reference", "endpoints", "authentication", "sdk"]
+
+  - title: "API Documentation"
+    url: "/api/README.md"
+    content: "Detailed API documentation with examples. Endpoint descriptions, request/response formats, authentication methods, error handling, rate limits."
+    section: "api"
+    type: "reference"
+    tags: ["api", "documentation", "endpoints", "examples", "authentication"]
+
+  - title: "Example Usage"
+    url: "/api/example-usage.md"
+    content: "API usage examples and code samples. JavaScript, Python, cURL examples, common use cases, best practices, integration patterns."
+    section: "api"
+    type: "tutorial"
+    tags: ["api", "examples", "code", "javascript", "python", "curl"]
+
+  - title: "Integration Guides"
+    url: "/developers/"
+    content: "Developer integration guides and SDKs. Getting started, authentication, API usage, webhooks, WebSocket integration, best practices."
+    section: "developers"
+    type: "guide"
+    tags: ["integration", "sdk", "developers", "webhooks", "websocket"]
+
+  - title: "Technical Documentation"
+    url: "/technical/"
+    content: "Technical implementation details and architecture. System design, security, deployment, database schema, performance optimization."
+    section: "technical"
+    type: "reference"
+    tags: ["technical", "architecture", "security", "deployment", "database"]
+
+  - title: "Star Citizen Implementation Guide"
+    url: "/technical/STAR_CITIZEN_IMPLEMENTATION_GUIDE.md"
+    content: "Core implementation details for Star Citizen integration. Game API integration, data processing, real-time updates, system architecture."
+    section: "technical"
+    type: "guide"
+    tags: ["star citizen", "implementation", "game api", "integration", "real-time"]
+
+  - title: "Security Audit"
+    url: "/technical/SECURITY_AUDIT.md"
+    content: "Comprehensive security analysis and audit report. Security measures, vulnerability assessment, best practices, compliance."
+    section: "technical"
+    type: "reference"
+    tags: ["security", "audit", "vulnerability", "compliance", "best practices"]
+
+  - title: "Deployment Guide"
+    url: "/technical/deployment.md"
+    content: "Production deployment instructions. Server setup, configuration, monitoring, scaling, maintenance, troubleshooting."
+    section: "technical"
+    type: "guide"
+    tags: ["deployment", "production", "server", "monitoring", "scaling"]
+
+  - title: "Advanced Features"
+    url: "/advanced/"
+    content: "Advanced features and configuration options. Bot management, dashboard control, unified system, donation setup, custom commands."
+    section: "advanced"
+    type: "guide"
+    tags: ["advanced", "features", "configuration", "bot management", "customization"]
+
+  - title: "Bot Integration"
+    url: "/advanced/bot-integration.md"
+    content: "Advanced Discord bot integration and configuration. Custom commands, permissions, multi-server management, automated responses."
+    section: "advanced"
+    type: "guide"
+    tags: ["bot", "integration", "discord", "custom commands", "permissions"]
+
+  - title: "Dashboard Bot Control"
+    url: "/advanced/dashboard-bot-control.md"
+    content: "Complete bot management system through dashboard. Bot configuration, command management, server settings, user management."
+    section: "advanced"
+    type: "guide"
+    tags: ["dashboard", "bot control", "management", "configuration", "settings"]
+
+  - title: "Discord Commands Reference"
+    url: "/advanced/DISCORD_COMMANDS_REFERENCE.md"
+    content: "Comprehensive Discord bot command reference. All commands, parameters, examples, permissions, usage patterns."
+    section: "advanced"
+    type: "reference"
+    tags: ["discord", "commands", "reference", "parameters", "examples"]
+
+  - title: "Unified Dashboard System"
+    url: "/advanced/unified-dashboard-system.md"
+    content: "Advanced dashboard features and management system. Custom themes, analytics, API integration, data export, security features."
+    section: "advanced"
+    type: "guide"
+    tags: ["dashboard", "unified", "themes", "analytics", "api integration"]
+
+  - title: "Donation Setup Guide"
+    url: "/advanced/DONATION_SETUP_GUIDE.md"
+    content: "Configure donation and monetization features. Payment integration, subscription management, revenue tracking, user benefits."
+    section: "advanced"
+    type: "guide"
+    tags: ["donation", "monetization", "payment", "subscription", "revenue"]
+
+  - title: "Help & Support"
+    url: "/help/"
+    content: "Help and support resources. FAQ, troubleshooting, contributing, community support, contact information."
+    section: "help"
+    type: "guide"
+    tags: ["help", "support", "faq", "troubleshooting", "community"]
+
+  - title: "FAQ"
+    url: "/help/faq.md"
+    content: "Frequently asked questions and answers. Common issues, setup questions, usage problems, technical support."
+    section: "help"
+    type: "reference"
+    tags: ["faq", "questions", "answers", "common issues", "support"]
+
+  - title: "Troubleshooting"
+    url: "/help/troubleshooting.md"
+    content: "Troubleshooting guide for common issues. Problem diagnosis, solutions, debugging, error resolution, system recovery."
+    section: "help"
+    type: "guide"
+    tags: ["troubleshooting", "debugging", "errors", "solutions", "recovery"]
+
+  - title: "Contributing"
+    url: "/help/contributing.md"
+    content: "How to contribute to the project. Development setup, coding standards, pull requests, issue reporting, community guidelines."
+    section: "help"
+    type: "guide"
+    tags: ["contributing", "development", "pull requests", "issues", "community"]
+
+  - title: "Status"
+    url: "/status/"
+    content: "System status and uptime monitoring. API status, performance metrics, incident history, maintenance schedules, service health."
+    section: "status"
+    type: "reference"
+    tags: ["status", "uptime", "monitoring", "incidents", "performance"]

@@ -1,0 +1,45 @@
+<!-- Language Switcher -->
+<div class="language-switcher" id="language-switcher">
+    <button class="language-toggle" id="language-toggle" title="Change Language">
+        {% include icon.html name="globe" size="20" %}
+        <span class="current-language" id="current-language">EN</span>
+        {% include icon.html name="chevron-down" size="14" %}
+    </button>
+    
+    <div class="language-dropdown" id="language-dropdown">
+        <div class="language-options">
+            <button class="language-option active" data-lang="en" data-flag="🇺🇸">
+                <span class="flag">🇺🇸</span>
+                <span class="language-name">English</span>
+                <span class="language-code">EN</span>
+            </button>
+            <button class="language-option" data-lang="es" data-flag="🇪🇸">
+                <span class="flag">🇪🇸</span>
+                <span class="language-name">Español</span>
+                <span class="language-code">ES</span>
+            </button>
+            <button class="language-option" data-lang="fr" data-flag="🇫🇷">
+                <span class="flag">🇫🇷</span>
+                <span class="language-name">Français</span>
+                <span class="language-code">FR</span>
+            </button>
+            <button class="language-option" data-lang="de" data-flag="🇩🇪">
+                <span class="flag">🇩🇪</span>
+                <span class="language-name">Deutsch</span>
+                <span class="language-code">DE</span>
+            </button>
+            <button class="language-option" data-lang="ja" data-flag="🇯🇵">
+                <span class="flag">🇯🇵</span>
+                <span class="language-name">日本語</span>
+                <span class="language-code">JA</span>
+            </button>
+        </div>
+        
+        <div class="language-footer">
+            <button class="language-auto" id="language-auto">
+                {% include icon.html name="sync" size="16" %}
+                <span>Auto-detect</span>
+            </button>
+        </div>
+    </div>
+</div>

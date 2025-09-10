@@ -1,0 +1,64 @@
+{% comment %}
+Related documentation links for better navigation
+Usage: {% include related-docs.html %}
+{% endcomment %}
+
+{% assign current_path = page.url %}
+{% assign related_docs = '' %}
+
+{% comment %} Define related documentation based on current page {% endcomment %}
+{% case current_path %}
+    {% when '/api/' %}
+        {% assign related_docs = site.pages | where_exp: "page", "page.url contains '/api/' or page.url contains '/developers/' or page.url contains '/help/'" %}
+    {% when '/getting-started/' %}
+        {% assign related_docs = site.pages | where_exp: "page", "page.url contains '/getting-started/' or page.url contains '/usage/' or page.url contains '/help/'" %}
+    {% when '/developers/' %}
+        {% assign related_docs = site.pages | where_exp: "page", "page.url contains '/api/' or page.url contains '/developers/' or page.url contains '/technical/'" %}
+    {% when '/technical/' %}
+        {% assign related_docs = site.pages | where_exp: "page", "page.url contains '/technical/' or page.url contains '/advanced/' or page.url contains '/help/'" %}
+    {% when '/advanced/' %}
+        {% assign related_docs = site.pages | where_exp: "page", "page.url contains '/advanced/' or page.url contains '/technical/' or page.url contains '/api/'" %}
+    {% when '/help/' %}
+        {% assign related_docs = site.pages | where_exp: "page", "page.url contains '/help/' or page.url contains '/getting-started/' or page.url contains '/api/'" %}
+    {% else %}
+        {% assign related_docs = site.pages | where_exp: "page", "page.url != current_path" | limit: 6 %}
+{% endcase %}
+
+{% if related_docs.size > 0 %}
+<div class="related-docs">
+    <h3>Related Documentation</h3>
+    <div class="related-docs-grid">
+        {% for doc in related_docs limit: 6 %}
+            {% unless doc.url == current_path %}
+            <a href="{{ doc.url | relative_url }}" class="related-doc-card">
+                <div class="doc-icon">
+                    {% if doc.url contains '/api/' %}
+                        <i class="fas fa-code"></i>
+                    {% elsif doc.url contains '/getting-started/' %}
+                        <i class="fas fa-rocket"></i>
+                    {% elsif doc.url contains '/developers/' %}
+                        <i class="fas fa-plug"></i>
+                    {% elsif doc.url contains '/technical/' %}
+                        <i class="fas fa-cogs"></i>
+                    {% elsif doc.url contains '/advanced/' %}
+                        <i class="fas fa-tools"></i>
+                    {% elsif doc.url contains '/help/' %}
+                        <i class="fas fa-question-circle"></i>
+                    {% elsif doc.url contains '/legal/' %}
+                        <i class="fas fa-gavel"></i>
+                    {% elsif doc.url contains '/status/' %}
+                        <i class="fas fa-heartbeat"></i>
+                    {% else %}
+                        <i class="fas fa-file-alt"></i>
+                    {% endif %}
+                </div>
+                <div class="doc-content">
+                    <h4>{{ doc.title | default: doc.name }}</h4>
+                    <p>{{ doc.description | default: doc.excerpt | truncate: 100 }}</p>
+                </div>
+            </a>
+            {% endunless %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

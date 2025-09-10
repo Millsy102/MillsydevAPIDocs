@@ -1,0 +1,41 @@
+{% comment %}
+Quick start card with interactive elements
+Usage: {% include quick-start-card.html title="Get API Key" description="..." steps=steps_array %}
+{% endcomment %}
+
+<div class="quick-start-card">
+    <div class="card-header">
+        <h3>{{ include.title }}</h3>
+        <p>{{ include.description }}</p>
+    </div>
+    
+    <div class="card-steps">
+        {% for step in include.steps %}
+        <div class="step-item">
+            <div class="step-number">{{ forloop.index }}</div>
+            <div class="step-content">
+                <h4>{{ step.title }}</h4>
+                <p>{{ step.description }}</p>
+                {% if step.code %}
+                <div class="step-code">
+                    {% include api-copy-button.html code=step.code language=step.language %}
+                </div>
+                {% endif %}
+                {% if step.link %}
+                <a href="{{ step.link }}" class="step-link">
+                    <i class="fas fa-external-link-alt"></i> {{ step.link_text | default: "Learn More" }}
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    {% if include.cta %}
+    <div class="card-footer">
+        <a href="{{ include.cta.link }}" class="cta-button">
+            <i class="fas fa-rocket"></i> {{ include.cta.text }}
+        </a>
+    </div>
+    {% endif %}
+</div>

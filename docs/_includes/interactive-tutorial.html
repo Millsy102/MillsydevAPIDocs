@@ -1,0 +1,40 @@
+<!-- Interactive Tutorial System -->
+<div class="tutorial-container" id="tutorial-container">
+    <div class="tutorial-header">
+        <div class="tutorial-progress">
+            <div class="progress-bar">
+                <div class="progress-fill" id="tutorial-progress-fill"></div>
+            </div>
+            <span class="progress-text" id="tutorial-progress-text">Step 1 of 5</span>
+        </div>
+        <button class="tutorial-close" id="tutorial-close">
+            {% include icon.html name="close" size="20" %}
+        </button>
+    </div>
+    
+    <div class="tutorial-content">
+        <div class="tutorial-step" id="tutorial-step">
+            <!-- Dynamic content will be inserted here -->
+        </div>
+    </div>
+    
+    <div class="tutorial-navigation">
+        <button class="tutorial-btn tutorial-prev" id="tutorial-prev" disabled>
+            {% include icon.html name="chevron-left" size="16" %} Previous
+        </button>
+        <div class="tutorial-actions">
+            <button class="tutorial-btn tutorial-skip" id="tutorial-skip">
+                Skip Tutorial
+            </button>
+            <button class="tutorial-btn tutorial-next" id="tutorial-next">
+                Next {% include icon.html name="chevron-right" size="16" %}
+            </button>
+            <button class="tutorial-btn tutorial-complete" id="tutorial-complete" style="display: none;">
+                {% include icon.html name="check" size="16" %} Complete
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Tutorial Overlay -->
+<div class="tutorial-overlay" id="tutorial-overlay"></div>

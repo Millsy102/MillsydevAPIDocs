@@ -1,0 +1,907 @@
+{
+  "info": {
+    "name": "Star Citizen Kill Tracker API",
+    "description": "Complete API collection for the Star Citizen Kill Tracker system\n\n🔒 SECURITY WARNING: Never hardcode API keys in this collection. Use Postman environment variables to store your API key securely.",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{api_key}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://api.millsy.dev",
+      "type": "string"
+    },
+    {
+      "key": "api_key",
+      "value": "{{$env.API_KEY}}",
+      "type": "string",
+      "description": "Set this in Postman environment variables for security"
+    },
+    {
+      "key": "jwt_token",
+      "value": "YOUR_JWT_TOKEN_HERE",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "YOUR_USER_ID_HERE",
+      "type": "string"
+    },
+    {
+      "key": "server_id",
+      "value": "YOUR_SERVER_ID_HERE",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Discord OAuth Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"discord_oauth_code_here\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/discord",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "discord"]
+            }
+          }
+        },
+        {
+          "name": "UID Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"uid\": \"123456789012345678\",\n  \"signature\": \"hmac_signature_here\",\n  \"timestamp\": 1640995200000\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/uid-login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "uid-login"]
+            }
+          }
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"refresh_token_here\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/refresh",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "refresh"]
+            }
+          }
+        },
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/auth/me",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "me"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/auth/logout",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "logout"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Kill Tracking",
+      "item": [
+        {
+          "name": "Record Kill",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"victimId\": \"EnemyPlayer\",\n  \"weapon\": \"Laser Cannon\",\n  \"location\": \"Stanton System\",\n  \"isPvP\": true,\n  \"isSuicide\": false,\n  \"isEnvironmental\": false,\n  \"rawData\": {\n    \"additional\": \"metadata\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/kills",
+              "host": ["{{base_url}}"],
+              "path": ["api", "kills"]
+            }
+          }
+        },
+        {
+          "name": "Get User Kills",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/kills/user/{{user_id}}?limit=50",
+              "host": ["{{base_url}}"],
+              "path": ["api", "kills", "user", "{{user_id}}"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "50"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Server Kills",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/kills/server/{{server_id}}?limit=100",
+              "host": ["{{base_url}}"],
+              "path": ["api", "kills", "server", "{{server_id}}"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "100"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get User Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/stats/user/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "stats", "user", "{{user_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Leaderboard - Kills",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/leaderboard/kills?limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "leaderboard", "kills"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Leaderboard - KDR",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/leaderboard/kdr?limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "leaderboard", "kdr"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Management",
+      "item": [
+        {
+          "name": "Get User Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/users/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "{{user_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Update User Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"NewUsername\",\n  \"rsiHandle\": \"NewRSIHandle\",\n  \"privacyLevel\": \"PRIVATE\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "{{user_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Server Management",
+      "item": [
+        {
+          "name": "Get Server Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/servers/{{server_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "servers", "{{server_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Server Settings",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/servers/{{server_id}}/settings",
+              "host": ["{{base_url}}"],
+              "path": ["api", "servers", "{{server_id}}", "settings"]
+            }
+          }
+        },
+        {
+          "name": "Update Server Settings",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prefix\": \"!\",\n  \"language\": \"en\",\n  \"features\": {\n    \"killTracker\": true,\n    \"leaderboard\": true,\n    \"notifications\": false\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/servers/{{server_id}}/settings",
+              "host": ["{{base_url}}"],
+              "path": ["api", "servers", "{{server_id}}", "settings"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "API Key Management",
+      "item": [
+        {
+          "name": "Generate API Key",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{user_id}}\",\n  \"playerName\": \"PlayerName\",\n  \"name\": \"My Application\",\n  \"expiresAt\": \"2025-12-31T23:59:59.000Z\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/api-keys",
+              "host": ["{{base_url}}"],
+              "path": ["api", "api-keys"]
+            }
+          }
+        },
+        {
+          "name": "List API Keys",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/api-keys?userId={{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "api-keys"],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "{{user_id}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Primary API Key",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{user_id}}\",\n  \"playerName\": \"PlayerName\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/api-keys/primary",
+              "host": ["{{base_url}}"],
+              "path": ["api", "api-keys", "primary"]
+            }
+          }
+        },
+        {
+          "name": "Create Bot API Key",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{user_id}}\",\n  \"playerName\": \"PlayerName\",\n  \"botName\": \"MyBot\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/api-keys/bot",
+              "host": ["{{base_url}}"],
+              "path": ["api", "api-keys", "bot"]
+            }
+          }
+        },
+        {
+          "name": "Validate API Key",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_key}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/api-keys/validate",
+              "host": ["{{base_url}}"],
+              "path": ["api", "api-keys", "validate"]
+            }
+          }
+        },
+        {
+          "name": "Revoke API Key",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{user_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/api-keys/KEY_ID_HERE",
+              "host": ["{{base_url}}"],
+              "path": ["api", "api-keys", "KEY_ID_HERE"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analytics",
+      "item": [
+        {
+          "name": "Get Analytics Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/analytics/dashboard?game=star_citizen&serverId={{server_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "analytics", "dashboard"],
+              "query": [
+                {
+                  "key": "game",
+                  "value": "star_citizen"
+                },
+                {
+                  "key": "serverId",
+                  "value": "{{server_id}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Performance Metrics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/analytics/metrics?period=7d&game=star_citizen",
+              "host": ["{{base_url}}"],
+              "path": ["api", "analytics", "metrics"],
+              "query": [
+                {
+                  "key": "period",
+                  "value": "7d"
+                },
+                {
+                  "key": "game",
+                  "value": "star_citizen"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Trend Analysis",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/analytics/trends?metric=kills&period=7d",
+              "host": ["{{base_url}}"],
+              "path": ["api", "analytics", "trends"],
+              "query": [
+                {
+                  "key": "metric",
+                  "value": "kills"
+                },
+                {
+                  "key": "period",
+                  "value": "7d"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get AI Insights",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/analytics/insights?limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "analytics", "insights"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Recommendations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/analytics/recommendations?limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "analytics", "recommendations"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Export Analytics Data",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/analytics/export?format=json&period=30d",
+              "host": ["{{base_url}}"],
+              "path": ["api", "analytics", "export"],
+              "query": [
+                {
+                  "key": "format",
+                  "value": "json"
+                },
+                {
+                  "key": "period",
+                  "value": "30d"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "Create Webhook",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"My Webhook\",\n  \"url\": \"https://myapp.com/webhook\",\n  \"events\": [\"kill.recorded\", \"user.stats_updated\"],\n  \"secret\": \"webhook_secret\",\n  \"maxRetries\": 3,\n  \"retryDelay\": 1000,\n  \"backoffMultiplier\": 2,\n  \"headers\": {\n    \"X-Custom-Header\": \"value\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/webhooks",
+              "host": ["{{base_url}}"],
+              "path": ["api", "webhooks"]
+            }
+          }
+        },
+        {
+          "name": "List Webhooks",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/webhooks",
+              "host": ["{{base_url}}"],
+              "path": ["api", "webhooks"]
+            }
+          }
+        },
+        {
+          "name": "Get Webhook Events",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/webhooks/events",
+              "host": ["{{base_url}}"],
+              "path": ["api", "webhooks", "events"]
+            }
+          }
+        },
+        {
+          "name": "Test Webhook",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/webhooks/WEBHOOK_ID_HERE/test",
+              "host": ["{{base_url}}"],
+              "path": ["api", "webhooks", "WEBHOOK_ID_HERE", "test"]
+            }
+          }
+        },
+        {
+          "name": "Update Webhook",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Webhook Name\",\n  \"isActive\": false,\n  \"events\": [\"kill.recorded\"]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/webhooks/WEBHOOK_ID_HERE",
+              "host": ["{{base_url}}"],
+              "path": ["api", "webhooks", "WEBHOOK_ID_HERE"]
+            }
+          }
+        },
+        {
+          "name": "Delete Webhook",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/webhooks/WEBHOOK_ID_HERE",
+              "host": ["{{base_url}}"],
+              "path": ["api", "webhooks", "WEBHOOK_ID_HERE"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Star Citizen Integration",
+      "item": [
+        {
+          "name": "Get All Ships",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/sc/ships",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sc", "ships"]
+            }
+          }
+        },
+        {
+          "name": "Get Ship by Name",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/sc/ships/Aurora MR",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sc", "ships", "Aurora MR"]
+            }
+          }
+        },
+        {
+          "name": "Get Player by Handle",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/sc/players/RSI_HANDLE_HERE",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sc", "players", "RSI_HANDLE_HERE"]
+            }
+          }
+        },
+        {
+          "name": "Get Location Data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/sc/locations/Stanton",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sc", "locations", "Stanton"]
+            }
+          }
+        },
+        {
+          "name": "Get System Data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/sc/systems/Stanton",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sc", "systems", "Stanton"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Log Parser",
+      "item": [
+        {
+          "name": "Get Log Directories",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/logs/directories",
+              "host": ["{{base_url}}"],
+              "path": ["api", "logs", "directories"]
+            }
+          }
+        },
+        {
+          "name": "Get Log Files",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/logs/files",
+              "host": ["{{base_url}}"],
+              "path": ["api", "logs", "files"]
+            }
+          }
+        },
+        {
+          "name": "Validate Log File",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filePath\": \"/path/to/logfile.log\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/logs/validate",
+              "host": ["{{base_url}}"],
+              "path": ["api", "logs", "validate"]
+            }
+          }
+        },
+        {
+          "name": "Parse Log File",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filePath\": \"/path/to/logfile.log\",\n  \"parseOptions\": {\n    \"includePvE\": true,\n    \"includePvP\": true\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/logs/parse",
+              "host": ["{{base_url}}"],
+              "path": ["api", "logs", "parse"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

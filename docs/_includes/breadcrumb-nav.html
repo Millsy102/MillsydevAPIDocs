@@ -1,0 +1,54 @@
+{% comment %}
+Breadcrumb navigation for better site navigation
+Usage: {% include breadcrumb-nav.html %}
+{% endcomment %}
+
+<nav class="breadcrumb-nav" aria-label="Breadcrumb">
+    <ol class="breadcrumb-list">
+        <li class="breadcrumb-item">
+            <a href="{{ '/' | relative_url }}">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </li>
+        
+        {% assign path_parts = page.url | split: '/' %}
+        {% assign current_path = '' %}
+        
+        {% for part in path_parts %}
+            {% if part != '' %}
+                {% assign current_path = current_path | append: '/' | append: part %}
+                {% assign part_title = part | replace: '-', ' ' | capitalize %}
+                
+                {% comment %} Custom titles for specific pages {% endcomment %}
+                {% case current_path %}
+                    {% when '/api' %}
+                        {% assign part_title = 'API Reference' %}
+                    {% when '/getting-started' %}
+                        {% assign part_title = 'Getting Started' %}
+                    {% when '/developers' %}
+                        {% assign part_title = 'Integration Guides' %}
+                    {% when '/technical' %}
+                        {% assign part_title = 'Technical Docs' %}
+                    {% when '/advanced' %}
+                        {% assign part_title = 'Advanced Features' %}
+                    {% when '/help' %}
+                        {% assign part_title = 'Help & Support' %}
+                    {% when '/legal' %}
+                        {% assign part_title = 'Legal' %}
+                    {% when '/status' %}
+                        {% assign part_title = 'Status' %}
+                {% endcase %}
+                
+                {% if forloop.last %}
+                    <li class="breadcrumb-item active" aria-current="page">
+                        {{ part_title }}
+                    </li>
+                {% else %}
+                    <li class="breadcrumb-item">
+                        <a href="{{ current_path | relative_url }}">{{ part_title }}</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ol>
+</nav>

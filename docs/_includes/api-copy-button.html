@@ -1,0 +1,67 @@
+{% comment %}
+Enhanced API copy button with language detection and smart formatting
+Usage: {% include api-copy-button.html code=code_block language="javascript" %}
+{% endcomment %}
+
+<div class="api-code-block">
+    <div class="code-header">
+        <div class="language-badge">
+            {% case include.language %}
+                {% when 'javascript' or 'js' %}
+                    <i class="fab fa-js-square"></i> JavaScript
+                {% when 'typescript' or 'ts' %}
+                    <i class="fab fa-js-square"></i> TypeScript
+                {% when 'python' or 'py' %}
+                    <i class="fab fa-python"></i> Python
+                {% when 'curl' %}
+                    <i class="fas fa-terminal"></i> cURL
+                {% when 'bash' or 'shell' %}
+                    <i class="fas fa-terminal"></i> Bash
+                {% when 'json' %}
+                    <i class="fas fa-code"></i> JSON
+                {% when 'csharp' or 'c#' %}
+                    <i class="fab fa-microsoft"></i> C#
+                {% when 'java' %}
+                    <i class="fab fa-java"></i> Java
+                {% when 'php' %}
+                    <i class="fab fa-php"></i> PHP
+                {% when 'go' %}
+                    <i class="fas fa-code"></i> Go
+                {% else %}
+                    <i class="fas fa-code"></i> {{ include.language | capitalize }}
+            {% endcase %}
+        </div>
+        <button class="copy-button" onclick="copyToClipboard(this)" data-code="{{ include.code | escape }}">
+            <i class="fas fa-copy"></i> Copy
+        </button>
+    </div>
+    <pre><code class="language-{{ include.language }}">{{ include.code }}</code></pre>
+</div>
+
+<script>
+function copyToClipboard(button) {
+    const code = button.getAttribute('data-code');
+    const textArea = document.createElement('textarea');
+    textArea.value = code;
+    document.body.appendChild(textArea);
+    textArea.select();
+    
+    try {
+        document.execCommand('copy');
+        button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        button.classList.add('copied');
+        
+        setTimeout(() => {
+            button.innerHTML = '<i class="fas fa-copy"></i> Copy';
+            button.classList.remove('copied');
+        }, 2000);
+    } catch (err) {
+        button.innerHTML = '<i class="fas fa-times"></i> Failed';
+        setTimeout(() => {
+            button.innerHTML = '<i class="fas fa-copy"></i> Copy';
+        }, 2000);
+    }
+    
+    document.body.removeChild(textArea);
+}
+</script>

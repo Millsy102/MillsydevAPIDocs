@@ -1,0 +1,57 @@
+{% comment %}
+Code example with language tabs
+Usage: {% include code-example.html languages="javascript,python,curl" %}
+{% endcomment %}
+
+{% assign languages = include.languages | split: ',' %}
+{% assign default_lang = languages[0] %}
+
+<div class="code-tabs">
+    <ul class="code-tab-list">
+        {% for lang in languages %}
+        <li>
+            <button class="code-tab {% if lang == default_lang %}active{% endif %}" 
+                    data-language="{{ lang }}">
+                {% case lang %}
+                    {% when 'javascript' %}JavaScript
+                    {% when 'typescript' %}TypeScript
+                    {% when 'python' %}Python
+                    {% when 'curl' %}cURL
+                    {% when 'bash' %}Bash
+                    {% when 'json' %}JSON
+                    {% else %}{{ lang | capitalize }}
+                {% endcase %}
+            </button>
+        </li>
+        {% endfor %}
+    </ul>
+    
+    {% for lang in languages %}
+    <div class="code-tab-content {% if lang == default_lang %}active{% endif %}" 
+         data-language="{{ lang }}">
+        <pre><code class="language-{{ lang }}">{{ include[lang] }}</code></pre>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+// Code tab functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const codeTabs = document.querySelectorAll('.code-tab');
+    
+    codeTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const language = this.dataset.language;
+            const container = this.closest('.code-tabs');
+            
+            // Remove active class from all tabs and contents
+            container.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+            container.querySelectorAll('.code-tab-content').forEach(c => c.classList.remove('active'));
+            
+            // Add active class to clicked tab and corresponding content
+            this.classList.add('active');
+            container.querySelector('.code-tab-content[data-language="' + language + '"]').classList.add('active');
+        });
+    });
+});
+</script>

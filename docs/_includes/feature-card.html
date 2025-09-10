@@ -1,0 +1,33 @@
+<div class="feature-card {% if include.status %}status-{{ include.status }}{% endif %}">
+    {% if include.status %}
+    <div class="status-badge status-{{ include.status }}">
+        {% case include.status %}
+            {% when 'coming-soon' %}
+                <i class="fas fa-clock"></i> Coming Soon
+            {% when 'beta' %}
+                <i class="fas fa-flask"></i> Beta
+            {% when 'live' %}
+                <i class="fas fa-check-circle"></i> Live
+            {% when 'planned' %}
+                <i class="fas fa-lightbulb"></i> Planned
+        {% endcase %}
+    </div>
+    {% endif %}
+    
+    <div class="feature-icon">
+        <i class="{{ include.icon }}"></i>
+    </div>
+    <div class="feature-content">
+        <h3 class="feature-title">{{ include.title }}</h3>
+        <p class="feature-description">{{ include.description }}</p>
+        {% if include.link %}
+        <a href="{{ include.link }}" class="feature-link">
+            {% if include.status == 'coming-soon' or include.status == 'planned' %}
+                Learn More <i class="fas fa-arrow-right"></i>
+            {% else %}
+                Try It Now <i class="fas fa-arrow-right"></i>
+            {% endif %}
+        </a>
+        {% endif %}
+    </div>
+</div>

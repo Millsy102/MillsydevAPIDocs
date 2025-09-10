@@ -1,0 +1,103 @@
+<!-- Accessibility Toolbar -->
+<div class="accessibility-toolbar" id="accessibility-toolbar">
+    <button class="accessibility-toggle" id="accessibility-toggle" title="Accessibility Options" aria-label="Open accessibility options">
+        {% include icon.html name="accessibility" size="20" %}
+        <span class="accessibility-label">Accessibility</span>
+    </button>
+    
+    <div class="accessibility-panel" id="accessibility-panel">
+        <div class="accessibility-header">
+            <h3>Accessibility Options</h3>
+            <button class="accessibility-close" id="accessibility-close" aria-label="Close accessibility options">
+                {% include icon.html name="close" size="16" %}
+            </button>
+        </div>
+        
+        <div class="accessibility-content">
+            <!-- Text Size Controls -->
+            <div class="accessibility-section">
+                <h4>Text Size</h4>
+                <div class="text-size-controls">
+                    <button class="accessibility-btn" id="text-smaller" aria-label="Decrease text size">
+                        {% include icon.html name="minus" size="16" %} Smaller
+                    </button>
+                    <button class="accessibility-btn" id="text-reset" aria-label="Reset text size">
+                        {% include icon.html name="refresh" size="16" %} Reset
+                    </button>
+                    <button class="accessibility-btn" id="text-larger" aria-label="Increase text size">
+                        {% include icon.html name="plus" size="16" %} Larger
+                    </button>
+                </div>
+            </div>
+            
+            <!-- High Contrast Toggle -->
+            <div class="accessibility-section">
+                <h4>Visual Enhancements</h4>
+                <div class="accessibility-options">
+                    <label class="accessibility-option">
+                        <input type="checkbox" id="high-contrast" aria-describedby="high-contrast-desc">
+                        <span class="checkmark"></span>
+                        <span class="option-text">High Contrast</span>
+                        <span class="option-desc" id="high-contrast-desc">Increase contrast for better visibility</span>
+                    </label>
+                    
+                    <label class="accessibility-option">
+                        <input type="checkbox" id="focus-indicators" aria-describedby="focus-indicators-desc">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Enhanced Focus</span>
+                        <span class="option-desc" id="focus-indicators-desc">Stronger focus indicators</span>
+                    </label>
+                    
+                    <label class="accessibility-option">
+                        <input type="checkbox" id="reduced-motion" aria-describedby="reduced-motion-desc">
+                        <span class="checkmark"></span>
+                        <span class="option-text">Reduce Motion</span>
+                        <span class="option-desc" id="reduced-motion-desc">Minimize animations and transitions</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Reading Tools -->
+            <div class="accessibility-section">
+                <h4>Reading Tools</h4>
+                <div class="reading-tools">
+                    <button class="accessibility-btn" id="reading-mode" aria-label="Toggle reading mode">
+                        {% include icon.html name="book" size="16" %} Reading Mode
+                    </button>
+                    <button class="accessibility-btn" id="screen-reader" aria-label="Announce page content">
+                        {% include icon.html name="volume" size="16" %} Read Aloud
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Keyboard Navigation -->
+            <div class="accessibility-section">
+                <h4>Keyboard Navigation</h4>
+                <div class="keyboard-shortcuts">
+                    <div class="shortcut-item">
+                        <kbd>Tab</kbd>
+                        <span>Navigate elements</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>Enter</kbd>
+                        <span>Activate buttons</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>Esc</kbd>
+                        <span>Close modals</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>Space</kbd>
+                        <span>Toggle switches</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="accessibility-footer">
+            <button class="accessibility-reset" id="accessibility-reset">
+                {% include icon.html name="refresh" size="16" %} Reset All
+            </button>
+        </div>
+    </div>
+</div>

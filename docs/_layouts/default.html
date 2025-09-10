@@ -1,0 +1,3055 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#dc2626">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ '/assets/images/logo.png' | relative_url }}">
+    <link rel="shortcut icon" type="image/png" href="{{ '/assets/images/logo.png' | relative_url }}">
+    <link rel="apple-touch-icon" href="{{ '/assets/images/logo.png' | relative_url }}">
+    
+    {%- seo -%}
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="{{ '/assets/css/main.css' | relative_url }}" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&display=swap" as="style" crossorigin>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Non-critical scripts loaded asynchronously -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js" async></script>
+    
+    {%- feed_meta -%}
+</head>
+
+<body class="bg-black text-white min-h-screen{% if page.url == '/' %} index-page{% endif %}">
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Loading Progress Indicator -->
+    <div class="loading-progress" id="loading-progress">
+        <div class="loading-progress-bar" id="loading-progress-bar"></div>
+    </div>
+    
+    <!-- Pull to Refresh Indicator -->
+    <div class="pull-indicator" id="pull-indicator">
+        {% include icon.html name="sync" size="16" %} Pull to refresh
+    </div>
+    
+    <!-- Enhanced Loader -->
+    <div class="enhanced-loader" id="enhanced-loader">
+        <div class="loader">
+            <div class="box">
+                <div class="logo">
+                    <img src="{{ '/assets/images/logo.png' | relative_url }}" alt="MILLSY.dev Logo" class="loader-logo">
+                </div>
+            </div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+    </div>
+    
+    <!-- Development Warning -->
+    {% include development-warning.html %}
+    
+    <!-- Navigation -->
+    <nav class="navbar" id="navigation" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="{{ '/' | relative_url }}" class="brand-link">
+                    <img src="{{ '/assets/images/logo.png' | relative_url }}" alt="MILLSY.dev Logo" class="nav-brand-logo">
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu" role="menubar">
+                <button class="search-toggle" id="search-toggle" title="Search Documentation" aria-label="Open search" aria-expanded="false" aria-controls="search-modal">
+                    {% include icon.html name="search" size="20" %}
+                </button>
+                <button class="theme-toggle" id="theme-toggle" title="Change Theme" aria-label="Open theme selector" aria-expanded="false" aria-controls="theme-selector">
+                    {% include icon.html name="palette" size="20" %}
+                </button>
+                {% include language-switcher.html %}
+                <a href="{{ '/' | relative_url }}" class="nav-link {% if page.url == '/' %}active{% endif %}">
+                    {% include icon.html name="home" size="18" %} <span data-translate="nav_home">Home</span>
+                </a>
+                <a href="{{ '/getting-started' | relative_url }}" class="nav-link {% if page.url contains '/getting-started' %}active{% endif %}">
+                    {% include icon.html name="rocket" size="18" %} <span data-translate="nav_get_started">Get Started</span>
+                </a>
+                <a href="{{ '/usage/' | relative_url }}" class="nav-link {% if page.url contains '/usage/' %}active{% endif %}">
+                    {% include icon.html name="book" size="18" %} <span data-translate="nav_usage">Usage</span>
+                </a>
+                <a href="{{ '/api/' | relative_url }}" class="nav-link {% if page.url contains '/api/' %}active{% endif %}">
+                    {% include icon.html name="code" size="18" %} <span data-translate="nav_api_reference">API Reference</span>
+                </a>
+                <a href="{{ '/developers/' | relative_url }}" class="nav-link {% if page.url contains '/developers/' %}active{% endif %}">
+                    {% include icon.html name="cog" size="18" %} <span data-translate="nav_integration">Integration</span>
+                </a>
+                <a href="{{ '/technical/' | relative_url }}" class="nav-link {% if page.url contains '/technical/' %}active{% endif %}">
+                    {% include icon.html name="cog" size="18" %} <span data-translate="nav_technical">Technical</span>
+                </a>
+                <a href="{{ '/help/' | relative_url }}" class="nav-link {% if page.url contains '/help/' %}active{% endif %}">
+                    {% include icon.html name="question-circle" size="18" %} <span data-translate="nav_help">Help</span>
+                </a>
+                
+                <!-- Search Container -->
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search documentation..." id="search-input">
+                    <div class="search-results" id="search-results"></div>
+                    <div class="search-suggestions" id="search-suggestions"></div>
+                </div>
+                
+                <!-- Theme Toggle -->
+                <label class="switch">
+                    <input id="input" type="checkbox" checked="darkTheme" />
+                    <div class="slider round">
+                        <div class="sun-moon">
+                            <svg id="moon-dot-1" class="moon-dot" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="50"></circle>
+                            </svg>
+                            <svg id="moon-dot-2" class="moon-dot" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="50"></circle>
+                            </svg>
+                            <svg id="moon-dot-3" class="moon-dot" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="50"></circle>
+                            </svg>
+                            <svg id="light-ray-1" class="light-ray" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="50"></circle>
+                            </svg>
+                            <svg id="light-ray-2" class="light-ray" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="50"></circle>
+                            </svg>
+                            <svg id="light-ray-3" class="light-ray" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="50"></circle>
+                            </svg>
+
+                            <svg id="cloud-1" class="cloud-dark" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="50"></circle>
+                            </svg>
+                            <svg id="cloud-2" class="cloud-dark" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="50"></circle>
+                            </svg>
+                            <svg id="cloud-3" class="cloud-dark" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="50"></circle>
+                            </svg>
+                            <svg id="cloud-4" class="cloud-light" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="50"></circle>
+                            </svg>
+                            <svg id="cloud-5" class="cloud-light" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="50"></circle>
+                            </svg>
+                            <svg id="cloud-6" class="cloud-light" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="50"></circle>
+                            </svg>
+                        </div>
+                        <div class="stars">
+                            <svg id="star-1" class="star" viewBox="0 0 20 20">
+                                <path
+                                    d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"
+                                ></path>
+                            </svg>
+                            <svg id="star-2" class="star" viewBox="0 0 20 20">
+                                <path
+                                    d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"
+                                ></path>
+                            </svg>
+                            <svg id="star-3" class="star" viewBox="0 0 20 20">
+                                <path
+                                    d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"
+                                ></path>
+                            </svg>
+                            <svg id="star-4" class="star" viewBox="0 0 20 20">
+                                <path
+                                    d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"
+                                ></path>
+                            </svg>
+                        </div>
+                    </div>
+                </label>
+            </div>
+            
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Particle Effects -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main-content" role="main" aria-label="Main content">
+        {% if page.url == '/' %}
+            <!-- Hero Section for Homepage -->
+            <section class="hero">
+                <div class="hero-container">
+                    <div class="hero-content">
+                        <div class="hero-logo">
+                            <img src="{{ '/assets/images/logo.png' | relative_url }}" alt="MILLSY.dev Logo" class="hero-logo-img">
+                            <span class="hero-logo-text">MILLSY.dev</span>
+                        </div>
+                        <h1 class="hero-title">
+                            Star Citizen Kill Tracker
+                        </h1>
+                        <p class="hero-subtitle">
+                            Professional Discord bot system for comprehensive Star Citizen kill tracking and analytics
+                        </p>
+                        <div class="hero-buttons">
+                            <a href="{{ '/api/README' | relative_url }}" class="btn btn-primary tooltip" data-tooltip="Start integrating with our API">
+                                <i class="fas fa-code"></i> API Reference
+                            </a>
+                            <a href="{{ '/developers/README' | relative_url }}" class="btn btn-secondary tooltip" data-tooltip="Learn how to integrate with our services">
+                                <i class="fas fa-plug"></i> Integration Guide
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="hero-card">
+                            <div class="card-header">
+                                <div class="card-dots">
+                                    <span class="dot red"></span>
+                                    <span class="dot yellow"></span>
+                                    <span class="dot green"></span>
+                                </div>
+                                <span class="card-title">Coming Soon</span>
+                            </div>
+                            <div class="card-content">
+                                <div class="coming-soon-content">
+                                    <div class="coming-soon-icon">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <h3>Kill Tracker Dashboard</h3>
+                                    <p>Real-time analytics and comprehensive kill tracking will be available here soon.</p>
+                                    <div class="feature-preview">
+                                        <div class="preview-item">
+                                            <i class="fas fa-crosshairs"></i>
+                                            <span>Kill Tracking</span>
+                                        </div>
+                                        <div class="preview-item">
+                                            <i class="fas fa-chart-bar"></i>
+                                            <span>Analytics</span>
+                                        </div>
+                                        <div class="preview-item">
+                                            <i class="fas fa-server"></i>
+                                            <span>Multi-Server</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+
+        <!-- Page Content -->
+        <div class="content-wrapper">
+            <div class="content-container">
+                <!-- Breadcrumb Navigation -->
+                {% unless page.url == '/' %}
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="{{ '/' | relative_url }}" class="breadcrumb-item">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                    <span class="breadcrumb-separator">/</span>
+                    {% assign path_parts = page.url | split: '/' %}
+                    {% assign current_path = '' %}
+                    {% for part in path_parts %}
+                        {% if part != '' %}
+                            {% assign current_path = current_path | append: '/' | append: part %}
+                            {% if forloop.last %}
+                                <span class="breadcrumb-item active">{{ page.title | default: part | capitalize }}</span>
+                            {% else %}
+                                <a href="{{ current_path | relative_url }}" class="breadcrumb-item">{{ part | capitalize }}</a>
+                                <span class="breadcrumb-separator">/</span>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </nav>
+                {% endunless %}
+
+                <!-- Main Content Area -->
+                <div class="content-layout">
+                    <div class="content-main">
+                        {% include breadcrumb-nav.html %}
+                        {{ content }}
+                        {% include related-docs.html %}
+                    </div>
+                    
+                    <!-- Table of Contents (for longer pages) -->
+                    {% if page.toc != false and page.url != '/' %}
+                    <div class="toc-container" id="toc-container">
+                        <h3 class="toc-title">Table of Contents</h3>
+                        <ul class="toc-list" id="toc-list"></ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Search Modal -->
+    {% include search-modal.html %}
+    
+    <!-- Theme Selector -->
+    {% include theme-selector.html %}
+    
+    <!-- Interactive Tutorials -->
+    {% include interactive-tutorial.html %}
+    
+    <!-- Accessibility Toolbar -->
+    {% include accessibility-toolbar.html %}
+    
+    <!-- Interactive Code Playground -->
+    {% include code-playground.html %}
+    
+    <!-- Skip Links -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#navigation" class="skip-link">Skip to navigation</a>
+    <a href="#search" class="skip-link">Skip to search</a>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="brand-logo">
+                        <img src="{{ '/assets/images/logo.png' | relative_url }}" alt="MILLSY.dev Logo" class="footer-logo">
+                        <span>MILLSY.dev</span>
+                    </div>
+                    <p class="footer-description">Professional Star Citizen Kill Tracker API</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Documentation</h4>
+                        <a href="{{ '/getting-started' | relative_url }}">Getting Started</a>
+                        <a href="{{ '/usage/' | relative_url }}">Usage Guides</a>
+                        <a href="{{ '/api/' | relative_url }}">API Reference</a>
+                        <a href="{{ '/developers/' | relative_url }}">Integration Guides</a>
+                        <a href="{{ '/technical/' | relative_url }}">Technical Docs</a>
+                        <a href="{{ '/advanced/' | relative_url }}">Advanced Features</a>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Support</h4>
+                        <a href="{{ '/help/troubleshooting' | relative_url }}">Troubleshooting</a>
+                        <a href="{{ '/help/faq' | relative_url }}">FAQ</a>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Connect</h4>
+                        <a href="https://github.com/millsydev" target="_blank">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="https://discord.gg/your-server" target="_blank">
+                            <i class="fab fa-discord"></i> Discord
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="star-citizen-logo">
+                    <a href="https://robertsspaceindustries.com" target="_blank" rel="noopener noreferrer">
+                        <img src="{{ '/assets/images/star-citizen-logo.png' | relative_url }}" alt="Star Citizen" class="sc-logo-img">
+                    </a>
+                </div>
+                <p class="disclaimer-text">
+                    <strong>Fan Site Disclaimer:</strong> This is an independent fan site and is not endorsed by, affiliated with, or sponsored by Cloud Imperium Games. Star Citizen and all related content are trademarks and copyrights of Cloud Imperium Games. All rights reserved.
+                </p>
+                <p class="disclaimer-text llm-disclaimer">
+                    <span class="disclaimer-icon">🤖</span>
+                    <strong>AI Assistance Disclaimer:</strong> This documentation site was created with assistance from AI/LLM technology for content generation and element conversion. Core project architecture and implementation remain human-developed.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark',
+            themeVariables: {
+                primaryColor: '#dc2626',
+                primaryTextColor: '#ffffff',
+                primaryBorderColor: '#dc2626',
+                lineColor: '#dc2626',
+                secondaryColor: '#1f1f1f',
+                tertiaryColor: '#2a2a2a'
+            }
+        });
+
+        // Particle System
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            if (!particlesContainer) return;
+            
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Mobile navigation toggle
+        const navToggle = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                navToggle.classList.toggle('active');
+            });
+        }
+
+        // Search Functionality
+        class DocumentationSearch {
+            constructor() {
+                this.searchInput = document.getElementById('search-input');
+                this.searchResults = document.getElementById('search-results');
+                this.searchIndex = [];
+                this.init();
+            }
+
+            init() {
+                if (!this.searchInput || !this.searchResults) return;
+                
+                this.buildSearchIndex();
+                this.setupEventListeners();
+            }
+
+            buildSearchIndex() {
+                // Build search index from page content
+                const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+                const paragraphs = document.querySelectorAll('p');
+                
+                headings.forEach(heading => {
+                    if (heading.id) {
+                        this.searchIndex.push({
+                            title: heading.textContent.trim(),
+                            content: this.getHeadingContent(heading),
+                            url: window.location.pathname + '#' + heading.id,
+                            type: 'heading'
+                        });
+                    }
+                });
+
+                paragraphs.forEach(paragraph => {
+                    const text = paragraph.textContent.trim();
+                    if (text.length > 50) {
+                        this.searchIndex.push({
+                            title: text.substring(0, 60) + '...',
+                            content: text,
+                            url: window.location.pathname,
+                            type: 'content'
+                        });
+                    }
+                });
+            }
+
+            getHeadingContent(heading) {
+                let content = '';
+                let nextElement = heading.nextElementSibling;
+                let depth = parseInt(heading.tagName.charAt(1));
+                
+                while (nextElement && nextElement.tagName && 
+                       (nextElement.tagName.charAt(0) !== 'H' || 
+                        parseInt(nextElement.tagName.charAt(1)) > depth)) {
+                    content += nextElement.textContent + ' ';
+                    nextElement = nextElement.nextElementSibling;
+                }
+                
+                return content.substring(0, 200) + '...';
+            }
+
+            setupEventListeners() {
+                // Debounced search for better performance
+                const debouncedSearch = debounce((value) => {
+                    this.performSearch(value);
+                }, 150);
+
+                this.searchInput.addEventListener('input', (e) => {
+                    debouncedSearch(e.target.value);
+                });
+
+                this.searchInput.addEventListener('focus', () => {
+                    if (this.searchInput.value) {
+                        this.searchResults.classList.add('active');
+                    }
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('.search-container')) {
+                        this.searchResults.classList.remove('active');
+                    }
+                });
+
+                // Keyboard navigation for search results
+                this.searchInput.addEventListener('keydown', (e) => {
+                    const results = this.searchResults.querySelectorAll('.search-result-item');
+                    const activeResult = this.searchResults.querySelector('.search-result-item.active');
+                    
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        if (activeResult) {
+                            const next = activeResult.nextElementSibling;
+                            if (next) {
+                                activeResult.classList.remove('active');
+                                next.classList.add('active');
+                            }
+                        } else if (results.length > 0) {
+                            results[0].classList.add('active');
+                        }
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        if (activeResult) {
+                            const prev = activeResult.previousElementSibling;
+                            if (prev) {
+                                activeResult.classList.remove('active');
+                                prev.classList.add('active');
+                            }
+                        }
+                    } else if (e.key === 'Enter' && activeResult) {
+                        e.preventDefault();
+                        const href = activeResult.getAttribute('data-href');
+                        if (href) {
+                            window.location.href = href;
+                        }
+                    } else if (e.key === 'Escape') {
+                        this.searchResults.classList.remove('active');
+                        this.searchInput.blur();
+                    }
+                });
+            }
+
+            performSearch(query) {
+                if (!query.trim()) {
+                    this.searchResults.classList.remove('active');
+                    return;
+                }
+
+                const results = this.searchIndex.filter(item => 
+                    item.title.toLowerCase().includes(query.toLowerCase()) ||
+                    item.content.toLowerCase().includes(query.toLowerCase())
+                ).slice(0, 10);
+
+                this.displayResults(results);
+                this.searchResults.classList.add('active');
+            }
+
+            displayResults(results) {
+                if (results.length === 0) {
+                    this.searchResults.innerHTML = '<div class="search-no-results">No results found</div>';
+                    return;
+                }
+
+                let html = '';
+                results.forEach(result => {
+                    html += '<div class="search-result-item" data-href="' + result.url + '" onclick="window.location.href=\'' + result.url + '\'">';
+                    html += '<div class="search-result-title">' + result.title + '</div>';
+                    html += '<div class="search-result-excerpt">' + result.content + '</div>';
+                    html += '</div>';
+                });
+                this.searchResults.innerHTML = html;
+            }
+        }
+
+        // Copy to Clipboard Functionality
+        function addCopyButtons() {
+            const codeBlocks = document.querySelectorAll('pre code');
+            
+            codeBlocks.forEach(block => {
+                const pre = block.parentElement;
+                if (pre.querySelector('.copy-button')) return;
+                
+                const copyButton = document.createElement('button');
+                copyButton.className = 'copy-button';
+                copyButton.innerHTML = '<i class="fas fa-copy"></i>';
+                copyButton.title = 'Copy to clipboard';
+                
+                copyButton.addEventListener('click', async () => {
+                    try {
+                        await navigator.clipboard.writeText(block.textContent);
+                        copyButton.innerHTML = '<i class="fas fa-check"></i>';
+                        copyButton.classList.add('copied');
+                        
+                        setTimeout(() => {
+                            copyButton.innerHTML = '<i class="fas fa-copy"></i>';
+                            copyButton.classList.remove('copied');
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Failed to copy text: ', err);
+                    }
+                });
+                
+                pre.appendChild(copyButton);
+            });
+        }
+
+        // Table of Contents Generation
+        function generateTableOfContents() {
+            const tocContainer = document.getElementById('toc-list');
+            if (!tocContainer) return;
+
+            const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+            const tocItems = [];
+
+            headings.forEach(heading => {
+                if (!heading.id) {
+                    heading.id = heading.textContent.toLowerCase()
+                        .replace(/[^a-z0-9\s-]/g, '')
+                        .replace(/\s+/g, '-')
+                        .replace(/-+/g, '-')
+                        .trim();
+                }
+
+                const level = parseInt(heading.tagName.charAt(1));
+                tocItems.push({
+                    id: heading.id,
+                    text: heading.textContent.trim(),
+                    level: level
+                });
+            });
+
+            if (tocItems.length === 0) {
+                tocContainer.parentElement.style.display = 'none';
+                return;
+            }
+
+            let tocHTML = '';
+            let currentLevel = 1;
+
+            tocItems.forEach(item => {
+                if (item.level > currentLevel) {
+                    tocHTML += '<ul class="toc-list">'.repeat(item.level - currentLevel);
+                } else if (item.level < currentLevel) {
+                    tocHTML += '</ul>'.repeat(currentLevel - item.level);
+                }
+                
+                tocHTML += '<li class="toc-item">' +
+                    '<a href="#' + item.id + '" class="toc-link" data-level="' + item.level + '">' + item.text + '</a>' +
+                '</li>';
+                
+                currentLevel = item.level;
+            });
+
+            tocHTML += '</ul>'.repeat(currentLevel - 1);
+            tocContainer.innerHTML = tocHTML;
+
+            // Add scroll spy functionality
+            const tocLinks = tocContainer.querySelectorAll('.toc-link');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const id = entry.target.id;
+                    const tocLink = tocContainer.querySelector('a[href="#' + id + '"]');
+                    
+                    if (entry.isIntersecting) {
+                        tocLinks.forEach(link => link.classList.remove('active'));
+                        if (tocLink) tocLink.classList.add('active');
+                    }
+                });
+            }, { rootMargin: '-20% 0% -35% 0%' });
+
+            headings.forEach(heading => observer.observe(heading));
+        }
+
+        // Performance optimized initialization
+        let isInitialized = false;
+        
+        function initializeFeatures() {
+            if (isInitialized) return;
+            isInitialized = true;
+            
+            // Use requestIdleCallback for non-critical features
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(() => {
+                    createParticles();
+                    generateTableOfContents();
+                });
+            } else {
+                setTimeout(() => {
+            createParticles();
+                    generateTableOfContents();
+                }, 100);
+            }
+            
+            // Critical features load immediately
+            new DocumentationSearch();
+            addCopyButtons();
+        }
+
+        // Initialize on DOM ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeFeatures);
+        } else {
+            initializeFeatures();
+        }
+
+        // Lazy load images
+        function lazyLoadImages() {
+            const images = document.querySelectorAll('img[data-src]');
+            const imageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.add('loaded');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            images.forEach(img => imageObserver.observe(img));
+        }
+
+        // Initialize lazy loading
+        if ('IntersectionObserver' in window) {
+            lazyLoadImages();
+        }
+
+        // Debounced search for better performance
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Newsletter form handling
+        function initNewsletterForm() {
+            const form = document.getElementById('newsletter-form');
+            const successDiv = document.getElementById('newsletter-success');
+            
+            if (!form || !successDiv) return;
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Simulate form submission (replace with actual API call)
+                const submitButton = form.querySelector('.newsletter-submit');
+                const originalText = submitButton.innerHTML;
+                
+                // Show loading state
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+                submitButton.disabled = true;
+                
+                // Simulate API call
+                setTimeout(() => {
+                    // Hide form and show success message
+                    form.style.display = 'none';
+                    successDiv.style.display = 'block';
+                    
+                    // Reset button state
+                    submitButton.innerHTML = originalText;
+                    submitButton.disabled = false;
+                    
+                    // Scroll to success message
+                    successDiv.scrollIntoView({ behavior: 'smooth' });
+                }, 2000);
+            });
+        }
+
+        // Initialize newsletter form
+        initNewsletterForm();
+
+        // Scroll Reveal Animations
+        function initScrollReveal() {
+            const revealElements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            revealElements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        // Initialize scroll reveal
+        initScrollReveal();
+
+        // Theme Toggle Functionality
+        function initThemeToggle() {
+            const themeInput = document.getElementById('input');
+            const body = document.body;
+            
+            // Check for saved theme preference or default to dark
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            const isDark = savedTheme === 'dark';
+            
+            // Set initial state
+            themeInput.checked = isDark;
+            body.classList.toggle('light-theme', !isDark);
+            
+            themeInput.addEventListener('change', () => {
+                const isLight = !themeInput.checked;
+                body.classList.toggle('light-theme', isLight);
+                
+                // Save preference
+                localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            });
+        }
+
+        // Enhanced Loading System
+        function initEnhancedLoading() {
+            const progressBar = document.getElementById('loading-progress-bar');
+            const progressContainer = document.getElementById('loading-progress');
+            const enhancedLoader = document.getElementById('enhanced-loader');
+            
+            // Show enhanced loader initially
+            enhancedLoader.style.display = 'flex';
+            enhancedLoader.style.opacity = '1';
+            enhancedLoader.style.visibility = 'visible';
+            
+            // Fallback to hide loader after maximum time
+            const maxLoadTime = setTimeout(() => {
+                hideLoader();
+            }, 3000);
+            
+            function hideLoader() {
+                enhancedLoader.style.opacity = '0';
+                enhancedLoader.style.visibility = 'hidden';
+                
+                setTimeout(() => {
+                    progressContainer.style.opacity = '0';
+                    setTimeout(() => {
+                        progressContainer.style.display = 'none';
+                        enhancedLoader.style.display = 'none';
+                    }, 300);
+                }, 200);
+            }
+            
+            // Simulate loading progress
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 20;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    clearTimeout(maxLoadTime);
+                    
+                    // Hide enhanced loader immediately when progress reaches 100%
+                    hideLoader();
+                }
+                progressBar.style.width = progress + '%';
+            }, 80);
+            
+            // Also hide loader when page is fully loaded
+            if (document.readyState === 'complete') {
+                setTimeout(hideLoader, 500);
+            } else {
+                window.addEventListener('load', () => {
+                    setTimeout(hideLoader, 500);
+                });
+            }
+        }
+
+        // Enhanced Search with Suggestions
+        function initEnhancedSearch() {
+            const searchInput = document.getElementById('search-input');
+            const searchSuggestions = document.getElementById('search-suggestions');
+            
+            const suggestions = [
+                { text: 'API Reference', category: 'Documentation', icon: 'fas fa-code' },
+                { text: 'Authentication', category: 'API', icon: 'fas fa-key' },
+                { text: 'Discord Bot', category: 'Features', icon: 'fab fa-discord' },
+                { text: 'Kill Tracking', category: 'Features', icon: 'fas fa-crosshairs' },
+                { text: 'Rate Limits', category: 'API', icon: 'fas fa-tachometer-alt' },
+                { text: 'Webhooks', category: 'API', icon: 'fas fa-link' },
+                { text: 'Getting Started', category: 'Guide', icon: 'fas fa-rocket' },
+                { text: 'Troubleshooting', category: 'Help', icon: 'fas fa-tools' }
+            ];
+            
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                if (query.length < 2) {
+                    searchSuggestions.classList.remove('active');
+                    return;
+                }
+                
+                const filtered = suggestions.filter(s => 
+                    s.text.toLowerCase().includes(query) || 
+                    s.category.toLowerCase().includes(query)
+                );
+                
+                if (filtered.length > 0) {
+                    searchSuggestions.innerHTML = filtered.map(s => `
+                        <div class="search-suggestion-item">
+                            <i class="${s.icon} search-suggestion-icon"></i>
+                            <span class="search-suggestion-text">${s.text}</span>
+                            <span class="search-suggestion-category">${s.category}</span>
+                        </div>
+                    `).join('');
+                    searchSuggestions.classList.add('active');
+                } else {
+                    searchSuggestions.classList.remove('active');
+                }
+            });
+            
+            // Hide suggestions when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.search-container')) {
+                    searchSuggestions.classList.remove('active');
+                }
+            });
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (e.key === '/' && !e.target.matches('input, textarea')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                }
+                if (e.key === 'Escape') {
+                    searchInput.blur();
+                    searchSuggestions.classList.remove('active');
+                }
+            });
+        }
+
+        // Enhanced Copy Button
+        function initEnhancedCopyButtons() {
+            const codeBlocks = document.querySelectorAll('pre code');
+            
+            codeBlocks.forEach(block => {
+                const pre = block.parentElement;
+                if (pre.querySelector('.copy-button')) return;
+                
+                const copyButton = document.createElement('button');
+                copyButton.className = 'copy-button';
+                copyButton.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                copyButton.title = 'Copy to clipboard';
+                
+                copyButton.addEventListener('click', async () => {
+                    try {
+                        await navigator.clipboard.writeText(block.textContent);
+                        copyButton.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                        copyButton.classList.add('copied');
+                        
+                        setTimeout(() => {
+                            copyButton.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                            copyButton.classList.remove('copied');
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Failed to copy text: ', err);
+                        copyButton.innerHTML = '<i class="fas fa-times"></i> Failed';
+                        setTimeout(() => {
+                            copyButton.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                        }, 2000);
+                    }
+                });
+                
+                pre.appendChild(copyButton);
+            });
+        }
+
+        // Initialize all enhanced features
+        function initEnhancedFeatures() {
+            initThemeToggle();
+            initEnhancedLoading();
+            initEnhancedSearch();
+            initEnhancedCopyButtons();
+        }
+
+        // Search System
+        function initSearch() {
+            const searchModal = document.getElementById('search-modal');
+            const searchToggle = document.getElementById('search-toggle');
+            const searchOverlay = document.getElementById('search-overlay');
+            const searchClose = document.getElementById('search-close');
+            const searchInput = document.getElementById('search-input');
+            const searchClear = document.getElementById('search-clear');
+            const searchResults = document.getElementById('search-results');
+            const sectionFilter = document.getElementById('section-filter');
+            const typeFilter = document.getElementById('type-filter');
+            
+            let searchIndex = [
+                { title: "Home", url: "/", content: "Star Citizen Kill Tracker API documentation", section: "home", type: "overview" },
+                { title: "Getting Started", url: "/getting-started/", content: "Complete guide to getting started", section: "getting-started", type: "guide" },
+                { title: "Environment Setup", url: "/getting-started/environment.md", content: "Environment setup guide", section: "getting-started", type: "guide" },
+                { title: "Usage Guides", url: "/usage/", content: "Complete usage guides", section: "usage", type: "guide" },
+                { title: "Discord Commands", url: "/usage/discord-commands.md", content: "Discord bot command reference", section: "usage", type: "reference" },
+                { title: "Dashboard Usage", url: "/usage/dashboard.md", content: "Web dashboard usage guide", section: "usage", type: "guide" },
+                { title: "API Reference", url: "/api/", content: "Complete API documentation", section: "api", type: "reference" },
+                { title: "API Documentation", url: "/api/README.md", content: "Detailed API documentation", section: "api", type: "reference" },
+                { title: "Integration Guides", url: "/developers/", content: "Developer integration guides", section: "developers", type: "guide" },
+                { title: "Technical Documentation", url: "/technical/", content: "Technical implementation details", section: "technical", type: "reference" },
+                { title: "Advanced Features", url: "/advanced/", content: "Advanced features and configuration", section: "advanced", type: "guide" },
+                { title: "Help & Support", url: "/help/", content: "Help and support resources", section: "help", type: "guide" },
+                { title: "FAQ", url: "/help/faq.md", content: "Frequently asked questions", section: "help", type: "reference" },
+                { title: "Status", url: "/status/", content: "System status and monitoring", section: "status", type: "reference" }
+            ];
+            
+            let currentResults = [];
+            let selectedIndex = -1;
+            
+            // Open search modal
+            function openSearch() {
+                searchModal.style.display = 'flex';
+                setTimeout(() => {
+                    searchModal.classList.add('active');
+                    searchInput.focus();
+                }, 10);
+            }
+            
+            // Close search modal
+            function closeSearch() {
+                searchModal.classList.remove('active');
+                setTimeout(() => {
+                    searchModal.style.display = 'none';
+                    searchInput.value = '';
+                    searchResults.innerHTML = '<div class="search-placeholder"><i class="fas fa-search"></i><p>Start typing to search documentation...</p></div>';
+                    selectedIndex = -1;
+                }, 300);
+            }
+            
+            // Perform search
+            function performSearch(query) {
+                if (!query.trim()) {
+                    searchResults.innerHTML = '<div class="search-placeholder"><i class="fas fa-search"></i><p>Start typing to search documentation...</p></div>';
+                    return;
+                }
+                
+                const sectionFilterValue = sectionFilter.value;
+                const typeFilterValue = typeFilter.value;
+                
+                currentResults = searchIndex.filter(page => {
+                    const matchesQuery = page.title.toLowerCase().includes(query.toLowerCase()) ||
+                                       page.content.toLowerCase().includes(query.toLowerCase());
+                    const matchesSection = !sectionFilterValue || page.section === sectionFilterValue;
+                    const matchesType = !typeFilterValue || page.type === typeFilterValue;
+                    
+                    return matchesQuery && matchesSection && matchesType;
+                });
+                
+                displayResults(currentResults);
+            }
+            
+            // Display search results
+            function displayResults(results) {
+                if (results.length === 0) {
+                    searchResults.innerHTML = '<div class="search-no-results"><i class="fas fa-search"></i><p>No results found</p></div>';
+                    return;
+                }
+                
+                const resultsHTML = results.map((result, index) => `
+                    <div class="search-result ${index === selectedIndex ? 'selected' : ''}" data-index="${index}">
+                        <div class="result-title">${result.title}</div>
+                        <div class="result-content">${result.content}</div>
+                        <div class="result-meta">
+                            <span class="result-section">${result.section}</span>
+                            <span class="result-type">${result.type}</span>
+                        </div>
+                    </div>
+                `).join('');
+                
+                searchResults.innerHTML = resultsHTML;
+            }
+            
+            // Event listeners
+            searchToggle.addEventListener('click', openSearch);
+            searchOverlay.addEventListener('click', closeSearch);
+            searchClose.addEventListener('click', closeSearch);
+            searchClear.addEventListener('click', () => {
+                searchInput.value = '';
+                searchInput.focus();
+                performSearch('');
+            });
+            
+            searchInput.addEventListener('input', (e) => {
+                performSearch(e.target.value);
+                searchClear.style.display = e.target.value ? 'block' : 'none';
+            });
+            
+            sectionFilter.addEventListener('change', () => {
+                performSearch(searchInput.value);
+            });
+            
+            typeFilter.addEventListener('change', () => {
+                performSearch(searchInput.value);
+            });
+            
+            // Keyboard navigation
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeSearch();
+                } else if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    selectedIndex = Math.min(selectedIndex + 1, currentResults.length - 1);
+                    displayResults(currentResults);
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    selectedIndex = Math.max(selectedIndex - 1, -1);
+                    displayResults(currentResults);
+                } else if (e.key === 'Enter' && selectedIndex >= 0) {
+                    e.preventDefault();
+                    const selectedResult = currentResults[selectedIndex];
+                    window.location.href = selectedResult.url;
+                }
+            });
+            
+            // Global keyboard shortcut
+            document.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    e.preventDefault();
+                    openSearch();
+                }
+            });
+        }
+
+        // Enhanced Mobile Experience
+        function initMobileEnhancements() {
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            
+            if (mobileMenuToggle && navMenu) {
+                // Enhanced mobile menu toggle
+                mobileMenuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    navMenu.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                    document.body.classList.toggle('menu-open');
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!navMenu.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                        document.body.classList.remove('menu-open');
+                    }
+                });
+                
+                // Close menu on escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                        document.body.classList.remove('menu-open');
+                    }
+                });
+            }
+            
+            // Touch gestures
+            let touchStartY = 0;
+            let touchEndY = 0;
+            
+            document.addEventListener('touchstart', function(e) {
+                touchStartY = e.changedTouches[0].screenY;
+            });
+            
+            document.addEventListener('touchend', function(e) {
+                touchEndY = e.changedTouches[0].screenY;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = touchStartY - touchEndY;
+                
+                // Swipe up to close mobile menu
+                if (diff > swipeThreshold && navMenu && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    if (mobileMenuToggle) mobileMenuToggle.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                }
+            }
+            
+            // Add mobile-specific enhancements
+            if (window.innerWidth <= 768) {
+                // Increase touch targets
+                const buttons = document.querySelectorAll('button, .btn, .nav-link');
+                buttons.forEach(button => {
+                    button.style.minHeight = '44px';
+                    button.style.minWidth = '44px';
+                });
+                
+                // Add haptic feedback for supported devices
+                const addHapticFeedback = (element) => {
+                    element.addEventListener('touchstart', function() {
+                        if (navigator.vibrate) {
+                            navigator.vibrate(10);
+                        }
+                    });
+                };
+                
+                document.querySelectorAll('button, .btn, .nav-link').forEach(addHapticFeedback);
+            }
+        }
+
+        // Advanced Theme System
+        function initThemeSystem() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeSelector = document.getElementById('theme-selector');
+            const themeOverlay = document.getElementById('theme-overlay');
+            const themeClose = document.getElementById('theme-close');
+            const themeOptions = document.querySelectorAll('.theme-option');
+            const autoThemeCheckbox = document.getElementById('auto-theme');
+            const smoothTransitionsCheckbox = document.getElementById('smooth-transitions');
+            
+            // Available themes
+            const themes = {
+                'dark': {
+                    name: 'Dark Mode',
+                    colors: {
+                        '--bg-primary': '#0a0a0a',
+                        '--bg-secondary': '#1a1a1a',
+                        '--card-bg': '#2a2a2a',
+                        '--text-primary': '#ffffff',
+                        '--text-secondary': '#cccccc',
+                        '--border-color': '#404040',
+                        '--accent-bg': 'rgba(220, 38, 38, 0.1)',
+                        '--primary-red': '#dc2626'
+                    }
+                },
+                'light': {
+                    name: 'Light Mode',
+                    colors: {
+                        '--bg-primary': '#ffffff',
+                        '--bg-secondary': '#f8f9fa',
+                        '--card-bg': '#ffffff',
+                        '--text-primary': '#1a1a1a',
+                        '--text-secondary': '#666666',
+                        '--border-color': '#e0e0e0',
+                        '--accent-bg': 'rgba(220, 38, 38, 0.05)',
+                        '--primary-red': '#dc2626'
+                    }
+                },
+                'star-citizen': {
+                    name: 'Star Citizen',
+                    colors: {
+                        '--bg-primary': '#0a0f1a',
+                        '--bg-secondary': '#1a2332',
+                        '--card-bg': '#2a3441',
+                        '--text-primary': '#e8f4fd',
+                        '--text-secondary': '#b8d4f0',
+                        '--border-color': '#4a5a6b',
+                        '--accent-bg': 'rgba(0, 150, 255, 0.1)',
+                        '--primary-red': '#0096ff'
+                    }
+                },
+                'high-contrast': {
+                    name: 'High Contrast',
+                    colors: {
+                        '--bg-primary': '#000000',
+                        '--bg-secondary': '#1a1a1a',
+                        '--card-bg': '#2a2a2a',
+                        '--text-primary': '#ffffff',
+                        '--text-secondary': '#ffffff',
+                        '--border-color': '#ffffff',
+                        '--accent-bg': 'rgba(255, 255, 255, 0.2)',
+                        '--primary-red': '#ff0000'
+                    }
+                },
+                'cyberpunk': {
+                    name: 'Cyberpunk',
+                    colors: {
+                        '--bg-primary': '#0a0a0a',
+                        '--bg-secondary': '#1a0a1a',
+                        '--card-bg': '#2a1a2a',
+                        '--text-primary': '#ff00ff',
+                        '--text-secondary': '#ff88ff',
+                        '--border-color': '#ff00ff',
+                        '--accent-bg': 'rgba(255, 0, 255, 0.1)',
+                        '--primary-red': '#ff00ff'
+                    }
+                },
+                'minimal': {
+                    name: 'Minimal',
+                    colors: {
+                        '--bg-primary': '#fafafa',
+                        '--bg-secondary': '#ffffff',
+                        '--card-bg': '#ffffff',
+                        '--text-primary': '#333333',
+                        '--text-secondary': '#666666',
+                        '--border-color': '#e0e0e0',
+                        '--accent-bg': 'rgba(0, 0, 0, 0.05)',
+                        '--primary-red': '#333333'
+                    }
+                }
+            };
+            
+            // Load saved theme
+            function loadTheme() {
+                const savedTheme = localStorage.getItem('selectedTheme') || 'dark';
+                const autoTheme = localStorage.getItem('autoTheme') === 'true';
+                const smoothTransitions = localStorage.getItem('smoothTransitions') !== 'false';
+                
+                if (autoTheme && window.matchMedia) {
+                    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    applyTheme(prefersDark ? 'dark' : 'light', smoothTransitions);
+                } else {
+                    applyTheme(savedTheme, smoothTransitions);
+                }
+                
+                // Update UI
+                autoThemeCheckbox.checked = autoTheme;
+                smoothTransitionsCheckbox.checked = smoothTransitions;
+                updateThemeSelection(savedTheme);
+            }
+            
+            // Apply theme
+            function applyTheme(themeName, smooth = true) {
+                const theme = themes[themeName];
+                if (!theme) return;
+                
+                const root = document.documentElement;
+                const transition = smooth ? 'all 0.3s ease' : 'none';
+                
+                root.style.transition = transition;
+                
+                Object.entries(theme.colors).forEach(([property, value]) => {
+                    root.style.setProperty(property, value);
+                });
+                
+                // Update theme indicator
+                const themeIndicator = document.querySelector('.theme-indicator');
+                if (themeIndicator) {
+                    themeIndicator.textContent = theme.name;
+                }
+            }
+            
+            // Update theme selection UI
+            function updateThemeSelection(themeName) {
+                themeOptions.forEach(option => {
+                    option.classList.remove('selected');
+                    if (option.dataset.theme === themeName) {
+                        option.classList.add('selected');
+                    }
+                });
+            }
+            
+            // Open theme selector
+            function openThemeSelector() {
+                themeSelector.style.display = 'flex';
+                setTimeout(() => {
+                    themeSelector.classList.add('active');
+                }, 10);
+            }
+            
+            // Close theme selector
+            function closeThemeSelector() {
+                themeSelector.classList.remove('active');
+                setTimeout(() => {
+                    themeSelector.style.display = 'none';
+                }, 300);
+            }
+            
+            // Event listeners
+            themeToggle.addEventListener('click', openThemeSelector);
+            themeOverlay.addEventListener('click', closeThemeSelector);
+            themeClose.addEventListener('click', closeThemeSelector);
+            
+            // Theme option selection
+            themeOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const themeName = option.dataset.theme;
+                    const smooth = smoothTransitionsCheckbox.checked;
+                    
+                    applyTheme(themeName, smooth);
+                    updateThemeSelection(themeName);
+                    localStorage.setItem('selectedTheme', themeName);
+                    
+                    // Close selector after selection
+                    setTimeout(closeThemeSelector, 500);
+                });
+            });
+            
+            // Auto theme toggle
+            autoThemeCheckbox.addEventListener('change', (e) => {
+                localStorage.setItem('autoTheme', e.target.checked);
+                if (e.target.checked) {
+                    loadTheme();
+                }
+            });
+            
+            // Smooth transitions toggle
+            smoothTransitionsCheckbox.addEventListener('change', (e) => {
+                localStorage.setItem('smoothTransitions', e.target.checked);
+            });
+            
+            // System theme change detection
+            if (window.matchMedia) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                    if (autoThemeCheckbox.checked) {
+                        const smooth = smoothTransitionsCheckbox.checked;
+                        applyTheme(e.matches ? 'dark' : 'light', smooth);
+                    }
+                });
+            }
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.shiftKey && e.key === 'T') {
+                    e.preventDefault();
+                    openThemeSelector();
+                }
+            });
+            
+            // Initialize
+            loadTheme();
+        }
+
+        // Development Warning System
+        function initDevWarning() {
+            const devWarning = document.getElementById('dev-warning');
+            const dismissButton = document.getElementById('warning-dismiss');
+            
+            // Check if warning was previously dismissed
+            const warningDismissed = localStorage.getItem('devWarningDismissed');
+            const warningVersion = localStorage.getItem('devWarningVersion');
+            const currentVersion = '1.0'; // Update this when you want to show the warning again
+            
+            if (warningDismissed && warningVersion === currentVersion) {
+                devWarning.style.display = 'none';
+                return;
+            }
+            
+            // Show warning with animation
+            setTimeout(() => {
+                devWarning.style.display = 'block';
+                setTimeout(() => {
+                    devWarning.classList.add('show');
+                }, 100);
+            }, 1000); // Show after 1 second delay
+            
+            // Dismiss functionality
+            dismissButton.addEventListener('click', () => {
+                devWarning.classList.remove('show');
+                setTimeout(() => {
+                    devWarning.style.display = 'none';
+                    localStorage.setItem('devWarningDismissed', 'true');
+                    localStorage.setItem('devWarningVersion', currentVersion);
+                }, 300);
+            });
+            
+            // Auto-hide after 30 seconds (optional)
+            setTimeout(() => {
+                if (devWarning.classList.contains('show')) {
+                    devWarning.classList.remove('show');
+                    setTimeout(() => {
+                        devWarning.style.display = 'none';
+                    }, 300);
+                }
+            }, 30000);
+        }
+
+        // Interactive Tutorial System
+        function initInteractiveTutorials() {
+            const tutorialContainer = document.getElementById('tutorial-container');
+            const tutorialOverlay = document.getElementById('tutorial-overlay');
+            const tutorialClose = document.getElementById('tutorial-close');
+            const tutorialPrev = document.getElementById('tutorial-prev');
+            const tutorialNext = document.getElementById('tutorial-next');
+            const tutorialSkip = document.getElementById('tutorial-skip');
+            const tutorialComplete = document.getElementById('tutorial-complete');
+            const tutorialStep = document.getElementById('tutorial-step');
+            const progressFill = document.getElementById('tutorial-progress-fill');
+            const progressText = document.getElementById('tutorial-progress-text');
+            
+            let currentTutorial = null;
+            let currentStepIndex = 0;
+            let tutorialData = null;
+            
+            // Tutorial data (in a real implementation, this would come from the YAML file)
+            const tutorials = {
+                'getting-started': {
+                    title: "Getting Started with Kill Tracker API",
+                    description: "Learn the basics of setting up and using the Kill Tracker API",
+                    estimated_time: "5 minutes",
+                    steps: [
+                        {
+                            id: "welcome",
+                            title: "Welcome to Kill Tracker API",
+                            content: `
+                                <div class="tutorial-step-content">
+                                    <h3>Welcome to the Kill Tracker API</h3>
+                                    <p>This tutorial will guide you through setting up and using the Kill Tracker API for Star Citizen.</p>
+                                    <div class="tutorial-highlight">
+                                        <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <path d="m9,12 3,3 3-3"></path>
+                                            <line x1="12" x2="12" y1="8" y2="12"></line>
+                                        </svg>
+                                        <p>By the end of this tutorial, you'll be able to track kills, view statistics, and integrate with Discord!</p>
+                                    </div>
+                                </div>
+                            `,
+                            type: "welcome"
+                        },
+                        {
+                            id: "api-key",
+                            title: "Get Your API Key",
+                            content: `
+                                <div class="tutorial-step-content">
+                                    <h3>Step 1: Get Your API Key</h3>
+                                    <p>First, you'll need to obtain an API key to access the Kill Tracker API.</p>
+                                    <div class="tutorial-action">
+                                        <button class="tutorial-action-btn" onclick="window.open('/api/', '_blank')">
+                                            <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <circle cx="7.5" cy="15.5" r="5.5"></circle>
+                                                <path d="m21 2-9.6 9.6"></path>
+                                                <path d="m15.5 7.5 3 3L22 7l-3-3"></path>
+                                            </svg> Get API Key
+                                        </button>
+                                    </div>
+                                    <div class="tutorial-tip">
+                                        <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1z"></path>
+                                            <path d="M12 2C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"></path>
+                                        </svg>
+                                        <p>Your API key is unique to your account and should be kept secure!</p>
+                                    </div>
+                                </div>
+                            `,
+                            type: "action"
+                        },
+                        {
+                            id: "first-request",
+                            title: "Make Your First Request",
+                            content: `
+                                <div class="tutorial-step-content">
+                                    <h3>Step 2: Make Your First API Request</h3>
+                                    <p>Let's test your API key by making a simple request to get your profile information.</p>
+                                    <div class="tutorial-code">
+                                        <div class="code-header">
+                                            <span class="language-badge">cURL</span>
+                                            <button class="copy-button" onclick="copyToClipboard('curl-example')">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                        </div>
+                                        <pre><code id="curl-example">curl -X GET "https://api.millsydev.com/v1/profile" \\
+  -H "Authorization: Bearer YOUR_API_KEY" \\
+  -H "Content-Type: application/json"</code></pre>
+                                    </div>
+                                    <div class="tutorial-check">
+                                        <label class="tutorial-checkbox">
+                                            <input type="checkbox" id="request-made">
+                                            <span class="checkmark"></span>
+                                            I've made my first API request
+                                        </label>
+                                    </div>
+                                </div>
+                            `,
+                            type: "code"
+                        },
+                        {
+                            id: "discord-setup",
+                            title: "Set Up Discord Integration",
+                            content: `
+                                <div class="tutorial-step-content">
+                                    <h3>Step 3: Discord Bot Integration</h3>
+                                    <p>Connect your Discord server to receive kill notifications and use bot commands.</p>
+                                    <div class="tutorial-steps">
+                                        <div class="step-item">
+                                            <div class="step-number">1</div>
+                                            <div class="step-content">
+                                                <h4>Invite the Bot</h4>
+                                                <p>Add the Kill Tracker bot to your Discord server</p>
+                                            </div>
+                                        </div>
+                                        <div class="step-item">
+                                            <div class="step-number">2</div>
+                                            <div class="step-content">
+                                                <h4>Configure Settings</h4>
+                                                <p>Set up your kill tracking preferences</p>
+                                            </div>
+                                        </div>
+                                        <div class="step-item">
+                                            <div class="step-number">3</div>
+                                            <div class="step-content">
+                                                <h4>Test Commands</h4>
+                                                <p>Try <code>/help</code> and <code>/stats</code> commands</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tutorial-action">
+                                        <button class="tutorial-action-btn" onclick="window.open('/developers/', '_blank')">
+                                            <i class="fas fa-robot"></i> Discord Setup Guide
+                                        </button>
+                                    </div>
+                                </div>
+                            `,
+                            type: "steps"
+                        },
+                        {
+                            id: "complete",
+                            title: "Tutorial Complete!",
+                            content: `
+                                <div class="tutorial-step-content tutorial-complete">
+                                    <div class="completion-icon">
+                                        <svg class="icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                                            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                                            <path d="M4 22h16"></path>
+                                            <path d="M10 14.66V17c0 .55.47.98.97 1.21l1 .42c.17.07.34.1.51.1.17 0 .34-.03.51-.1l1-.42c.5-.23.97-.66.97-1.21v-2.34"></path>
+                                            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+                                        </svg>
+                                    </div>
+                                    <h3>Congratulations!</h3>
+                                    <p>You've successfully completed the Kill Tracker API tutorial!</p>
+                                    <div class="completion-summary">
+                                        <h4>What you've learned:</h4>
+                                        <ul>
+                                            <li>How to get and use your API key</li>
+                                            <li>Making your first API request</li>
+                                            <li>Setting up Discord integration</li>
+                                            <li>Using the web dashboard</li>
+                                        </ul>
+                                    </div>
+                                    <div class="tutorial-next-steps">
+                                        <h4>Next Steps:</h4>
+                                        <div class="next-step-buttons">
+                                            <a href="/api/" class="tutorial-action-btn">
+                                                <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                                                </svg> Read Full API Docs
+                                            </a>
+                                            <a href="/help/faq.md" class="tutorial-action-btn">
+                                                <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <circle cx="12" cy="12" r="10"></circle>
+                                                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                                    <line x1="12" x2="12.01" y1="17" y2="17"></line>
+                                                </svg> Check FAQ
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            `,
+                            type: "complete"
+                        }
+                    ]
+                }
+            };
+            
+            // Start tutorial
+            function startTutorial(tutorialId) {
+                currentTutorial = tutorialId;
+                currentStepIndex = 0;
+                tutorialData = tutorials[tutorialId];
+                
+                if (!tutorialData) return;
+                
+                showTutorial();
+                updateStep();
+            }
+            
+            // Show tutorial modal
+            function showTutorial() {
+                tutorialContainer.style.display = 'block';
+                tutorialOverlay.style.display = 'block';
+                setTimeout(() => {
+                    tutorialContainer.classList.add('active');
+                    tutorialOverlay.classList.add('active');
+                }, 10);
+            }
+            
+            // Hide tutorial modal
+            function hideTutorial() {
+                tutorialContainer.classList.remove('active');
+                tutorialOverlay.classList.remove('active');
+                setTimeout(() => {
+                    tutorialContainer.style.display = 'none';
+                    tutorialOverlay.style.display = 'none';
+                }, 300);
+            }
+            
+            // Update current step
+            function updateStep() {
+                if (!tutorialData || !tutorialData.steps[currentStepIndex]) return;
+                
+                const step = tutorialData.steps[currentStepIndex];
+                tutorialStep.innerHTML = step.content;
+                
+                // Update progress
+                const progress = ((currentStepIndex + 1) / tutorialData.steps.length) * 100;
+                progressFill.style.width = progress + '%';
+                progressText.textContent = `Step ${currentStepIndex + 1} of ${tutorialData.steps.length}`;
+                
+                // Update navigation buttons
+                tutorialPrev.disabled = currentStepIndex === 0;
+                
+                if (currentStepIndex === tutorialData.steps.length - 1) {
+                    tutorialNext.style.display = 'none';
+                    tutorialComplete.style.display = 'inline-flex';
+                } else {
+                    tutorialNext.style.display = 'inline-flex';
+                    tutorialComplete.style.display = 'none';
+                }
+                
+                // Save progress
+                localStorage.setItem(`tutorial_${currentTutorial}_progress`, currentStepIndex);
+            }
+            
+            // Next step
+            function nextStep() {
+                if (currentStepIndex < tutorialData.steps.length - 1) {
+                    currentStepIndex++;
+                    updateStep();
+                }
+            }
+            
+            // Previous step
+            function prevStep() {
+                if (currentStepIndex > 0) {
+                    currentStepIndex--;
+                    updateStep();
+                }
+            }
+            
+            // Complete tutorial
+            function completeTutorial() {
+                localStorage.setItem(`tutorial_${currentTutorial}_completed`, 'true');
+                hideTutorial();
+                
+                // Show completion notification
+                showNotification('Tutorial completed! 🎉', 'success');
+            }
+            
+            // Skip tutorial
+            function skipTutorial() {
+                hideTutorial();
+                showNotification('Tutorial skipped', 'info');
+            }
+            
+            // Event listeners
+            tutorialClose.addEventListener('click', hideTutorial);
+            tutorialOverlay.addEventListener('click', hideTutorial);
+            tutorialPrev.addEventListener('click', prevStep);
+            tutorialNext.addEventListener('click', nextStep);
+            tutorialSkip.addEventListener('click', skipTutorial);
+            tutorialComplete.addEventListener('click', completeTutorial);
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (tutorialContainer.classList.contains('active')) {
+                    if (e.key === 'Escape') {
+                        hideTutorial();
+                    } else if (e.key === 'ArrowLeft' && !tutorialPrev.disabled) {
+                        prevStep();
+                    } else if (e.key === 'ArrowRight' && !tutorialNext.disabled) {
+                        nextStep();
+                    }
+                }
+            });
+            
+            // Global function to start tutorials
+            window.startTutorial = startTutorial;
+            
+            // Auto-start tutorial for new users
+            const hasSeenTutorial = localStorage.getItem('tutorial_getting-started_completed');
+            if (!hasSeenTutorial && window.location.pathname === '/') {
+                setTimeout(() => {
+                    startTutorial('getting-started');
+                }, 3000);
+            }
+        }
+
+        // Translation System
+        class TranslationSystem {
+            constructor() {
+                this.currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
+                this.translations = {};
+                this.autoDetect = localStorage.getItem('autoDetectLanguage') === 'true';
+                this.init();
+            }
+
+            async init() {
+                await this.loadTranslations();
+                this.setupLanguageSwitcher();
+                this.setupAutoDetect();
+                this.applyLanguage(this.currentLanguage);
+            }
+
+            async loadTranslations() {
+                try {
+                    // In a real implementation, you would load from _data/translations.yml
+                    // For now, we'll use the translations we defined
+                    this.translations = {
+                        en: {
+                            nav_home: "Home",
+                            nav_get_started: "Get Started",
+                            nav_usage: "Usage",
+                            nav_api_reference: "API Reference",
+                            nav_integration: "Integration",
+                            nav_technical: "Technical",
+                            nav_advanced: "Advanced",
+                            nav_help: "Help",
+                            nav_status: "Status",
+                            search_placeholder: "Search documentation...",
+                            search_toggle: "Search Documentation",
+                            theme_toggle: "Change Theme",
+                            language_switcher: "Change Language",
+                            dev_warning_title: "Documentation Under Development",
+                            dev_warning_message: "These docs are actively being updated as we approach the Kill Tracker API launch. Content may change frequently. Check back regularly for the latest information!",
+                            dismiss_warning: "Dismiss warning",
+                            tutorial_start: "Start Interactive Tutorial",
+                            tutorial_description: "Take a guided tour through the Kill Tracker API setup process"
+                        },
+                        es: {
+                            nav_home: "Inicio",
+                            nav_get_started: "Comenzar",
+                            nav_usage: "Uso",
+                            nav_api_reference: "Referencia API",
+                            nav_integration: "Integración",
+                            nav_technical: "Técnico",
+                            nav_advanced: "Avanzado",
+                            nav_help: "Ayuda",
+                            nav_status: "Estado",
+                            search_placeholder: "Buscar documentación...",
+                            search_toggle: "Buscar Documentación",
+                            theme_toggle: "Cambiar Tema",
+                            language_switcher: "Cambiar Idioma",
+                            dev_warning_title: "Documentación en Desarrollo",
+                            dev_warning_message: "Esta documentación se está actualizando activamente mientras nos acercamos al lanzamiento de la API Kill Tracker. El contenido puede cambiar frecuentemente. ¡Vuelve regularmente para obtener la información más reciente!",
+                            dismiss_warning: "Descartar advertencia",
+                            tutorial_start: "Iniciar Tutorial Interactivo",
+                            tutorial_description: "Toma un tour guiado a través del proceso de configuración de la API Kill Tracker"
+                        },
+                        fr: {
+                            nav_home: "Accueil",
+                            nav_get_started: "Commencer",
+                            nav_usage: "Utilisation",
+                            nav_api_reference: "Référence API",
+                            nav_integration: "Intégration",
+                            nav_technical: "Technique",
+                            nav_advanced: "Avancé",
+                            nav_help: "Aide",
+                            nav_status: "Statut",
+                            search_placeholder: "Rechercher dans la documentation...",
+                            search_toggle: "Rechercher Documentation",
+                            theme_toggle: "Changer le Thème",
+                            language_switcher: "Changer la Langue",
+                            dev_warning_title: "Documentation en Développement",
+                            dev_warning_message: "Cette documentation est activement mise à jour à l'approche du lancement de l'API Kill Tracker. Le contenu peut changer fréquemment. Revenez régulièrement pour les dernières informations!",
+                            dismiss_warning: "Ignorer l'avertissement",
+                            tutorial_start: "Démarrer le Tutoriel Interactif",
+                            tutorial_description: "Suivez une visite guidée du processus de configuration de l'API Kill Tracker"
+                        },
+                        de: {
+                            nav_home: "Startseite",
+                            nav_get_started: "Erste Schritte",
+                            nav_usage: "Verwendung",
+                            nav_api_reference: "API-Referenz",
+                            nav_integration: "Integration",
+                            nav_technical: "Technisch",
+                            nav_advanced: "Erweitert",
+                            nav_help: "Hilfe",
+                            nav_status: "Status",
+                            search_placeholder: "Dokumentation durchsuchen...",
+                            search_toggle: "Dokumentation Durchsuchen",
+                            theme_toggle: "Design Ändern",
+                            language_switcher: "Sprache Ändern",
+                            dev_warning_title: "Dokumentation in Entwicklung",
+                            dev_warning_message: "Diese Dokumentation wird aktiv aktualisiert, während wir uns dem Launch der Kill Tracker API nähern. Der Inhalt kann sich häufig ändern. Schauen Sie regelmäßig vorbei für die neuesten Informationen!",
+                            dismiss_warning: "Warnung verwerfen",
+                            tutorial_start: "Interaktives Tutorial Starten",
+                            tutorial_description: "Nehmen Sie an einer geführten Tour durch den Kill Tracker API-Setup-Prozess teil"
+                        },
+                        ja: {
+                            nav_home: "ホーム",
+                            nav_get_started: "はじめに",
+                            nav_usage: "使用方法",
+                            nav_api_reference: "APIリファレンス",
+                            nav_integration: "統合",
+                            nav_technical: "技術",
+                            nav_advanced: "高度",
+                            nav_help: "ヘルプ",
+                            nav_status: "ステータス",
+                            search_placeholder: "ドキュメントを検索...",
+                            search_toggle: "ドキュメント検索",
+                            theme_toggle: "テーマ変更",
+                            language_switcher: "言語変更",
+                            dev_warning_title: "開発中のドキュメント",
+                            dev_warning_message: "Kill Tracker APIのローンチに近づくにつれて、このドキュメントは積極的に更新されています。コンテンツは頻繁に変更される可能性があります。最新情報については定期的に確認してください！",
+                            dismiss_warning: "警告を閉じる",
+                            tutorial_start: "インタラクティブチュートリアルを開始",
+                            tutorial_description: "Kill Tracker APIセットアッププロセスのガイドツアーに参加"
+                        }
+                    };
+                } catch (error) {
+                    console.error('Failed to load translations:', error);
+                }
+            }
+
+            setupLanguageSwitcher() {
+                const languageToggle = document.getElementById('language-toggle');
+                const languageDropdown = document.getElementById('language-dropdown');
+                const languageOptions = document.querySelectorAll('.language-option');
+                const currentLanguageSpan = document.getElementById('current-language');
+
+                if (!languageToggle || !languageDropdown) return;
+
+                // Toggle dropdown
+                languageToggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    languageDropdown.classList.toggle('show');
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!languageToggle.contains(e.target) && !languageDropdown.contains(e.target)) {
+                        languageDropdown.classList.remove('show');
+                    }
+                });
+
+                // Handle language selection
+                languageOptions.forEach(option => {
+                    option.addEventListener('click', () => {
+                        const selectedLang = option.dataset.lang;
+                        this.applyLanguage(selectedLang);
+                        languageDropdown.classList.remove('show');
+                    });
+                });
+
+                // Update current language display
+                this.updateCurrentLanguageDisplay();
+            }
+
+            setupAutoDetect() {
+                const autoButton = document.getElementById('language-auto');
+                if (!autoButton) return;
+
+                autoButton.addEventListener('click', () => {
+                    const detectedLang = this.detectLanguage();
+                    this.applyLanguage(detectedLang);
+                    this.autoDetect = true;
+                    localStorage.setItem('autoDetectLanguage', 'true');
+                });
+            }
+
+            detectLanguage() {
+                // Try to detect language from browser
+                const browserLang = navigator.language || navigator.userLanguage;
+                const langCode = browserLang.split('-')[0].toLowerCase();
+                
+                // Check if we support this language
+                if (this.translations[langCode]) {
+                    return langCode;
+                }
+                
+                // Fallback to English
+                return 'en';
+            }
+
+            applyLanguage(langCode) {
+                if (!this.translations[langCode]) {
+                    console.warn(`Language ${langCode} not supported`);
+                    return;
+                }
+
+                this.currentLanguage = langCode;
+                localStorage.setItem('selectedLanguage', langCode);
+                
+                // Add loading state
+                document.body.classList.add('translating');
+                
+                // Update all translatable elements
+                this.updateTranslatableElements();
+                
+                // Update language switcher
+                this.updateLanguageSwitcher(langCode);
+                
+                // Update document language
+                document.documentElement.lang = langCode;
+                document.documentElement.setAttribute('data-lang', langCode);
+                
+                // Remove loading state
+                setTimeout(() => {
+                    document.body.classList.remove('translating');
+                }, 300);
+            }
+
+            updateTranslatableElements() {
+                const translations = this.translations[this.currentLanguage];
+                
+                // Update navigation
+                this.updateElementText('[data-translate="nav_home"]', translations.nav_home);
+                this.updateElementText('[data-translate="nav_get_started"]', translations.nav_get_started);
+                this.updateElementText('[data-translate="nav_usage"]', translations.nav_usage);
+                this.updateElementText('[data-translate="nav_api_reference"]', translations.nav_api_reference);
+                this.updateElementText('[data-translate="nav_integration"]', translations.nav_integration);
+                this.updateElementText('[data-translate="nav_technical"]', translations.nav_technical);
+                this.updateElementText('[data-translate="nav_advanced"]', translations.nav_advanced);
+                this.updateElementText('[data-translate="nav_help"]', translations.nav_help);
+                this.updateElementText('[data-translate="nav_status"]', translations.nav_status);
+                
+                // Update search
+                this.updateElementPlaceholder('#search-input', translations.search_placeholder);
+                this.updateElementTitle('#search-toggle', translations.search_toggle);
+                
+                // Update theme toggle
+                this.updateElementTitle('#theme-toggle', translations.theme_toggle);
+                
+                // Update language switcher
+                this.updateElementTitle('#language-toggle', translations.language_switcher);
+                
+                // Update development warning
+                this.updateElementText('[data-translate="dev_warning_title"]', translations.dev_warning_title);
+                this.updateElementText('[data-translate="dev_warning_message"]', translations.dev_warning_message);
+                this.updateElementTitle('#warning-dismiss', translations.dismiss_warning);
+                
+                // Update tutorial
+                this.updateElementText('[data-translate="tutorial_start"]', translations.tutorial_start);
+                this.updateElementText('[data-translate="tutorial_description"]', translations.tutorial_description);
+            }
+
+            updateElementText(selector, text) {
+                const element = document.querySelector(selector);
+                if (element && text) {
+                    element.textContent = text;
+                }
+            }
+
+            updateElementPlaceholder(selector, text) {
+                const element = document.querySelector(selector);
+                if (element && text) {
+                    element.placeholder = text;
+                }
+            }
+
+            updateElementTitle(selector, text) {
+                const element = document.querySelector(selector);
+                if (element && text) {
+                    element.title = text;
+                }
+            }
+
+            updateLanguageSwitcher(langCode) {
+                // Update active language option
+                document.querySelectorAll('.language-option').forEach(option => {
+                    option.classList.remove('active');
+                    if (option.dataset.lang === langCode) {
+                        option.classList.add('active');
+                    }
+                });
+                
+                // Update current language display
+                this.updateCurrentLanguageDisplay();
+            }
+
+            updateCurrentLanguageDisplay() {
+                const currentLanguageSpan = document.getElementById('current-language');
+                if (currentLanguageSpan) {
+                    currentLanguageSpan.textContent = this.currentLanguage.toUpperCase();
+                }
+            }
+        }
+
+        // Initialize translation system
+        function initTranslationSystem() {
+            new TranslationSystem();
+        }
+
+        // Accessibility System
+        class AccessibilitySystem {
+            constructor() {
+                this.settings = {
+                    highContrast: false,
+                    enhancedFocus: false,
+                    reducedMotion: false,
+                    readingMode: false,
+                    textSize: 'normal'
+                };
+                this.init();
+            }
+
+            init() {
+                this.loadSettings();
+                this.setupAccessibilityToolbar();
+                this.setupKeyboardNavigation();
+                this.setupScreenReader();
+                this.applySettings();
+            }
+
+            loadSettings() {
+                const saved = localStorage.getItem('accessibilitySettings');
+                if (saved) {
+                    this.settings = { ...this.settings, ...JSON.parse(saved) };
+                }
+            }
+
+            saveSettings() {
+                localStorage.setItem('accessibilitySettings', JSON.stringify(this.settings));
+            }
+
+            setupAccessibilityToolbar() {
+                const toggle = document.getElementById('accessibility-toggle');
+                const panel = document.getElementById('accessibility-panel');
+                const close = document.getElementById('accessibility-close');
+
+                if (!toggle || !panel) return;
+
+                // Toggle panel
+                toggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    panel.classList.toggle('show');
+                });
+
+                // Close panel
+                close.addEventListener('click', () => {
+                    panel.classList.remove('show');
+                });
+
+                // Close on outside click
+                document.addEventListener('click', (e) => {
+                    if (!toggle.contains(e.target) && !panel.contains(e.target)) {
+                        panel.classList.remove('show');
+                    }
+                });
+
+                // Text size controls
+                document.getElementById('text-smaller')?.addEventListener('click', () => {
+                    this.setTextSize('smaller');
+                });
+
+                document.getElementById('text-reset')?.addEventListener('click', () => {
+                    this.setTextSize('normal');
+                });
+
+                document.getElementById('text-larger')?.addEventListener('click', () => {
+                    this.setTextSize('larger');
+                });
+
+                // Accessibility options
+                document.getElementById('high-contrast')?.addEventListener('change', (e) => {
+                    this.setHighContrast(e.target.checked);
+                });
+
+                document.getElementById('focus-indicators')?.addEventListener('change', (e) => {
+                    this.setEnhancedFocus(e.target.checked);
+                });
+
+                document.getElementById('reduced-motion')?.addEventListener('change', (e) => {
+                    this.setReducedMotion(e.target.checked);
+                });
+
+                // Reading tools
+                document.getElementById('reading-mode')?.addEventListener('click', () => {
+                    this.toggleReadingMode();
+                });
+
+                document.getElementById('screen-reader')?.addEventListener('click', () => {
+                    this.announcePageContent();
+                });
+
+                // Reset button
+                document.getElementById('accessibility-reset')?.addEventListener('click', () => {
+                    this.resetAllSettings();
+                });
+            }
+
+            setupKeyboardNavigation() {
+                // Enhanced keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    // Skip links
+                    if (e.key === 'Tab' && !e.shiftKey) {
+                        document.body.classList.add('keyboard-navigation');
+                    }
+
+                    // Escape key to close modals
+                    if (e.key === 'Escape') {
+                        this.closeAllModals();
+                    }
+
+                    // Alt + A for accessibility panel
+                    if (e.altKey && e.key === 'a') {
+                        e.preventDefault();
+                        document.getElementById('accessibility-toggle')?.click();
+                    }
+                });
+
+                // Remove keyboard navigation class on mouse use
+                document.addEventListener('mousedown', () => {
+                    document.body.classList.remove('keyboard-navigation');
+                });
+            }
+
+            setupScreenReader() {
+                // Create screen reader announcements
+                this.announcementContainer = document.createElement('div');
+                this.announcementContainer.setAttribute('aria-live', 'polite');
+                this.announcementContainer.setAttribute('aria-atomic', 'true');
+                this.announcementContainer.className = 'sr-only';
+                document.body.appendChild(this.announcementContainer);
+            }
+
+            setTextSize(size) {
+                document.body.classList.remove('accessibility-text-smaller', 'accessibility-text-larger', 'accessibility-text-largest');
+                
+                switch (size) {
+                    case 'smaller':
+                        document.body.classList.add('accessibility-text-smaller');
+                        break;
+                    case 'larger':
+                        document.body.classList.add('accessibility-text-larger');
+                        break;
+                    case 'largest':
+                        document.body.classList.add('accessibility-text-largest');
+                        break;
+                }
+
+                this.settings.textSize = size;
+                this.saveSettings();
+                this.announce(`Text size set to ${size}`);
+            }
+
+            setHighContrast(enabled) {
+                if (enabled) {
+                    document.body.classList.add('accessibility-high-contrast');
+                } else {
+                    document.body.classList.remove('accessibility-high-contrast');
+                }
+                this.settings.highContrast = enabled;
+                this.saveSettings();
+                this.announce(enabled ? 'High contrast enabled' : 'High contrast disabled');
+            }
+
+            setEnhancedFocus(enabled) {
+                if (enabled) {
+                    document.body.classList.add('accessibility-enhanced-focus');
+                } else {
+                    document.body.classList.remove('accessibility-enhanced-focus');
+                }
+                this.settings.enhancedFocus = enabled;
+                this.saveSettings();
+                this.announce(enabled ? 'Enhanced focus indicators enabled' : 'Enhanced focus indicators disabled');
+            }
+
+            setReducedMotion(enabled) {
+                if (enabled) {
+                    document.body.classList.add('accessibility-reduced-motion');
+                } else {
+                    document.body.classList.remove('accessibility-reduced-motion');
+                }
+                this.settings.reducedMotion = enabled;
+                this.saveSettings();
+                this.announce(enabled ? 'Reduced motion enabled' : 'Reduced motion disabled');
+            }
+
+            toggleReadingMode() {
+                const enabled = !this.settings.readingMode;
+                if (enabled) {
+                    document.body.classList.add('accessibility-reading-mode');
+                } else {
+                    document.body.classList.remove('accessibility-reading-mode');
+                }
+                this.settings.readingMode = enabled;
+                this.saveSettings();
+                this.announce(enabled ? 'Reading mode enabled' : 'Reading mode disabled');
+            }
+
+            announcePageContent() {
+                const title = document.title;
+                const mainHeading = document.querySelector('h1, h2, h3');
+                const content = mainHeading ? mainHeading.textContent : 'Page content';
+                
+                this.announce(`Page: ${title}. ${content}`);
+            }
+
+            announce(message) {
+                if (this.announcementContainer) {
+                    this.announcementContainer.textContent = message;
+                }
+            }
+
+            closeAllModals() {
+                // Close all open modals
+                document.querySelectorAll('.search-modal.show, .theme-selector.show, .accessibility-panel.show, .tutorial-container.show').forEach(modal => {
+                    modal.classList.remove('show');
+                });
+            }
+
+            resetAllSettings() {
+                // Reset all accessibility settings
+                document.body.classList.remove(
+                    'accessibility-high-contrast',
+                    'accessibility-enhanced-focus',
+                    'accessibility-reduced-motion',
+                    'accessibility-reading-mode',
+                    'accessibility-text-smaller',
+                    'accessibility-text-larger',
+                    'accessibility-text-largest'
+                );
+
+                // Reset checkboxes
+                document.querySelectorAll('#accessibility-panel input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+
+                // Reset settings
+                this.settings = {
+                    highContrast: false,
+                    enhancedFocus: false,
+                    reducedMotion: false,
+                    readingMode: false,
+                    textSize: 'normal'
+                };
+
+                this.saveSettings();
+                this.announce('All accessibility settings reset');
+            }
+
+            applySettings() {
+                // Apply saved settings on page load
+                if (this.settings.highContrast) {
+                    document.body.classList.add('accessibility-high-contrast');
+                    document.getElementById('high-contrast').checked = true;
+                }
+
+                if (this.settings.enhancedFocus) {
+                    document.body.classList.add('accessibility-enhanced-focus');
+                    document.getElementById('focus-indicators').checked = true;
+                }
+
+                if (this.settings.reducedMotion) {
+                    document.body.classList.add('accessibility-reduced-motion');
+                    document.getElementById('reduced-motion').checked = true;
+                }
+
+                if (this.settings.readingMode) {
+                    document.body.classList.add('accessibility-reading-mode');
+                }
+
+                if (this.settings.textSize !== 'normal') {
+                    this.setTextSize(this.settings.textSize);
+                }
+            }
+        }
+
+        // Initialize accessibility system
+        function initAccessibilitySystem() {
+            new AccessibilitySystem();
+        }
+
+        // Interactive Code Playground System
+        class CodePlayground {
+            constructor() {
+                this.currentEndpoint = 'get-kills';
+                this.endpoints = {
+                    'get-kills': {
+                        method: 'GET',
+                        url: '/api/kills',
+                        description: 'Get kill records'
+                    },
+                    'post-kill': {
+                        method: 'POST',
+                        url: '/api/kills',
+                        description: 'Add kill record'
+                    },
+                    'get-stats': {
+                        method: 'GET',
+                        url: '/api/stats',
+                        description: 'Get statistics'
+                    },
+                    'get-player': {
+                        method: 'GET',
+                        url: '/api/player/{id}',
+                        description: 'Get player info'
+                    },
+                    'get-leaderboard': {
+                        method: 'GET',
+                        url: '/api/leaderboard',
+                        description: 'Get leaderboard'
+                    }
+                };
+                this.init();
+            }
+
+            init() {
+                this.setupPlayground();
+                this.setupEndpointSelector();
+                this.setupConfigTabs();
+                this.setupLanguageTabs();
+                this.setupCodeGeneration();
+                this.setupResponseHandling();
+            }
+
+            setupPlayground() {
+                const playground = document.getElementById('code-playground');
+                const close = document.getElementById('playground-close');
+                const overlay = document.getElementById('playground-overlay');
+
+                if (!playground) return;
+
+                // Close playground
+                close?.addEventListener('click', () => {
+                    this.closePlayground();
+                });
+
+                overlay?.addEventListener('click', () => {
+                    this.closePlayground();
+                });
+
+                // Escape key to close
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && playground.classList.contains('show')) {
+                        this.closePlayground();
+                    }
+                });
+            }
+
+            setupEndpointSelector() {
+                const selector = document.getElementById('endpoint-select');
+                const testBtn = document.getElementById('endpoint-test-btn');
+
+                if (!selector || !testBtn) return;
+
+                selector.addEventListener('change', (e) => {
+                    this.currentEndpoint = e.target.value;
+                    this.updateCodeExamples();
+                });
+
+                testBtn.addEventListener('click', () => {
+                    this.testEndpoint();
+                });
+            }
+
+            setupConfigTabs() {
+                const tabs = document.querySelectorAll('.config-tab');
+                const panels = document.querySelectorAll('.config-panel');
+
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        const targetTab = tab.dataset.tab;
+                        
+                        // Update active tab
+                        tabs.forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        
+                        // Update active panel
+                        panels.forEach(p => p.classList.remove('active'));
+                        document.getElementById(`${targetTab}-panel`)?.classList.add('active');
+                    });
+                });
+
+                // Setup header management
+                this.setupHeaderManagement();
+                this.setupParameterManagement();
+            }
+
+            setupHeaderManagement() {
+                const addBtn = document.getElementById('add-header-btn');
+                const headerList = document.getElementById('header-list');
+
+                if (!addBtn || !headerList) return;
+
+                addBtn.addEventListener('click', () => {
+                    this.addHeader();
+                });
+
+                // Setup existing remove buttons
+                headerList.addEventListener('click', (e) => {
+                    if (e.target.closest('.header-remove')) {
+                        e.target.closest('.header-item').remove();
+                    }
+                });
+            }
+
+            setupParameterManagement() {
+                const addBtn = document.getElementById('add-param-btn');
+                const paramList = document.getElementById('param-list');
+
+                if (!addBtn || !paramList) return;
+
+                addBtn.addEventListener('click', () => {
+                    this.addParameter();
+                });
+
+                // Setup existing remove buttons
+                paramList.addEventListener('click', (e) => {
+                    if (e.target.closest('.param-remove')) {
+                        e.target.closest('.param-item').remove();
+                    }
+                });
+            }
+
+            setupLanguageTabs() {
+                const tabs = document.querySelectorAll('.language-tab');
+                const examples = document.querySelectorAll('.code-example');
+
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        const targetLang = tab.dataset.lang;
+                        
+                        // Update active tab
+                        tabs.forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        
+                        // Update active example
+                        examples.forEach(e => e.classList.remove('active'));
+                        document.getElementById(`${targetLang}-example`)?.classList.add('active');
+                    });
+                });
+
+                // Setup copy buttons
+                document.querySelectorAll('.copy-code-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const target = e.target.closest('.copy-code-btn').dataset.target;
+                        const codeElement = document.getElementById(target);
+                        if (codeElement) {
+                            navigator.clipboard.writeText(codeElement.textContent);
+                            this.showCopyFeedback(e.target);
+                        }
+                    });
+                });
+            }
+
+            setupCodeGeneration() {
+                // Generate initial code examples
+                this.updateCodeExamples();
+            }
+
+            setupResponseHandling() {
+                const formatBtns = document.querySelectorAll('.response-format-btn');
+                const copyBtn = document.getElementById('response-copy-btn');
+
+                formatBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        formatBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        this.formatResponse(btn.dataset.format);
+                    });
+                });
+
+                copyBtn?.addEventListener('click', () => {
+                    const responseText = document.getElementById('response-json').textContent;
+                    navigator.clipboard.writeText(responseText);
+                    this.showCopyFeedback(copyBtn);
+                });
+            }
+
+            addHeader() {
+                const headerList = document.getElementById('header-list');
+                if (!headerList) return;
+
+                const headerItem = document.createElement('div');
+                headerItem.className = 'header-item';
+                headerItem.innerHTML = `
+                    <input type="text" placeholder="Header Name" class="header-key">
+                    <input type="text" placeholder="Header Value" class="header-value">
+                    <button class="header-remove" aria-label="Remove header">
+                        <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 6 6 18"></path>
+                            <path d="m6 6 12 12"></path>
+                        </svg>
+                    </button>
+                `;
+                headerList.appendChild(headerItem);
+            }
+
+            addParameter() {
+                const paramList = document.getElementById('param-list');
+                if (!paramList) return;
+
+                const paramItem = document.createElement('div');
+                paramItem.className = 'param-item';
+                paramItem.innerHTML = `
+                    <input type="text" placeholder="Parameter Name" class="param-key">
+                    <input type="text" placeholder="Parameter Value" class="param-value">
+                    <button class="param-remove" aria-label="Remove parameter">
+                        <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 6 6 18"></path>
+                            <path d="m6 6 12 12"></path>
+                        </svg>
+                    </button>
+                `;
+                paramList.appendChild(paramItem);
+            }
+
+            updateCodeExamples() {
+                const endpoint = this.endpoints[this.currentEndpoint];
+                if (!endpoint) return;
+
+                // Update JavaScript example
+                this.updateJavaScriptExample(endpoint);
+                this.updatePythonExample(endpoint);
+                this.updateCurlExample(endpoint);
+                this.updatePhpExample(endpoint);
+            }
+
+            updateJavaScriptExample(endpoint) {
+                const codeElement = document.getElementById('javascript-code');
+                if (!codeElement) return;
+
+                const headers = this.getHeaders();
+                const params = this.getParameters();
+                const body = this.getRequestBody();
+
+                let code = `// Example: ${endpoint.description}\n`;
+                code += `const response = await fetch('${endpoint.url}${params}', {\n`;
+                code += `  method: '${endpoint.method}',\n`;
+                code += `  headers: {\n`;
+                headers.forEach(header => {
+                    code += `    '${header.key}': '${header.value}',\n`;
+                });
+                code += `  }`;
+                
+                if (endpoint.method === 'POST' && body) {
+                    code += `,\n  body: JSON.stringify(${body})`;
+                }
+                
+                code += `\n});\n\n`;
+                code += `const data = await response.json();\n`;
+                code += `console.log(data);`;
+
+                codeElement.textContent = code;
+            }
+
+            updatePythonExample(endpoint) {
+                const codeElement = document.getElementById('python-code');
+                if (!codeElement) return;
+
+                const headers = this.getHeaders();
+                const params = this.getParameters();
+                const body = this.getRequestBody();
+
+                let code = `# Example: ${endpoint.description}\n`;
+                code += `import requests\n\n`;
+                code += `headers = {\n`;
+                headers.forEach(header => {
+                    code += `    '${header.key}': '${header.value}',\n`;
+                });
+                code += `}\n\n`;
+
+                if (endpoint.method === 'GET') {
+                    code += `response = requests.get('${endpoint.url}${params}', headers=headers)\n`;
+                } else if (endpoint.method === 'POST') {
+                    code += `data = ${body || '{}'}\n`;
+                    code += `response = requests.post('${endpoint.url}${params}', headers=headers, json=data)\n`;
+                }
+
+                code += `result = response.json()\n`;
+                code += `print(result)`;
+
+                codeElement.textContent = code;
+            }
+
+            updateCurlExample(endpoint) {
+                const codeElement = document.getElementById('curl-code');
+                if (!codeElement) return;
+
+                const headers = this.getHeaders();
+                const params = this.getParameters();
+                const body = this.getRequestBody();
+
+                let code = `# Example: ${endpoint.description}\n`;
+                code += `curl -X ${endpoint.method} '${endpoint.url}${params}' \\\n`;
+                
+                headers.forEach(header => {
+                    code += `  -H '${header.key}: ${header.value}' \\\n`;
+                });
+
+                if (endpoint.method === 'POST' && body) {
+                    code += `  -d '${body}'`;
+                } else {
+                    code = code.slice(0, -2); // Remove trailing backslash
+                }
+
+                codeElement.textContent = code;
+            }
+
+            updatePhpExample(endpoint) {
+                const codeElement = document.getElementById('php-code');
+                if (!codeElement) return;
+
+                const headers = this.getHeaders();
+                const params = this.getParameters();
+                const body = this.getRequestBody();
+
+                let code = `<?php\n`;
+                code += `// Example: ${endpoint.description}\n`;
+                code += `$headers = [\n`;
+                headers.forEach(header => {
+                    code += `    '${header.key}: ${header.value}',\n`;
+                });
+                code += `];\n\n`;
+
+                code += `$ch = curl_init();\n`;
+                code += `curl_setopt($ch, CURLOPT_URL, '${endpoint.url}${params}');\n`;
+                code += `curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);\n`;
+                code += `curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\n`;
+
+                if (endpoint.method === 'POST' && body) {
+                    code += `curl_setopt($ch, CURLOPT_POST, true);\n`;
+                    code += `curl_setopt($ch, CURLOPT_POSTFIELDS, '${body}');\n`;
+                }
+
+                code += `\n$response = curl_exec($ch);\n`;
+                code += `$data = json_decode($response, true);\n`;
+                code += `curl_close($ch);\n\n`;
+                code += `print_r($data);\n`;
+                code += `?>`;
+
+                codeElement.textContent = code;
+            }
+
+            getHeaders() {
+                const headers = [];
+                document.querySelectorAll('.header-item').forEach(item => {
+                    const key = item.querySelector('.header-key').value;
+                    const value = item.querySelector('.header-value').value;
+                    if (key && value) {
+                        headers.push({ key, value });
+                    }
+                });
+                return headers;
+            }
+
+            getParameters() {
+                const params = [];
+                document.querySelectorAll('.param-item').forEach(item => {
+                    const key = item.querySelector('.param-key').value;
+                    const value = item.querySelector('.param-value').value;
+                    if (key && value) {
+                        params.push(`${key}=${encodeURIComponent(value)}`);
+                    }
+                });
+                return params.length > 0 ? '?' + params.join('&') : '';
+            }
+
+            getRequestBody() {
+                const bodyTextarea = document.getElementById('request-body');
+                return bodyTextarea ? bodyTextarea.value : null;
+            }
+
+            async testEndpoint() {
+                const statusIndicator = document.querySelector('.status-indicator');
+                const statusText = document.querySelector('.status-text');
+                const testBtn = document.getElementById('endpoint-test-btn');
+                const statusCode = document.getElementById('status-code');
+                const responseTime = document.getElementById('response-time');
+                const responseJson = document.getElementById('response-json');
+
+                if (!statusIndicator || !statusText || !testBtn) return;
+
+                // Update UI for loading state
+                statusIndicator.className = 'status-indicator loading';
+                statusText.textContent = 'Testing endpoint...';
+                testBtn.disabled = true;
+
+                const startTime = Date.now();
+
+                try {
+                    // Simulate API call (in real implementation, this would make actual requests)
+                    await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
+
+                    const mockResponse = this.getMockResponse();
+                    const endTime = Date.now();
+                    const duration = endTime - startTime;
+
+                    // Update response display
+                    statusIndicator.className = 'status-indicator';
+                    statusText.textContent = 'Request completed';
+                    statusCode.textContent = mockResponse.status;
+                    responseTime.textContent = `${duration}ms`;
+                    responseJson.textContent = JSON.stringify(mockResponse.data, null, 2);
+
+                } catch (error) {
+                    // Handle error
+                    statusIndicator.className = 'status-indicator error';
+                    statusText.textContent = 'Request failed';
+                    statusCode.textContent = '500';
+                    responseTime.textContent = '-';
+                    responseJson.textContent = JSON.stringify({ error: 'Request failed' }, null, 2);
+                } finally {
+                    testBtn.disabled = false;
+                }
+            }
+
+            getMockResponse() {
+                const endpoint = this.endpoints[this.currentEndpoint];
+                
+                switch (this.currentEndpoint) {
+                    case 'get-kills':
+                        return {
+                            status: 200,
+                            data: {
+                                kills: [
+                                    {
+                                        id: "kill_001",
+                                        player_id: "player_123",
+                                        target_id: "target_456",
+                                        weapon: "laser_cannon",
+                                        location: "Crusader",
+                                        timestamp: "2024-01-01T12:00:00Z"
+                                    }
+                                ],
+                                total: 1,
+                                page: 1,
+                                limit: 10
+                            }
+                        };
+                    case 'post-kill':
+                        return {
+                            status: 201,
+                            data: {
+                                id: "kill_002",
+                                player_id: "player_123",
+                                target_id: "target_789",
+                                weapon: "missile_launcher",
+                                location: "Hurston",
+                                timestamp: "2024-01-01T12:05:00Z",
+                                created: true
+                            }
+                        };
+                    case 'get-stats':
+                        return {
+                            status: 200,
+                            data: {
+                                total_kills: 1250,
+                                total_players: 89,
+                                top_weapon: "laser_cannon",
+                                active_sessions: 23
+                            }
+                        };
+                    default:
+                        return {
+                            status: 200,
+                            data: { message: "Mock response for " + endpoint.description }
+                        };
+                }
+            }
+
+            formatResponse(format) {
+                const responseJson = document.getElementById('response-json');
+                if (!responseJson) return;
+
+                try {
+                    const data = JSON.parse(responseJson.textContent);
+                    if (format === 'pretty') {
+                        responseJson.textContent = JSON.stringify(data, null, 2);
+                    } else {
+                        responseJson.textContent = JSON.stringify(data);
+                    }
+                } catch (e) {
+                    // Keep original text if not valid JSON
+                }
+            }
+
+            showCopyFeedback(element) {
+                const originalText = element.textContent;
+                element.textContent = 'Copied!';
+                element.style.color = '#10b981';
+                
+                setTimeout(() => {
+                    element.textContent = originalText;
+                    element.style.color = '';
+                }, 2000);
+            }
+
+            openPlayground() {
+                const playground = document.getElementById('code-playground');
+                if (playground) {
+                    playground.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            closePlayground() {
+                const playground = document.getElementById('code-playground');
+                if (playground) {
+                    playground.classList.remove('show');
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+
+        // Global function to open playground
+        function openCodePlayground() {
+            if (window.codePlayground) {
+                window.codePlayground.openPlayground();
+            }
+        }
+
+        // Initialize code playground
+        function initCodePlayground() {
+            window.codePlayground = new CodePlayground();
+        }
+
+        // Initialize enhanced features
+        initEnhancedFeatures();
+        initTranslationSystem();
+        initAccessibilitySystem();
+        initCodePlayground();
+        initSearch();
+        initMobileEnhancements();
+        initThemeSystem();
+        initDevWarning();
+        initInteractiveTutorials();
+
+        // Keyboard Navigation Enhancement
+        function initKeyboardNavigation() {
+            document.addEventListener('keydown', (e) => {
+                // Add keyboard navigation class when Tab is pressed
+                if (e.key === 'Tab') {
+                    document.body.classList.add('keyboard-nav');
+                }
+            });
+
+            // Remove keyboard navigation class when mouse is used
+            document.addEventListener('mousedown', () => {
+                document.body.classList.remove('keyboard-nav');
+            });
+
+            // Enhanced keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                // Ctrl/Cmd + K for search
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    e.preventDefault();
+                    const searchInput = document.getElementById('search-input');
+                    if (searchInput) {
+                        searchInput.focus();
+                    }
+                }
+
+                // Escape to close modals/overlays
+                if (e.key === 'Escape') {
+                    const activeOverlays = document.querySelectorAll('.search-suggestions.active, .search-results.active');
+                    activeOverlays.forEach(overlay => overlay.classList.remove('active'));
+                }
+            });
+        }
+
+        // Page Transition Effects
+        function initPageTransitions() {
+            // Add loaded class to main content after page load
+            const mainContent = document.querySelector('.main-content');
+            if (mainContent) {
+                mainContent.classList.add('page-transition');
+                setTimeout(() => {
+                    mainContent.classList.add('loaded');
+                }, 100);
+            }
+
+            // Smooth link transitions
+            const links = document.querySelectorAll('a[href^="/"], a[href^="./"], a[href^="../"]');
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    // Only for internal links
+                    if (link.hostname === window.location.hostname) {
+                        e.preventDefault();
+                        const href = link.getAttribute('href');
+                        
+                        // Show loading overlay
+                        const overlay = document.createElement('div');
+                        overlay.className = 'loading-overlay active';
+                        overlay.innerHTML = '<div class="loading-spinner"></div>';
+                        document.body.appendChild(overlay);
+                        
+                        // Navigate after short delay
+                        setTimeout(() => {
+                            window.location.href = href;
+                        }, 300);
+                    }
+                });
+            });
+        }
+
+        // Initialize keyboard navigation and page transitions
+        initKeyboardNavigation();
+        initPageTransitions();
+
+        // Performance Optimizations
+        function initPerformanceOptimizations() {
+            // Lazy load images
+            const images = document.querySelectorAll('img[data-src]');
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            images.forEach(img => imageObserver.observe(img));
+
+            // Debounce scroll events
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                if (scrollTimeout) {
+                    clearTimeout(scrollTimeout);
+                }
+                scrollTimeout = setTimeout(() => {
+                    // Handle scroll-based animations
+                    const navbar = document.querySelector('.navbar');
+                    if (window.scrollY > 100) {
+                        navbar.classList.add('scrolled');
+                    } else {
+                        navbar.classList.remove('scrolled');
+                    }
+                }, 10);
+            });
+
+            // Optimize animations with requestAnimationFrame
+            function optimizeAnimations() {
+                const animatedElements = document.querySelectorAll('.feature-card, .tech-badge, .btn');
+                animatedElements.forEach(element => {
+                    element.style.willChange = 'transform';
+                });
+            }
+
+            // Remove will-change after animations complete
+            setTimeout(() => {
+                const animatedElements = document.querySelectorAll('.feature-card, .tech-badge, .btn');
+                animatedElements.forEach(element => {
+                    element.style.willChange = 'auto';
+                });
+            }, 3000);
+
+            optimizeAnimations();
+
+            // Preload critical resources
+            const criticalResources = [
+                '/assets/css/main.css',
+                '/assets/images/logo.png'
+            ];
+
+            criticalResources.forEach(resource => {
+                const link = document.createElement('link');
+                link.rel = 'preload';
+                link.href = resource;
+                link.as = resource.endsWith('.css') ? 'style' : 'image';
+                document.head.appendChild(link);
+            });
+        }
+
+        // Initialize performance optimizations
+        initPerformanceOptimizations();
+    </script>
+</body>
+</html>

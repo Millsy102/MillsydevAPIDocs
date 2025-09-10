@@ -1,0 +1,156 @@
+<!-- Professional Icon System using Heroicons -->
+{% comment %}
+Usage: {% include icon.html name="home" size="24" class="custom-class" %}
+Available icons: home, search, menu, close, chevron-left, chevron-right, 
+play, pause, check, x-mark, exclamation-triangle, information-circle,
+lightbulb, trophy, key, robot, chart-line, cog, download, book,
+question-circle, star, heart, shield, bolt, fire, sparkles
+{% endcomment %}
+
+{% assign icon_name = include.name | default: 'home' %}
+{% assign icon_size = include.size | default: '24' %}
+{% assign icon_class = include.class | default: '' %}
+
+<svg class="icon {{ icon_class }}" width="{{ icon_size }}" height="{{ icon_size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  {% case icon_name %}
+    {% when 'home' %}
+      <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9,22 9,12 15,12 15,22"></polyline>
+    {% when 'search' %}
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.35-4.35"></path>
+    {% when 'menu' %}
+      <line x1="4" x2="20" y1="12" y2="12"></line>
+      <line x1="4" x2="20" y1="6" y2="6"></line>
+      <line x1="4" x2="20" y1="18" y2="18"></line>
+    {% when 'close' or 'x-mark' %}
+      <path d="M18 6 6 18"></path>
+      <path d="m6 6 12 12"></path>
+    {% when 'chevron-left' %}
+      <polyline points="15,18 9,12 15,6"></polyline>
+    {% when 'chevron-right' %}
+      <polyline points="9,18 15,12 9,6"></polyline>
+    {% when 'play' %}
+      <polygon points="5,3 19,12 5,21"></polygon>
+    {% when 'pause' %}
+      <rect x="6" y="4" width="4" height="16"></rect>
+      <rect x="14" y="4" width="4" height="16"></rect>
+    {% when 'check' %}
+      <polyline points="20,6 9,17 4,12"></polyline>
+    {% when 'exclamation-triangle' %}
+      <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+      <line x1="12" x2="12" y1="9" y2="13"></line>
+      <line x1="12" x2="12.01" y1="17" y2="17"></line>
+    {% when 'information-circle' %}
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="m9,12 3,3 3-3"></path>
+      <line x1="12" x2="12" y1="8" y2="12"></line>
+    {% when 'lightbulb' %}
+      <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1z"></path>
+      <path d="M12 2C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"></path>
+    {% when 'trophy' %}
+      <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+      <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+      <path d="M4 22h16"></path>
+      <path d="M10 14.66V17c0 .55.47.98.97 1.21l1 .42c.17.07.34.1.51.1.17 0 .34-.03.51-.1l1-.42c.5-.23.97-.66.97-1.21v-2.34"></path>
+      <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+    {% when 'key' %}
+      <circle cx="7.5" cy="15.5" r="5.5"></circle>
+      <path d="m21 2-9.6 9.6"></path>
+      <path d="m15.5 7.5 3 3L22 7l-3-3"></path>
+    {% when 'robot' %}
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+      <circle cx="12" cy="5" r="2"></circle>
+      <path d="M12 7v4"></path>
+      <line x1="8" x2="8" y1="16" y2="16"></line>
+      <line x1="16" x2="16" y1="16" y2="16"></line>
+    {% when 'chart-line' %}
+      <polyline points="22,12 18,12 15,21 9,3 6,9 2,9"></polyline>
+    {% when 'cog' %}
+      <circle cx="12" cy="12" r="3"></circle>
+      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+    {% when 'download' %}
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+      <polyline points="7,10 12,15 17,10"></polyline>
+      <line x1="12" x2="12" y1="15" y2="3"></line>
+    {% when 'book' %}
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+    {% when 'question-circle' %}
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+      <line x1="12" x2="12.01" y1="17" y2="17"></line>
+    {% when 'star' %}
+      <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"></polygon>
+    {% when 'heart' %}
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+    {% when 'shield' %}
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+    {% when 'bolt' %}
+      <polygon points="13,2 3,14 12,14 11,22 21,10 12,10"></polygon>
+    {% when 'fire' %}
+      <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path>
+    {% when 'sparkles' %}
+      <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0L9.937 15.5z"></path>
+      <path d="M20 3v4"></path>
+      <path d="M22 5h-4"></path>
+      <path d="M4 17v2"></path>
+      <path d="M5 18H3"></path>
+    {% when 'rocket' %}
+      <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+      <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
+      <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+      <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+    {% when 'code' %}
+      <polyline points="16,18 22,12 16,6"></polyline>
+      <polyline points="8,6 2,12 8,18"></polyline>
+    {% when 'palette' %}
+      <circle cx="13.5" cy="6.5" r=".5"></circle>
+      <circle cx="17.5" cy="10.5" r=".5"></circle>
+      <circle cx="8.5" cy="7.5" r=".5"></circle>
+      <circle cx="6.5" cy="12.5" r=".5"></circle>
+      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path>
+    {% when 'copy' %}
+      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+    {% when 'sync' %}
+      <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+      <path d="M21 3v5h-5"></path>
+      <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+      <path d="M3 21v-5h5"></path>
+    {% when 'globe' %}
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="2" x2="22" y1="12" y2="12"></line>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+    {% when 'chevron-down' %}
+      <polyline points="6,9 12,15 18,9"></polyline>
+    {% when 'accessibility' %}
+      <circle cx="12" cy="12" r="3"></circle>
+      <path d="M12 1v6"></path>
+      <path d="M12 17v6"></path>
+      <path d="M4.22 4.22l4.24 4.24"></path>
+      <path d="M15.54 15.54l4.24 4.24"></path>
+      <path d="M1 12h6"></path>
+      <path d="M17 12h6"></path>
+      <path d="M4.22 19.78l4.24-4.24"></path>
+      <path d="M15.54 8.46l4.24-4.24"></path>
+    {% when 'minus' %}
+      <line x1="5" x2="19" y1="12" y2="12"></line>
+    {% when 'plus' %}
+      <line x1="12" x2="12" y1="5" y2="19"></line>
+      <line x1="5" x2="19" y1="12" y2="12"></line>
+    {% when 'refresh' %}
+      <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+      <path d="M21 3v5h-5"></path>
+      <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+      <path d="M3 21v-5h5"></path>
+    {% when 'volume' %}
+      <polygon points="11,5 6,9 2,9 2,15 6,15 11,19"></polygon>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+    {% else %}
+      <!-- Default fallback icon -->
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" x2="12" y1="8" y2="12"></line>
+      <line x1="12" x2="12.01" y1="16" y2="16"></line>
+  {% endcase %}
+</svg>

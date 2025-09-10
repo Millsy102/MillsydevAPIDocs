@@ -1,0 +1,124 @@
+# Jekyll configuration for MILLSY.dev Star Citizen Kill Tracker Documentation
+title: "MILLSY.dev Star Citizen Kill Tracker Documentation"
+description: "Professional Discord bot system with native CMake-built desktop application for comprehensive Star Citizen kill tracking and analytics"
+baseurl: "/MillsydevAPIDocs" # Repository name
+url: "https://millsy102.github.io" # GitHub Pages URL
+
+# Site metadata
+deployment_date: "January 2025"
+copyright: "© 2025 MILLSY.dev"
+version: "2.0.0"
+
+# Jekyll settings
+markdown: kramdown
+highlighter: rouge
+theme: null
+permalink: pretty
+timezone: UTC
+
+# Site settings
+encoding: utf-8
+future: false
+show_excerpts: true
+excerpt_separator: "<!--more-->"
+
+# Navigation structure
+navigation:
+  - title: "Home"
+    url: "/"
+  - title: "API Reference"
+    url: "/api/"
+  - title: "Getting Started"
+    url: "/getting-started/"
+  - title: "Usage"
+    url: "/usage/"
+  - title: "Integration"
+    url: "/developers/"
+  - title: "Technical"
+    url: "/technical/"
+  - title: "Advanced"
+    url: "/advanced/"
+  - title: "Help"
+    url: "/help/"
+  - title: "Status"
+    url: "/status/"
+
+# Collections disabled for simplicity
+collections: {}
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+      author: "MILLSY.dev"
+
+# Exclude files from processing
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - .snapshots/
+  - .git/
+  - .gitignore
+
+# Include files
+include: []
+
+# Plugins for enhanced functionality (GitHub Pages compatible)
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-redirect-from
+  - jekyll-optional-front-matter
+
+# GitHub Pages specific settings
+github: [metadata]
+
+# Ensure GitHub Pages compatibility
+safe: true
+
+# SEO and metadata
+author: "MILLSY.dev"
+github_username: "millsydev"
+twitter_username: "millsydev"
+
+# Social links
+social:
+  name: "MILLSY.dev"
+  links:
+    - "https://github.com/millsydev"
+    - "https://twitter.com/millsydev"
+
+# Site configuration
+lang: en
+locale: en_US
+
+# Build settings
+incremental: false
+strict_front_matter: true
+
+# Kramdown settings
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
+# Rouge syntax highlighting
+rouge:
+  theme: github

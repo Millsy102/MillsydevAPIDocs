@@ -1,0 +1,117 @@
+<!-- Theme Selector Modal -->
+<div class="theme-selector" id="theme-selector">
+    <div class="theme-overlay" id="theme-overlay"></div>
+    <div class="theme-container">
+        <div class="theme-header">
+            <h3>Choose Your Theme</h3>
+            <button class="theme-close" id="theme-close">
+                {% include icon.html name="close" size="20" %}
+            </button>
+        </div>
+        
+        <div class="theme-grid">
+            <!-- Default Dark Theme -->
+            <div class="theme-option" data-theme="dark">
+                <div class="theme-preview dark-preview">
+                    <div class="preview-header"></div>
+                    <div class="preview-content">
+                        <div class="preview-card"></div>
+                        <div class="preview-card"></div>
+                    </div>
+                </div>
+                <div class="theme-info">
+                    <h4>Dark Mode</h4>
+                    <p>Classic dark theme</p>
+                </div>
+            </div>
+            
+            <!-- Light Theme -->
+            <div class="theme-option" data-theme="light">
+                <div class="theme-preview light-preview">
+                    <div class="preview-header"></div>
+                    <div class="preview-content">
+                        <div class="preview-card"></div>
+                        <div class="preview-card"></div>
+                    </div>
+                </div>
+                <div class="theme-info">
+                    <h4>Light Mode</h4>
+                    <p>Clean light theme</p>
+                </div>
+            </div>
+            
+            <!-- Star Citizen Theme -->
+            <div class="theme-option" data-theme="star-citizen">
+                <div class="theme-preview sc-preview">
+                    <div class="preview-header"></div>
+                    <div class="preview-content">
+                        <div class="preview-card"></div>
+                        <div class="preview-card"></div>
+                    </div>
+                </div>
+                <div class="theme-info">
+                    <h4>Star Citizen</h4>
+                    <p>Official SC theme</p>
+                </div>
+            </div>
+            
+            <!-- High Contrast Theme -->
+            <div class="theme-option" data-theme="high-contrast">
+                <div class="theme-preview contrast-preview">
+                    <div class="preview-header"></div>
+                    <div class="preview-content">
+                        <div class="preview-card"></div>
+                        <div class="preview-card"></div>
+                    </div>
+                </div>
+                <div class="theme-info">
+                    <h4>High Contrast</h4>
+                    <p>Accessibility focused</p>
+                </div>
+            </div>
+            
+            <!-- Cyberpunk Theme -->
+            <div class="theme-option" data-theme="cyberpunk">
+                <div class="theme-preview cyber-preview">
+                    <div class="preview-header"></div>
+                    <div class="preview-content">
+                        <div class="preview-card"></div>
+                        <div class="preview-card"></div>
+                    </div>
+                </div>
+                <div class="theme-info">
+                    <h4>Cyberpunk</h4>
+                    <p>Neon and futuristic</p>
+                </div>
+            </div>
+            
+            <!-- Minimal Theme -->
+            <div class="theme-option" data-theme="minimal">
+                <div class="theme-preview minimal-preview">
+                    <div class="preview-header"></div>
+                    <div class="preview-content">
+                        <div class="preview-card"></div>
+                        <div class="preview-card"></div>
+                    </div>
+                </div>
+                <div class="theme-info">
+                    <h4>Minimal</h4>
+                    <p>Clean and simple</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="theme-footer">
+            <div class="theme-settings">
+                <label class="setting-item">
+                    <input type="checkbox" id="auto-theme" checked>
+                    <span>Auto-switch with system</span>
+                </label>
+                <label class="setting-item">
+                    <input type="checkbox" id="smooth-transitions" checked>
+                    <span>Smooth transitions</span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

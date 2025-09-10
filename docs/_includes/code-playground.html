@@ -1,0 +1,246 @@
+<!-- Interactive Code Playground -->
+<div class="code-playground" id="code-playground">
+    <div class="playground-overlay" id="playground-overlay"></div>
+    <div class="playground-container">
+        <div class="playground-header">
+            <div class="playground-title">
+                <h3>Interactive API Explorer</h3>
+                <p>Test API endpoints and explore code examples</p>
+            </div>
+            <button class="playground-close" id="playground-close" aria-label="Close API Explorer">
+                {% include icon.html name="close" size="20" %}
+            </button>
+        </div>
+        
+        <div class="playground-content">
+            <!-- API Endpoint Selector -->
+            <div class="playground-section">
+                <div class="section-header">
+                    <h4>API Endpoint</h4>
+                    <div class="endpoint-status" id="endpoint-status">
+                        <span class="status-indicator"></span>
+                        <span class="status-text">Ready</span>
+                    </div>
+                </div>
+                <div class="endpoint-selector">
+                    <select id="endpoint-select" class="endpoint-dropdown">
+                        <option value="get-kills">GET /api/kills - Get Kill Records</option>
+                        <option value="post-kill">POST /api/kills - Add Kill Record</option>
+                        <option value="get-stats">GET /api/stats - Get Statistics</option>
+                        <option value="get-player">GET /api/player/{id} - Get Player Info</option>
+                        <option value="get-leaderboard">GET /api/leaderboard - Get Leaderboard</option>
+                    </select>
+                    <button class="endpoint-test-btn" id="endpoint-test-btn">
+                        {% include icon.html name="play" size="16" %} Test Endpoint
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Request Configuration -->
+            <div class="playground-section">
+                <div class="section-header">
+                    <h4>Request Configuration</h4>
+                    <div class="config-tabs">
+                        <button class="config-tab active" data-tab="headers">Headers</button>
+                        <button class="config-tab" data-tab="params">Parameters</button>
+                        <button class="config-tab" data-tab="body">Body</button>
+                    </div>
+                </div>
+                
+                <div class="config-content">
+                    <!-- Headers Tab -->
+                    <div class="config-panel active" id="headers-panel">
+                        <div class="header-list" id="header-list">
+                            <div class="header-item">
+                                <input type="text" placeholder="Header Name" class="header-key" value="Authorization">
+                                <input type="text" placeholder="Header Value" class="header-value" value="Bearer YOUR_API_KEY">
+                                <button class="header-remove" aria-label="Remove header">
+                                    {% include icon.html name="close" size="14" %}
+                                </button>
+                            </div>
+                            <div class="header-item">
+                                <input type="text" placeholder="Header Name" class="header-key" value="Content-Type">
+                                <input type="text" placeholder="Header Value" class="header-value" value="application/json">
+                                <button class="header-remove" aria-label="Remove header">
+                                    {% include icon.html name="close" size="14" %}
+                                </button>
+                            </div>
+                        </div>
+                        <button class="add-header-btn" id="add-header-btn">
+                            {% include icon.html name="plus" size="16" %} Add Header
+                        </button>
+                    </div>
+                    
+                    <!-- Parameters Tab -->
+                    <div class="config-panel" id="params-panel">
+                        <div class="param-list" id="param-list">
+                            <div class="param-item">
+                                <input type="text" placeholder="Parameter Name" class="param-key" value="limit">
+                                <input type="text" placeholder="Parameter Value" class="param-value" value="10">
+                                <button class="param-remove" aria-label="Remove parameter">
+                                    {% include icon.html name="close" size="14" %}
+                                </button>
+                            </div>
+                        </div>
+                        <button class="add-param-btn" id="add-param-btn">
+                            {% include icon.html name="plus" size="16" %} Add Parameter
+                        </button>
+                    </div>
+                    
+                    <!-- Body Tab -->
+                    <div class="config-panel" id="body-panel">
+                        <div class="body-editor">
+                            <textarea id="request-body" class="body-textarea" placeholder="Enter JSON request body...">{
+  "player_id": "example_player",
+  "target_id": "target_player",
+  "weapon": "laser_cannon",
+  "location": "Crusader",
+  "timestamp": "2024-01-01T12:00:00Z"
+}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Code Examples -->
+            <div class="playground-section">
+                <div class="section-header">
+                    <h4>Code Examples</h4>
+                    <div class="language-tabs">
+                        <button class="language-tab active" data-lang="javascript">JavaScript</button>
+                        <button class="language-tab" data-lang="python">Python</button>
+                        <button class="language-tab" data-lang="curl">cURL</button>
+                        <button class="language-tab" data-lang="php">PHP</button>
+                    </div>
+                </div>
+                
+                <div class="code-examples">
+                    <div class="code-example active" id="javascript-example">
+                        <div class="code-header">
+                            <span class="code-lang">JavaScript</span>
+                            <button class="copy-code-btn" data-target="javascript-code">
+                                {% include icon.html name="copy" size="16" %} Copy
+                            </button>
+                        </div>
+                        <pre class="code-block"><code id="javascript-code" class="language-javascript">// Example: Get kill records
+const response = await fetch('/api/kills?limit=10', {
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  }
+});
+
+const data = await response.json();
+console.log(data);</code></pre>
+                    </div>
+                    
+                    <div class="code-example" id="python-example">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <button class="copy-code-btn" data-target="python-code">
+                                {% include icon.html name="copy" size="16" %} Copy
+                            </button>
+                        </div>
+                        <pre class="code-block"><code id="python-code" class="language-python"># Example: Get kill records
+import requests
+
+headers = {
+    'Authorization': 'Bearer YOUR_API_KEY',
+    'Content-Type': 'application/json'
+}
+
+response = requests.get('/api/kills?limit=10', headers=headers)
+data = response.json()
+print(data)</code></pre>
+                    </div>
+                    
+                    <div class="code-example" id="curl-example">
+                        <div class="code-header">
+                            <span class="code-lang">cURL</span>
+                            <button class="copy-code-btn" data-target="curl-code">
+                                {% include icon.html name="copy" size="16" %} Copy
+                            </button>
+                        </div>
+                        <pre class="code-block"><code id="curl-code" class="language-bash"># Example: Get kill records
+curl -X GET '/api/kills?limit=10' \
+  -H 'Authorization: Bearer YOUR_API_KEY' \
+  -H 'Content-Type: application/json'</code></pre>
+                    </div>
+                    
+                    <div class="code-example" id="php-example">
+                        <div class="code-header">
+                            <span class="code-lang">PHP</span>
+                            <button class="copy-code-btn" data-target="php-code">
+                                {% include icon.html name="copy" size="16" %} Copy
+                            </button>
+                        </div>
+                        <pre class="code-block"><code id="php-code" class="language-php"><?php
+// Example: Get kill records
+$headers = [
+    'Authorization: Bearer YOUR_API_KEY',
+    'Content-Type: application/json'
+];
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, '/api/kills?limit=10');
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+$response = curl_exec($ch);
+$data = json_decode($response, true);
+curl_close($ch);
+
+print_r($data);
+?></code></pre>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Response Display -->
+            <div class="playground-section">
+                <div class="section-header">
+                    <h4>Response</h4>
+                    <div class="response-controls">
+                        <button class="response-format-btn active" data-format="pretty">Pretty</button>
+                        <button class="response-format-btn" data-format="raw">Raw</button>
+                        <button class="response-copy-btn" id="response-copy-btn">
+                            {% include icon.html name="copy" size="16" %} Copy Response
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="response-display">
+                    <div class="response-info" id="response-info">
+                        <div class="response-status">
+                            <span class="status-code" id="status-code">-</span>
+                            <span class="status-text" id="status-text">No request made</span>
+                        </div>
+                        <div class="response-time" id="response-time">-</div>
+                    </div>
+                    
+                    <div class="response-content">
+                        <pre class="response-json" id="response-json"><code>Make a request to see the response here...</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="playground-footer">
+            <div class="playground-actions">
+                <button class="playground-btn secondary" id="playground-reset">
+                    {% include icon.html name="refresh" size="16" %} Reset
+                </button>
+                <button class="playground-btn primary" id="playground-save">
+                    {% include icon.html name="download" size="16" %} Save Example
+                </button>
+            </div>
+            <div class="playground-info">
+                <span class="playground-version">API Version: 1.0.0</span>
+                <span class="playground-docs">
+                    <a href="/api/" target="_blank">View Full API Documentation</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

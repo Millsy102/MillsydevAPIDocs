@@ -1,0 +1,82 @@
+{% comment %}
+Interactive API endpoint card with copy functionality
+Usage: {% include api-endpoint-card.html method="POST" endpoint="/api/kills" description="..." %}
+{% endcomment %}
+
+<div class="api-endpoint-card">
+    <div class="endpoint-header">
+        <div class="method-badge method-{{ include.method | downcase }}">
+            {{ include.method }}
+        </div>
+        <div class="endpoint-path">
+            <code>{{ include.endpoint }}</code>
+            <button class="copy-endpoint" onclick="copyEndpoint('{{ include.endpoint }}')">
+                <i class="fas fa-copy"></i>
+            </button>
+        </div>
+    </div>
+    
+    <div class="endpoint-content">
+        <p class="endpoint-description">{{ include.description }}</p>
+        
+        {% if include.parameters %}
+        <div class="endpoint-parameters">
+            <h4>Parameters</h4>
+            <ul>
+                {% for param in include.parameters %}
+                <li>
+                    <code>{{ param.name }}</code>
+                    <span class="param-type">{{ param.type }}</span>
+                    {% if param.required %}<span class="param-required">required</span>{% endif %}
+                    <p>{{ param.description }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        
+        {% if include.example %}
+        <div class="endpoint-example">
+            <h4>Example</h4>
+            {% include api-copy-button.html code=include.example language=include.example_language | default: "json" %}
+        </div>
+        {% endif %}
+        
+        {% if include.response %}
+        <div class="endpoint-response">
+            <h4>Response</h4>
+            {% include api-copy-button.html code=include.response language="json" %}
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="endpoint-actions">
+        <button class="test-endpoint" onclick="testEndpoint('{{ include.method }}', '{{ include.endpoint }}')">
+            <i class="fas fa-play"></i> Test in API Tool
+        </button>
+        <a href="/api/testing-tool.html" class="view-docs">
+            <i class="fas fa-book"></i> View Full Docs
+        </a>
+    </div>
+</div>
+
+<script>
+function copyEndpoint(endpoint) {
+    const fullUrl = `https://api.millsy.dev${endpoint}`;
+    navigator.clipboard.writeText(fullUrl).then(() => {
+        // Show success feedback
+        const button = event.target.closest('.copy-endpoint');
+        const originalHTML = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-check"></i>';
+        setTimeout(() => {
+            button.innerHTML = originalHTML;
+        }, 2000);
+    });
+}
+
+function testEndpoint(method, endpoint) {
+    // Open API testing tool with pre-filled endpoint
+    const url = `/api/testing-tool.html?method=${method}&endpoint=${endpoint}`;
+    window.open(url, '_blank');
+}
+</script>

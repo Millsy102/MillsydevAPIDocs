@@ -1,0 +1,291 @@
+# Translation data for multi-language support
+# Structure: language_code -> key -> translated_text
+
+en:
+  # Navigation
+  nav_home: "Home"
+  nav_get_started: "Get Started"
+  nav_usage: "Usage"
+  nav_api_reference: "API Reference"
+  nav_integration: "Integration"
+  nav_technical: "Technical"
+  nav_advanced: "Advanced"
+  nav_help: "Help"
+  nav_status: "Status"
+  
+  # Common UI elements
+  search_placeholder: "Search documentation..."
+  search_toggle: "Search Documentation"
+  theme_toggle: "Change Theme"
+  language_switcher: "Change Language"
+  
+  # Development warning
+  dev_warning_title: "Documentation Under Development"
+  dev_warning_message: "These docs are actively being updated as we approach the Kill Tracker API launch. Content may change frequently. Check back regularly for the latest information!"
+  dismiss_warning: "Dismiss warning"
+  
+  # Tutorial system
+  tutorial_start: "Start Interactive Tutorial"
+  tutorial_description: "Take a guided tour through the Kill Tracker API setup process"
+  tutorial_welcome_title: "Welcome to the Kill Tracker API"
+  tutorial_welcome_message: "This tutorial will guide you through setting up and using the Kill Tracker API for Star Citizen."
+  tutorial_complete_title: "Congratulations!"
+  tutorial_complete_message: "You've successfully completed the Kill Tracker API tutorial!"
+  
+  # Search system
+  search_no_results: "No results found"
+  search_placeholder_text: "Start typing to search documentation..."
+  search_shortcuts: "Shortcuts"
+  search_enter_select: "Enter to select"
+  search_esc_close: "Esc to close"
+  
+  # Theme system
+  theme_choose: "Choose Your Theme"
+  theme_auto: "Auto"
+  theme_dark: "Dark"
+  theme_light: "Light"
+  theme_star_citizen: "Star Citizen"
+  theme_high_contrast: "High Contrast"
+  theme_cyberpunk: "Cyberpunk"
+  theme_minimal: "Minimal"
+  
+  # Footer
+  footer_powered_by: "Powered by"
+  footer_github_pages: "GitHub Pages"
+  footer_legal: "Legal"
+  footer_terms: "Terms of Service"
+  footer_privacy: "Privacy Policy"
+  footer_contact: "Contact"
+  footer_support: "Support"
+
+# Spanish translations
+es:
+  # Navigation
+  nav_home: "Inicio"
+  nav_get_started: "Comenzar"
+  nav_usage: "Uso"
+  nav_api_reference: "Referencia API"
+  nav_integration: "Integración"
+  nav_technical: "Técnico"
+  nav_advanced: "Avanzado"
+  nav_help: "Ayuda"
+  nav_status: "Estado"
+  
+  # Common UI elements
+  search_placeholder: "Buscar documentación..."
+  search_toggle: "Buscar Documentación"
+  theme_toggle: "Cambiar Tema"
+  language_switcher: "Cambiar Idioma"
+  
+  # Development warning
+  dev_warning_title: "Documentación en Desarrollo"
+  dev_warning_message: "Esta documentación se está actualizando activamente mientras nos acercamos al lanzamiento de la API Kill Tracker. El contenido puede cambiar frecuentemente. ¡Vuelve regularmente para obtener la información más reciente!"
+  dismiss_warning: "Descartar advertencia"
+  
+  # Tutorial system
+  tutorial_start: "Iniciar Tutorial Interactivo"
+  tutorial_description: "Toma un tour guiado a través del proceso de configuración de la API Kill Tracker"
+  tutorial_welcome_title: "Bienvenido a la API Kill Tracker"
+  tutorial_welcome_message: "Este tutorial te guiará a través de la configuración y uso de la API Kill Tracker para Star Citizen."
+  tutorial_complete_title: "¡Felicidades!"
+  tutorial_complete_message: "¡Has completado exitosamente el tutorial de la API Kill Tracker!"
+  
+  # Search system
+  search_no_results: "No se encontraron resultados"
+  search_placeholder_text: "Comienza a escribir para buscar documentación..."
+  search_shortcuts: "Atajos"
+  search_enter_select: "Enter para seleccionar"
+  search_esc_close: "Esc para cerrar"
+  
+  # Theme system
+  theme_choose: "Elige Tu Tema"
+  theme_auto: "Automático"
+  theme_dark: "Oscuro"
+  theme_light: "Claro"
+  theme_star_citizen: "Star Citizen"
+  theme_high_contrast: "Alto Contraste"
+  theme_cyberpunk: "Cyberpunk"
+  theme_minimal: "Mínimo"
+  
+  # Footer
+  footer_powered_by: "Desarrollado por"
+  footer_github_pages: "GitHub Pages"
+  footer_legal: "Legal"
+  footer_terms: "Términos de Servicio"
+  footer_privacy: "Política de Privacidad"
+  footer_contact: "Contacto"
+  footer_support: "Soporte"
+
+# French translations
+fr:
+  # Navigation
+  nav_home: "Accueil"
+  nav_get_started: "Commencer"
+  nav_usage: "Utilisation"
+  nav_api_reference: "Référence API"
+  nav_integration: "Intégration"
+  nav_technical: "Technique"
+  nav_advanced: "Avancé"
+  nav_help: "Aide"
+  nav_status: "Statut"
+  
+  # Common UI elements
+  search_placeholder: "Rechercher dans la documentation..."
+  search_toggle: "Rechercher Documentation"
+  theme_toggle: "Changer le Thème"
+  language_switcher: "Changer la Langue"
+  
+  # Development warning
+  dev_warning_title: "Documentation en Développement"
+  dev_warning_message: "Cette documentation est activement mise à jour à l'approche du lancement de l'API Kill Tracker. Le contenu peut changer fréquemment. Revenez régulièrement pour les dernières informations!"
+  dismiss_warning: "Ignorer l'avertissement"
+  
+  # Tutorial system
+  tutorial_start: "Démarrer le Tutoriel Interactif"
+  tutorial_description: "Suivez une visite guidée du processus de configuration de l'API Kill Tracker"
+  tutorial_welcome_title: "Bienvenue dans l'API Kill Tracker"
+  tutorial_welcome_message: "Ce tutoriel vous guidera à travers la configuration et l'utilisation de l'API Kill Tracker pour Star Citizen."
+  tutorial_complete_title: "Félicitations!"
+  tutorial_complete_message: "Vous avez terminé avec succès le tutoriel de l'API Kill Tracker!"
+  
+  # Search system
+  search_no_results: "Aucun résultat trouvé"
+  search_placeholder_text: "Commencez à taper pour rechercher dans la documentation..."
+  search_shortcuts: "Raccourcis"
+  search_enter_select: "Entrée pour sélectionner"
+  search_esc_close: "Échap pour fermer"
+  
+  # Theme system
+  theme_choose: "Choisissez Votre Thème"
+  theme_auto: "Auto"
+  theme_dark: "Sombre"
+  theme_light: "Clair"
+  theme_star_citizen: "Star Citizen"
+  theme_high_contrast: "Haut Contraste"
+  theme_cyberpunk: "Cyberpunk"
+  theme_minimal: "Minimal"
+  
+  # Footer
+  footer_powered_by: "Développé par"
+  footer_github_pages: "GitHub Pages"
+  footer_legal: "Légal"
+  footer_terms: "Conditions d'Utilisation"
+  footer_privacy: "Politique de Confidentialité"
+  footer_contact: "Contact"
+  footer_support: "Support"
+
+# German translations
+de:
+  # Navigation
+  nav_home: "Startseite"
+  nav_get_started: "Erste Schritte"
+  nav_usage: "Verwendung"
+  nav_api_reference: "API-Referenz"
+  nav_integration: "Integration"
+  nav_technical: "Technisch"
+  nav_advanced: "Erweitert"
+  nav_help: "Hilfe"
+  nav_status: "Status"
+  
+  # Common UI elements
+  search_placeholder: "Dokumentation durchsuchen..."
+  search_toggle: "Dokumentation Durchsuchen"
+  theme_toggle: "Design Ändern"
+  language_switcher: "Sprache Ändern"
+  
+  # Development warning
+  dev_warning_title: "Dokumentation in Entwicklung"
+  dev_warning_message: "Diese Dokumentation wird aktiv aktualisiert, während wir uns dem Launch der Kill Tracker API nähern. Der Inhalt kann sich häufig ändern. Schauen Sie regelmäßig vorbei für die neuesten Informationen!"
+  dismiss_warning: "Warnung verwerfen"
+  
+  # Tutorial system
+  tutorial_start: "Interaktives Tutorial Starten"
+  tutorial_description: "Nehmen Sie an einer geführten Tour durch den Kill Tracker API-Setup-Prozess teil"
+  tutorial_welcome_title: "Willkommen bei der Kill Tracker API"
+  tutorial_welcome_message: "Dieses Tutorial führt Sie durch die Einrichtung und Verwendung der Kill Tracker API für Star Citizen."
+  tutorial_complete_title: "Herzlichen Glückwunsch!"
+  tutorial_complete_message: "Sie haben das Kill Tracker API-Tutorial erfolgreich abgeschlossen!"
+  
+  # Search system
+  search_no_results: "Keine Ergebnisse gefunden"
+  search_placeholder_text: "Beginnen Sie mit der Eingabe, um die Dokumentation zu durchsuchen..."
+  search_shortcuts: "Tastenkürzel"
+  search_enter_select: "Eingabe zum Auswählen"
+  search_esc_close: "Esc zum Schließen"
+  
+  # Theme system
+  theme_choose: "Wählen Sie Ihr Design"
+  theme_auto: "Auto"
+  theme_dark: "Dunkel"
+  theme_light: "Hell"
+  theme_star_citizen: "Star Citizen"
+  theme_high_contrast: "Hoher Kontrast"
+  theme_cyberpunk: "Cyberpunk"
+  theme_minimal: "Minimal"
+  
+  # Footer
+  footer_powered_by: "Entwickelt von"
+  footer_github_pages: "GitHub Pages"
+  footer_legal: "Rechtliches"
+  footer_terms: "Nutzungsbedingungen"
+  footer_privacy: "Datenschutzrichtlinie"
+  footer_contact: "Kontakt"
+  footer_support: "Support"
+
+# Japanese translations
+ja:
+  # Navigation
+  nav_home: "ホーム"
+  nav_get_started: "はじめに"
+  nav_usage: "使用方法"
+  nav_api_reference: "APIリファレンス"
+  nav_integration: "統合"
+  nav_technical: "技術"
+  nav_advanced: "高度"
+  nav_help: "ヘルプ"
+  nav_status: "ステータス"
+  
+  # Common UI elements
+  search_placeholder: "ドキュメントを検索..."
+  search_toggle: "ドキュメント検索"
+  theme_toggle: "テーマ変更"
+  language_switcher: "言語変更"
+  
+  # Development warning
+  dev_warning_title: "開発中のドキュメント"
+  dev_warning_message: "Kill Tracker APIのローンチに近づくにつれて、このドキュメントは積極的に更新されています。コンテンツは頻繁に変更される可能性があります。最新情報については定期的に確認してください！"
+  dismiss_warning: "警告を閉じる"
+  
+  # Tutorial system
+  tutorial_start: "インタラクティブチュートリアルを開始"
+  tutorial_description: "Kill Tracker APIセットアッププロセスのガイドツアーに参加"
+  tutorial_welcome_title: "Kill Tracker APIへようこそ"
+  tutorial_welcome_message: "このチュートリアルでは、Star Citizen用のKill Tracker APIのセットアップと使用方法をガイドします。"
+  tutorial_complete_title: "おめでとうございます！"
+  tutorial_complete_message: "Kill Tracker APIチュートリアルを正常に完了しました！"
+  
+  # Search system
+  search_no_results: "結果が見つかりません"
+  search_placeholder_text: "ドキュメントを検索するために入力開始..."
+  search_shortcuts: "ショートカット"
+  search_enter_select: "Enterで選択"
+  search_esc_close: "Escで閉じる"
+  
+  # Theme system
+  theme_choose: "テーマを選択"
+  theme_auto: "自動"
+  theme_dark: "ダーク"
+  theme_light: "ライト"
+  theme_star_citizen: "Star Citizen"
+  theme_high_contrast: "高コントラスト"
+  theme_cyberpunk: "サイバーパンク"
+  theme_minimal: "ミニマル"
+  
+  # Footer
+  footer_powered_by: "開発者"
+  footer_github_pages: "GitHub Pages"
+  footer_legal: "法的"
+  footer_terms: "利用規約"
+  footer_privacy: "プライバシーポリシー"
+  footer_contact: "お問い合わせ"
+  footer_support: "サポート"
