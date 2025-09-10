@@ -9,17 +9,35 @@ Usage: {% include related-docs.html %}
 {% comment %} Define related documentation based on current page {% endcomment %}
 {% case current_path %}
     {% when '/api/' %}
-        {% assign related_docs = site.pages | where_exp: "page", "page.url contains '/api/' or page.url contains '/developers/' or page.url contains '/help/'" %}
+        {% assign api = site.pages | where_exp: "page", "page.url contains '/api/'" %}
+        {% assign developers = site.pages | where_exp: "page", "page.url contains '/developers/'" %}
+        {% assign help = site.pages | where_exp: "page", "page.url contains '/help/'" %}
+        {% assign related_docs = api | concat: developers | concat: help %}
     {% when '/getting-started/' %}
-        {% assign related_docs = site.pages | where_exp: "page", "page.url contains '/getting-started/' or page.url contains '/usage/' or page.url contains '/help/'" %}
+        {% assign getting_started = site.pages | where: "url", "/getting-started/" %}
+        {% assign usage = site.pages | where_exp: "page", "page.url contains '/usage/'" %}
+        {% assign help = site.pages | where_exp: "page", "page.url contains '/help/'" %}
+        {% assign related_docs = getting_started | concat: usage | concat: help %}
     {% when '/developers/' %}
-        {% assign related_docs = site.pages | where_exp: "page", "page.url contains '/api/' or page.url contains '/developers/' or page.url contains '/technical/'" %}
+        {% assign api = site.pages | where_exp: "page", "page.url contains '/api/'" %}
+        {% assign developers = site.pages | where_exp: "page", "page.url contains '/developers/'" %}
+        {% assign technical = site.pages | where_exp: "page", "page.url contains '/technical/'" %}
+        {% assign related_docs = api | concat: developers | concat: technical %}
     {% when '/technical/' %}
-        {% assign related_docs = site.pages | where_exp: "page", "page.url contains '/technical/' or page.url contains '/advanced/' or page.url contains '/help/'" %}
+        {% assign technical = site.pages | where_exp: "page", "page.url contains '/technical/'" %}
+        {% assign advanced = site.pages | where_exp: "page", "page.url contains '/advanced/'" %}
+        {% assign help = site.pages | where_exp: "page", "page.url contains '/help/'" %}
+        {% assign related_docs = technical | concat: advanced | concat: help %}
     {% when '/advanced/' %}
-        {% assign related_docs = site.pages | where_exp: "page", "page.url contains '/advanced/' or page.url contains '/technical/' or page.url contains '/api/'" %}
+        {% assign advanced = site.pages | where_exp: "page", "page.url contains '/advanced/'" %}
+        {% assign technical = site.pages | where_exp: "page", "page.url contains '/technical/'" %}
+        {% assign api = site.pages | where_exp: "page", "page.url contains '/api/'" %}
+        {% assign related_docs = advanced | concat: technical | concat: api %}
     {% when '/help/' %}
-        {% assign related_docs = site.pages | where_exp: "page", "page.url contains '/help/' or page.url contains '/getting-started/' or page.url contains '/api/'" %}
+        {% assign help = site.pages | where_exp: "page", "page.url contains '/help/'" %}
+        {% assign getting_started = site.pages | where_exp: "page", "page.url contains '/getting-started/'" %}
+        {% assign api = site.pages | where_exp: "page", "page.url contains '/api/'" %}
+        {% assign related_docs = help | concat: getting_started | concat: api %}
     {% else %}
         {% assign related_docs = site.pages | where_exp: "page", "page.url != current_path" | limit: 6 %}
 {% endcase %}
