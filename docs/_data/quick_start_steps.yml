@@ -37,5 +37,5 @@
       })
     });
   language: "javascript"
-  link: "/api/sdk-examples.html"
+  link: "/api/sdk-examples"
   link_text: "View All Examples"

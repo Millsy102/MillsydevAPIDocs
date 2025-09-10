@@ -273,9 +273,9 @@ a:hover {
     margin: 0 auto;
     padding: 0 1.5rem;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     height: 80px;
+    gap: 2rem;
 }
 
 .nav-brand {
@@ -353,13 +353,13 @@ a:hover {
     gap: 1rem;
     align-items: center;
     flex: 1;
-    justify-content: center;
 }
 
 .nav-utilities {
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
     align-items: center;
+    margin-left: auto;
 }
 
 .nav-link {
@@ -386,7 +386,7 @@ a:hover {
 }
 
 .nav-toggle {
-    display: none;
+    display: none !important;
     flex-direction: column;
     cursor: pointer;
     gap: 4px;
@@ -1211,16 +1211,16 @@ li {
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-menu {
-        position: fixed;
-        top: 70px;
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 70px);
-        background: var(--black);
-        flex-direction: column;
+        position: static;
+        top: auto;
+        left: auto;
+        width: auto;
+        height: auto;
+        background: transparent;
+        flex-direction: row;
         justify-content: flex-start;
-        padding: 2rem;
-        transition: left 0.3s ease;
+        padding: 0;
+        transition: none;
     }
 
     .nav-menu.active {
@@ -1228,7 +1228,7 @@ li {
     }
 
     .nav-toggle {
-        display: flex;
+        display: none !important;
     }
 
     .nav-toggle.active .bar:nth-child(1) {
@@ -1292,6 +1292,12 @@ li {
 @media (max-width: 1024px) and (min-width: 769px) {
     .features-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 1200px) and (min-width: 1025px) {
+    .features-grid {
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
@@ -1498,9 +1504,10 @@ li {
 /* Features Grid with Staggered Animations */
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
     margin: 2rem 0;
+    justify-content: center;
 }
 
 .feature-card {
@@ -4582,6 +4589,9 @@ pre code {
     border-radius: 12px;
     padding: 24px;
     margin: 24px 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .quick-start-card.compact {
