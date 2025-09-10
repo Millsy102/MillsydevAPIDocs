@@ -371,7 +371,7 @@
                     <strong>Fan Site Disclaimer:</strong> This is an independent fan site and is not endorsed by, affiliated with, or sponsored by Cloud Imperium Games. Star Citizen and all related content are trademarks and copyrights of Cloud Imperium Games. All rights reserved.
                 </p>
                 <p class="disclaimer-text llm-disclaimer">
-                    <span class="disclaimer-icon">🤖</span>
+                    <i class="fas fa-robot disclaimer-icon"></i>
                     <strong>AI Assistance Disclaimer:</strong> This documentation site was created with assistance from AI/LLM technology for content generation and element conversion. Core project architecture and implementation remain human-developed.
                 </p>
             </div>
@@ -754,7 +754,7 @@
                 const originalText = submitButton.innerHTML;
                 
                 // Show loading state
-                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+                submitButton.innerHTML = '<i class="fas fa-paper-plane"></i> Submitting...';
                 submitButton.disabled = true;
                 
                 // Simulate API call
@@ -2965,7 +2965,7 @@
                         // Show loading overlay
                         const overlay = document.createElement('div');
                         overlay.className = 'loading-overlay active';
-                        overlay.innerHTML = '<div class="loading-spinner"></div>';
+                        overlay.innerHTML = '<div class="loading-pulse"><i class="fas fa-circle-notch"></i></div>';
                         document.body.appendChild(overlay);
                         
                         // Navigate after short delay

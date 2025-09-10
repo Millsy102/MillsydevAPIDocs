@@ -10,6 +10,9 @@
     --dark-gray: #111111;
     --medium-gray: #1f1f1f;
     --light-gray: #2a2a2a;
+    --bg-primary: #000000;
+    --bg-secondary: #111111;
+    --bg-tertiary: #1f1f1f;
     --text-white: #ffffff;
     --text-gray: #d1d5db;
     --text-muted: #9ca3af;
@@ -36,6 +39,90 @@
     --info: #3b82f6;
 }
 
+/* Light Theme */
+.light-theme {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-tertiary: #f1f5f9;
+    --text-white: #1e293b;
+    --text-gray: #475569;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --dark-gray: #f8fafc;
+    --medium-gray: #f1f5f9;
+    --light-gray: #e2e8f0;
+    --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
+    --shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.2);
+}
+
+/* Star Citizen Theme */
+.star-citizen-theme {
+    --primary-red: #00d4ff;
+    --primary-red-dark: #0099cc;
+    --primary-red-light: #33ddff;
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #1a1a1a;
+    --bg-tertiary: #2a2a2a;
+    --text-white: #ffffff;
+    --text-gray: #b3d9ff;
+    --text-muted: #80bfff;
+    --border-color: #006699;
+    --gradient-red: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+    --glow-red: 0 0 20px rgba(0, 212, 255, 0.5);
+    --glow-red-lg: 0 0 40px rgba(0, 212, 255, 0.7);
+}
+
+/* High Contrast Theme */
+.high-contrast-theme {
+    --bg-primary: #000000;
+    --bg-secondary: #000000;
+    --bg-tertiary: #000000;
+    --text-white: #ffffff;
+    --text-gray: #ffffff;
+    --text-muted: #ffffff;
+    --border-color: #ffffff;
+    --primary-red: #ffff00;
+    --primary-red-dark: #ffff00;
+    --primary-red-light: #ffff00;
+}
+
+/* Cyberpunk Theme */
+.cyberpunk-theme {
+    --primary-red: #ff0080;
+    --primary-red-dark: #cc0066;
+    --primary-red-light: #ff3399;
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #1a0a1a;
+    --bg-tertiary: #2a0a2a;
+    --text-white: #ff00ff;
+    --text-gray: #ff80ff;
+    --text-muted: #ff40ff;
+    --border-color: #ff0080;
+    --gradient-red: linear-gradient(135deg, #ff0080 0%, #cc0066 100%);
+    --glow-red: 0 0 20px rgba(255, 0, 128, 0.5);
+    --glow-red-lg: 0 0 40px rgba(255, 0, 128, 0.7);
+}
+
+/* Minimal Theme */
+.minimal-theme {
+    --bg-primary: #ffffff;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f8f9fa;
+    --text-white: #212529;
+    --text-gray: #495057;
+    --text-muted: #6c757d;
+    --border-color: #dee2e6;
+    --primary-red: #6c757d;
+    --primary-red-dark: #495057;
+    --primary-red-light: #868e96;
+    --shadow: none;
+    --shadow-lg: none;
+    --shadow-xl: none;
+    --error: #ef4444;
+    --info: #3b82f6;
+}
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -49,7 +136,7 @@ html {
 
 body {
     font-family: var(--font-inter);
-    background: var(--black);
+    background: var(--bg-primary);
     color: var(--text-white);
     line-height: 1.6;
     overflow-x: hidden;
@@ -249,7 +336,7 @@ a:hover {
 }
 
 .sc-logo-img {
-    height: 50px;
+    height: 65px;
     width: auto;
     object-fit: contain;
     transition: opacity 0.3s var(--animation-smooth);
@@ -683,15 +770,15 @@ li {
 }
 
 .footer-container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 2rem;
 }
 
 .footer-main {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 3rem;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
     margin-bottom: 1.5rem;
 }
 
@@ -790,12 +877,31 @@ li {
 .footer-bottom {
     border-top: 1px solid var(--border-color);
     padding-top: 2rem;
-    text-align: center;
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
     color: var(--text-muted);
 }
 
 .footer-bottom p {
     margin: 0.25rem 0;
+}
+
+.disclaimer-text {
+    flex: 1;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.llm-disclaimer {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.disclaimer-icon {
+    flex-shrink: 0;
+    margin-top: 0.1rem;
 }
 
 /* Advanced Animations */
@@ -1725,6 +1831,29 @@ li {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+/* Loading Pulse */
+.loading-pulse {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    color: var(--primary-red);
+    font-size: 24px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        opacity: 0.6;
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 1;
+        transform: scale(1.1);
+    }
 }
 
 /* Notification System */
@@ -4436,7 +4565,36 @@ pre code {
     border-radius: 12px;
     padding: 24px;
     margin: 24px 0;
+}
+
+.quick-start-card.compact {
+    padding: 16px;
+    margin: 16px 0;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.quick-start-card.compact .card-header h3 {
+    font-size: 1.2em;
+    margin-bottom: 8px;
+}
+
+.quick-start-card.compact .card-header p {
+    font-size: 0.9em;
+    margin-bottom: 16px;
+}
+
+.quick-start-card.compact .step-item {
+    margin-bottom: 12px;
+}
+
+.quick-start-card.compact .step-content h4 {
+    font-size: 1em;
+    margin-bottom: 4px;
+}
+
+.quick-start-card.compact .step-content p {
+    font-size: 0.85em;
+    margin-bottom: 8px;
 }
 
 .card-header h3 {

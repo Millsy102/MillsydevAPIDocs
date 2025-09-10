@@ -62,7 +62,7 @@ Usage: {% include api-endpoint-card.html method="POST" endpoint="/api/kills" des
 
 <script>
 function copyEndpoint(endpoint) {
-    const fullUrl = `https://api.millsy.dev${endpoint}`;
+    const fullUrl = 'https://api.millsy.dev' + endpoint;
     navigator.clipboard.writeText(fullUrl).then(() => {
         // Show success feedback
         const button = event.target.closest('.copy-endpoint');

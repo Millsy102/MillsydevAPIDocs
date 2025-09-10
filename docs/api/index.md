@@ -16,7 +16,7 @@ title: "API Documentation"
     <p class="playground-description">Test API endpoints, explore code examples, and experiment with the Kill Tracker API in real-time.</p>
 </div>
 
-## 🚀 Quick Start
+## <i class="fas fa-rocket"></i> Quick Start
 
 **Base URL:** `https://api.millsy.dev`  
 **API Version:** v1.0.0  
@@ -42,7 +42,7 @@ curl -H "Authorization: Bearer $API_KEY" \
      https://api.millsy.dev/api/kills/user/YOUR_USER_ID?limit=10
 ```
 
-## 🔑 Authentication
+## <i class="fas fa-key"></i> Authentication
 
 ### API Key Authentication (Required)
 
@@ -52,7 +52,7 @@ curl -H "Authorization: Bearer $API_KEY" \
 Authorization: Bearer $API_KEY
 ```
 
-**🔒 Security Best Practices:**
+**<i class="fas fa-shield-alt"></i> Security Best Practices:**
 - **Never hardcode API keys** in your source code
 - **Use environment variables** to store API keys
 - **Store API keys securely** (use secure vaults or key management services)
@@ -66,7 +66,7 @@ Authorization: Bearer $API_KEY
 2. **Primary Key**: Auto-generated for Kill Tracker applications
 3. **Bot Key**: For Discord bot integrations
 
-## 📊 Core Endpoints
+## <i class="fas fa-chart-bar"></i> Core Endpoints
 
 ### **Kill Tracking**
 
@@ -145,7 +145,7 @@ Authorization: Bearer $API_KEY
 | `POST` | `/api/logs/validate` | Validate log file |
 | `POST` | `/api/logs/parse` | Parse log file for kills |
 
-## 📝 Request/Response Format
+## <i class="fas fa-file-alt"></i> Request/Response Format
 
 ### Standard Response Format
 
@@ -191,7 +191,7 @@ Authorization: Bearer $API_KEY
 | `429` | Rate Limited |
 | `500` | Internal Server Error |
 
-## 🔒 Rate Limiting
+## <i class="fas fa-tachometer-alt"></i> Rate Limiting
 
 **All endpoints require API key authentication and have the following limits:**
 
@@ -204,7 +204,7 @@ Authorization: Bearer $API_KEY
 
 **Security Note:** No unauthenticated requests are allowed. All endpoints require a valid API key.
 
-## 🔒 API Security Best Practices
+## <i class="fas fa-lock"></i> API Security Best Practices
 
 ### Secure API Key Management
 
@@ -270,7 +270,7 @@ X-RateLimit-Remaining: 95
 X-RateLimit-Reset: 1640995200
 ```
 
-## 🔗 WebSocket API
+## <i class="fas fa-plug"></i> WebSocket API
 
 ### Connection
 
@@ -294,7 +294,7 @@ ws.onopen = function() {
 - `server.event` - Server events
 - `analytics.insight` - New AI insight generated
 
-## 📚 Integration Examples
+## <i class="fas fa-code"></i> Integration Examples
 
 ### JavaScript/TypeScript
 
@@ -371,7 +371,7 @@ def get_user_stats(user_id):
     return response.json()
 ```
 
-## 🧪 Testing
+## <i class="fas fa-flask"></i> Testing
 
 ### Postman Collection
 
@@ -409,7 +409,7 @@ curl -X GET "https://api.millsy.dev/api/leaderboard/kills?limit=10" \
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
-## 🆘 Support
+## <i class="fas fa-life-ring"></i> Support
 
 - **Full API Reference**: [Complete Endpoint Documentation](./endpoints.md)
 - **Error Codes**: [Comprehensive Error Reference](./error-codes.md)
@@ -421,7 +421,7 @@ curl -X GET "https://api.millsy.dev/api/leaderboard/kills?limit=10" \
 - **Email**: api-support@millsy.dev (one-man team, may take time to respond)
 - **Status Page**: [API Status & Uptime](../status/)
 
-## 📈 API Status
+## <i class="fas fa-chart-line"></i> API Status
 
 - **Uptime**: 99.9%
 - **Average Response Time**: < 200ms

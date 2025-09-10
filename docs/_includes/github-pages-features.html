@@ -5,18 +5,18 @@ Usage: {% include github-pages-features.html %}
 
 <!-- GitHub Pages Enhanced Features -->
 <div class="github-pages-features">
-    <!-- Live Demo Section -->
+    <!-- Development Tools Section -->
     <div class="live-demo-section">
-        <h3>🚀 Try It Live</h3>
+        <h3><i class="fas fa-tools"></i> Development Tools</h3>
         <div class="demo-buttons">
             <a href="/api/testing-tool.html" class="demo-button primary">
-                <i class="fas fa-play"></i> Interactive API Tester
-            </a>
-            <a href="https://dbot.millsy.dev" class="demo-button secondary" target="_blank">
-                <i class="fas fa-external-link-alt"></i> Live Dashboard
+                <i class="fas fa-code"></i> API Testing Tool
             </a>
             <a href="/api/postman-collection.json" class="demo-button secondary" download>
                 <i class="fas fa-download"></i> Postman Collection
+            </a>
+            <a href="/api/" class="demo-button secondary">
+                <i class="fas fa-book"></i> API Documentation
             </a>
         </div>
     </div>
@@ -25,19 +25,19 @@ Usage: {% include github-pages-features.html %}
     <div class="quick-stats">
         <div class="stat-item">
             <div class="stat-number">65+</div>
-            <div class="stat-label">API Endpoints</div>
+            <div class="stat-label">Planned Endpoints</div>
         </div>
         <div class="stat-item">
-            <div class="stat-number">99.9%</div>
-            <div class="stat-label">Uptime</div>
+            <div class="stat-number">In Dev</div>
+            <div class="stat-label">Current Status</div>
         </div>
         <div class="stat-item">
-            <div class="stat-number">&lt;200ms</div>
-            <div class="stat-label">Response Time</div>
+            <div class="stat-number">Open</div>
+            <div class="stat-label">Source</div>
         </div>
         <div class="stat-item">
-            <div class="stat-number">24/7</div>
-            <div class="stat-label">Support</div>
+            <div class="stat-number">Active</div>
+            <div class="stat-label">Development</div>
         </div>
     </div>
 
@@ -59,8 +59,8 @@ Usage: {% include github-pages-features.html %}
 
     <!-- Status Indicator -->
     <div class="status-indicator">
-        <div class="status-dot online"></div>
-        <span>All systems operational</span>
+        <div class="status-dot development"></div>
+        <span>API in active development</span>
         <a href="/status/">View Status</a>
     </div>
 </div>
@@ -89,6 +89,8 @@ Usage: {% include github-pages-features.html %}
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
+    justify-content: flex-start;
+    max-width: 600px;
 }
 
 .demo-button {
@@ -228,6 +230,10 @@ Usage: {% include github-pages-features.html %}
 
 .status-dot.online {
     background: #4CAF50;
+}
+
+.status-dot.development {
+    background: #FF9800;
 }
 
 .status-indicator span {

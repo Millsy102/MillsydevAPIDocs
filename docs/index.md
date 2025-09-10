@@ -51,7 +51,7 @@ Our kill tracking system provides comprehensive features for Star Citizen player
         status="available" %}
 </div>
 
-## 🚀 Quick Start
+## <i class="fas fa-rocket"></i> Quick Start
 
 <div class="quick-start-section">
     {% include quick-start-card.html 
