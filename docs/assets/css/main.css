@@ -673,11 +673,12 @@ a:hover {
 }
 
 .content-container {
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 0 1rem 1rem 1rem;
+    padding: 0 2rem 2rem 2rem;
     overflow-x: hidden;
     box-sizing: border-box;
+    text-align: center;
 }
 
 .content-layout {
@@ -1505,8 +1506,9 @@ li {
 .features-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-    margin: 2rem 0;
+    gap: 1rem;
+    margin: 2rem auto;
+    max-width: 1000px;
     justify-content: center;
 }
 
@@ -4587,17 +4589,18 @@ pre code {
     background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
     border: 1px solid #333;
     border-radius: 12px;
-    padding: 24px;
-    margin: 24px 0;
-    max-width: 100%;
+    padding: 20px;
+    margin: 16px auto;
+    max-width: 800px;
     box-sizing: border-box;
     overflow: hidden;
 }
 
 .quick-start-card.compact {
     padding: 16px;
-    margin: 16px 0;
+    margin: 12px auto;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    max-width: 700px;
 }
 
 .quick-start-card.compact .card-header h3 {

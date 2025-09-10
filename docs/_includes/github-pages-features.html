@@ -21,23 +21,31 @@ Usage: {% include github-pages-features.html %}
         </div>
     </div>
 
-    <!-- Quick Stats -->
+    <!-- Service Status -->
     <div class="quick-stats">
         <div class="stat-item">
-            <div class="stat-number">65+</div>
-            <div class="stat-label">Planned Endpoints</div>
+            <div class="stat-number status-indicator" id="bot-status">
+                <span class="status-dot offline"></span> Offline
+            </div>
+            <div class="stat-label">Bot Status</div>
         </div>
         <div class="stat-item">
-            <div class="stat-number">In Dev</div>
-            <div class="stat-label">Current Status</div>
+            <div class="stat-number status-indicator" id="api-status">
+                <span class="status-dot offline"></span> Offline
+            </div>
+            <div class="stat-label">API Status</div>
         </div>
         <div class="stat-item">
-            <div class="stat-number">Open</div>
-            <div class="stat-label">Source</div>
+            <div class="stat-number status-indicator" id="vps-status">
+                <span class="status-dot offline"></span> Offline
+            </div>
+            <div class="stat-label">VPS Status</div>
         </div>
         <div class="stat-item">
-            <div class="stat-number">Active</div>
-            <div class="stat-label">Development</div>
+            <div class="stat-number status-indicator" id="database-status">
+                <span class="status-dot offline"></span> Offline
+            </div>
+            <div class="stat-label">Database</div>
         </div>
     </div>
 
@@ -57,26 +65,81 @@ Usage: {% include github-pages-features.html %}
         </div>
     </div>
 
+    <!-- Detailed Service Status -->
+    <div class="service-status">
+        <h4><i class="fas fa-server"></i> System Status</h4>
+        <div class="status-grid">
+            <div class="status-item">
+                <span class="status-dot offline"></span>
+                <span class="status-text">Bot Status:</span>
+                <span class="status-value">Offline</span>
+            </div>
+            <div class="status-item">
+                <span class="status-dot offline"></span>
+                <span class="status-text">API Server:</span>
+                <span class="status-value">Offline</span>
+            </div>
+            <div class="status-item">
+                <span class="status-dot offline"></span>
+                <span class="status-text">VPS:</span>
+                <span class="status-value">Offline</span>
+            </div>
+            <div class="status-item">
+                <span class="status-dot offline"></span>
+                <span class="status-text">Database:</span>
+                <span class="status-value">Offline</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resource Usage -->
+    <div class="service-status">
+        <h4><i class="fas fa-chart-line"></i> Resource Usage</h4>
+        <div class="status-grid">
+            <div class="status-item">
+                <span class="status-dot warning"></span>
+                <span class="status-text">CPU:</span>
+                <span class="status-value">N/A</span>
+            </div>
+            <div class="status-item">
+                <span class="status-dot warning"></span>
+                <span class="status-text">Memory:</span>
+                <span class="status-value">N/A</span>
+            </div>
+            <div class="status-item">
+                <span class="status-dot warning"></span>
+                <span class="status-text">Disk:</span>
+                <span class="status-value">N/A</span>
+            </div>
+            <div class="status-item">
+                <span class="status-dot warning"></span>
+                <span class="status-text">Network:</span>
+                <span class="status-value">N/A</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Status Indicator -->
     <div class="status-indicator">
-        <div class="status-dot development"></div>
-        <span>API in active development</span>
+        <div class="status-dot offline"></div>
+        <span>All services offline - Development paused</span>
         <a href="/status/">View Status</a>
     </div>
 </div>
 
 <style>
 .github-pages-features {
-    margin: 40px 0;
-    padding: 24px;
+    margin: 24px auto;
+    padding: 20px;
     background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
     border: 1px solid #333;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    max-width: 1000px;
 }
 
 .live-demo-section {
-    margin-bottom: 32px;
+    margin-bottom: 20px;
 }
 
 .live-demo-section h3 {
@@ -87,10 +150,12 @@ Usage: {% include github-pages-features.html %}
 
 .demo-buttons {
     display: flex;
-    gap: 12px;
+    gap: 8px;
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .demo-button {
@@ -131,12 +196,13 @@ Usage: {% include github-pages-features.html %}
 .quick-stats {
     display: flex;
     justify-content: center;
-    gap: 40px;
-    margin: 32px 0;
-    padding: 20px;
+    gap: 20px;
+    margin: 24px auto;
+    padding: 16px;
     background: #1a1a1a;
     border-radius: 8px;
     border: 1px solid #333;
+    max-width: 800px;
 }
 
 .stat-item {
@@ -156,7 +222,7 @@ Usage: {% include github-pages-features.html %}
 }
 
 .community-links {
-    margin: 32px 0;
+    margin: 20px 0;
 }
 
 .community-links h3 {
@@ -167,9 +233,11 @@ Usage: {% include github-pages-features.html %}
 
 .community-buttons {
     display: flex;
-    gap: 12px;
+    gap: 8px;
     flex-wrap: wrap;
     justify-content: center;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .community-button {
@@ -237,6 +305,33 @@ Usage: {% include github-pages-features.html %}
     background: #FF9800;
 }
 
+.status-dot.offline {
+    background: #f44336;
+}
+
+.status-dot.online {
+    background: #4CAF50;
+}
+
+.status-dot.warning {
+    background: #FF9800;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.status-indicator .status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
 .status-indicator span {
     color: #cccccc;
     flex: 1;
@@ -258,6 +353,55 @@ Usage: {% include github-pages-features.html %}
     100% { opacity: 1; }
 }
 
+/* Service Status Monitoring */
+.service-status {
+    margin: 20px 0;
+    padding: 16px;
+    background: #1a1a1a;
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+.service-status h4 {
+    color: #ff4444;
+    margin-bottom: 12px;
+    font-size: 1.1em;
+}
+
+.status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    background: #2a2a2a;
+    border-radius: 6px;
+    border: 1px solid #444;
+}
+
+.status-item .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.status-item .status-text {
+    color: #cccccc;
+    font-size: 14px;
+}
+
+.status-item .status-value {
+    color: #ffffff;
+    font-weight: bold;
+    margin-left: auto;
+}
+
 @media (max-width: 768px) {
     .demo-buttons,
     .community-buttons {
@@ -268,5 +412,75 @@ Usage: {% include github-pages-features.html %}
         flex-direction: column;
         gap: 15px;
     }
+    
+    .status-grid {
+        grid-template-columns: 1fr;
+    }
 }
+</style>
+
+<script>
+// Service Status Monitoring
+class ServiceMonitor {
+    constructor() {
+        this.services = {
+            bot: { url: 'https://api.millsy.dev/health/bot', name: 'Bot' },
+            api: { url: 'https://api.millsy.dev/health', name: 'API Server' },
+            vps: { url: 'https://api.millsy.dev/health/vps', name: 'VPS' },
+            database: { url: 'https://api.millsy.dev/health/db', name: 'Database' }
+        };
+        this.init();
+    }
+
+    init() {
+        this.checkAllServices();
+        // Check every 30 seconds
+        setInterval(() => this.checkAllServices(), 30000);
+    }
+
+    async checkAllServices() {
+        for (const [key, service] of Object.entries(this.services)) {
+            try {
+                const response = await fetch(service.url, { 
+                    method: 'GET',
+                    timeout: 5000 
+                });
+                
+                if (response.ok) {
+                    this.updateStatus(key, 'online');
+                } else {
+                    this.updateStatus(key, 'offline');
+                }
+            } catch (error) {
+                this.updateStatus(key, 'offline');
+            }
+        }
+    }
+
+    updateStatus(serviceKey, status) {
+        const statusElement = document.getElementById(`${serviceKey}-status`);
+        if (statusElement) {
+            const dot = statusElement.querySelector('.status-dot');
+            const text = statusElement.querySelector('.status-text') || statusElement;
+            
+            // Remove existing status classes
+            dot.classList.remove('online', 'offline', 'warning');
+            dot.classList.add(status);
+            
+            // Update text
+            if (status === 'online') {
+                text.textContent = 'Online';
+            } else if (status === 'offline') {
+                text.textContent = 'Offline';
+            } else {
+                text.textContent = 'Warning';
+            }
+        }
+    }
+}
+
+// Initialize service monitoring when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    new ServiceMonitor();
+});
 </style>
