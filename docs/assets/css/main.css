@@ -402,7 +402,7 @@ a:hover {
 }
 
 .nav-toggle {
-    display: none !important;
+    display: none;
     flex-direction: column;
     cursor: pointer;
     gap: 4px;
@@ -1246,7 +1246,7 @@ li {
     }
 
     .nav-toggle {
-        display: none !important;
+        display: none;
     }
 
     .nav-toggle.active .bar:nth-child(1) {
@@ -2363,12 +2363,17 @@ a:hover {
     z-index: var(--z-accessibility);
     opacity: 1;
     visibility: visible;
-    transition: all 0.5s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .enhanced-loader.hidden {
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
+}
+
+.enhanced-loader[style*="display: none"] {
+    display: none !important;
 }
 
 .loader {

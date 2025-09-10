@@ -11,13 +11,7 @@ description: "Advanced features and configuration for the Star Citizen Kill Trac
 ## Available Features
 
 ### Bot Management
-- [**Bot Integration**](./bot-integration.md) - Advanced bot configuration and setup
-- [**Dashboard Bot Control**](./dashboard-bot-control.md) - Complete bot management system
 - [**Discord Commands Reference**](./DISCORD_COMMANDS_REFERENCE.md) - Comprehensive command documentation
-
-### System Management
-- [**Unified Dashboard System**](./unified-dashboard-system.md) - Advanced dashboard features and management
-- [**Donation Setup Guide**](./DONATION_SETUP_GUIDE.md) - Configure donation and monetization features
 
 ## Advanced Configuration
 
@@ -47,10 +41,9 @@ description: "Advanced features and configuration for the Star Citizen Kill Trac
 3. **Technical Knowledge**: Some features require technical expertise
 
 ### Recommended Learning Path
-1. **Start with Bot Integration** - Learn advanced bot configuration
-2. **Explore Dashboard Control** - Master the management system
-3. **Study Commands Reference** - Understand all available commands
-4. **Configure Unified System** - Set up advanced dashboard features
+1. **Study Commands Reference** - Understand all available commands
+2. **Explore Dashboard Features** - Master the management system
+3. **Configure Advanced Settings** - Set up advanced dashboard features
 
 ## Support for Advanced Users
 

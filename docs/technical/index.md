@@ -11,16 +11,12 @@ This section contains technical documentation for the Star Citizen Kill Tracker 
 ## Available Documentation
 
 - [Deployment Guide](./deployment.md) - How to deploy the system
-- [Security Audit](./SECURITY_AUDIT.md) - Security analysis and recommendations
-- [Implementation Guide](./STAR_CITIZEN_IMPLEMENTATION_GUIDE.md) - Core implementation details
 
 ## Getting Started
 
 For developers and system administrators:
 
-1. **Read the Implementation Guide** - Understand how the system works
-2. **Review Security Audit** - Ensure proper security practices
-3. **Follow Deployment Guide** - Set up your own instance
+1. **Follow Deployment Guide** - Set up your own instance
 
 ## System Architecture
 

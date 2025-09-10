@@ -1,9 +1,9 @@
 # 🤖 Discord Commands Reference
 
 
-**Date**: December 20, 2024  
-**Project**: Star Citizen Discord Bot & Dashboard  
-**Status**: ✅ **COMPLETE COMMAND REFERENCE**
+**Date**: December 20, 2024
+**Project**: Star Citizen Discord Bot & Dashboard
+**Status**: ✅ COMPLETE COMMAND REFERENCE
 
 ---
 
@@ -28,37 +28,37 @@
 
 ### `/help`
 
-**Description**: Display help information and command list  
-**Usage**: `/help [command]`  
-**Permissions**: Everyone  
+**Description**: Display help information and command list
+**Usage**: `/help [command]`
+**Permissions**: Everyone
 **Example**: `/help stats`
 
 ### `/ping`
 
-**Description**: Check bot latency and status  
-**Usage**: `/ping`  
-**Permissions**: Everyone  
+**Description**: Check bot latency and status
+**Usage**: `/ping`
+**Permissions**: Everyone
 **Example**: `/ping`
 
 ### `/stats`
 
-**Description**: View personal kill statistics  
-**Usage**: `/stats [user]`  
-**Permissions**: Everyone  
+**Description**: View personal kill statistics
+**Usage**: `/stats [user]`
+**Permissions**: Everyone
 **Example**: `/stats @username`
 
 ### `/leaderboard`
 
-**Description**: Display server leaderboards  
-**Usage**: `/leaderboard [type] [period]`  
-**Permissions**: Everyone  
+**Description**: Display server leaderboards
+**Usage**: `/leaderboard [type] [period]`
+**Permissions**: Everyone
 **Example**: `/leaderboard kills weekly`
 
 ### `/mykills`
 
-**Description**: View personal kill history  
-**Usage**: `/mykills [limit]`  
-**Permissions**: Everyone  
+**Description**: View personal kill history
+**Usage**: `/mykills [limit]`
+**Permissions**: Everyone
 **Example**: `/mykills 10`
 
 ---
@@ -70,135 +70,135 @@
 
 #### `/ship`
 
-**Description**: Get ship information and specifications  
-**Usage**: `/ship <name>`  
-**Permissions**: Everyone  
+**Description**: Get ship information and specifications
+**Usage**: `/ship <name>`
+**Permissions**: Everyone
 **Example**: `/ship Gladius`
 
 ### Player Commands
 
 #### `/player`
 
-**Description**: Look up player information  
-**Usage**: `/player <handle>`  
-**Permissions**: Everyone  
+**Description**: Look up player information
+**Usage**: `/player <handle>`
+**Permissions**: Everyone
 **Example**: `/player TestUser`
 
 ### Location Commands
 
 #### `/location`
 
-**Description**: Get location details and information  
-**Usage**: `/location <name>`  
-**Permissions**: Everyone  
+**Description**: Get location details and information
+**Usage**: `/location <name>`
+**Permissions**: Everyone
 **Example**: `/location New Babbage`
 
 ### Fleet Commands
 
 #### `/fleet`
 
-**Description**: Fleet management and information  
-**Usage**: `/fleet [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Fleet management and information
+**Usage**: `/fleet [subcommand]`
+**Permissions**: Everyone
 **Example**: `/fleet info`
 
 ### Organization Commands
 
 #### `/org`
 
-**Description**: Organization information and management  
-**Usage**: `/org [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Organization information and management
+**Usage**: `/org [subcommand]`
+**Permissions**: Everyone
 **Example**: `/org info`
 
 ### System Commands
 
 #### `/system`
 
-**Description**: System information and status  
-**Usage**: `/system [subcommand]`  
-**Permissions**: Everyone  
+**Description**: System information and status
+**Usage**: `/system [subcommand]`
+**Permissions**: Everyone
 **Example**: `/system status`
 
 ### Status Commands
 
 #### `/status`
 
-**Description**: Server status and information  
-**Usage**: `/status [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Server status and information
+**Usage**: `/status [subcommand]`
+**Permissions**: Everyone
 **Example**: `/status server`
 
 ### Manufacturer Commands
 
 #### `/manufacturer`
 
-**Description**: Ship manufacturer information  
-**Usage**: `/manufacturer <name>`  
-**Permissions**: Everyone  
+**Description**: Ship manufacturer information
+**Usage**: `/manufacturer <name>`
+**Permissions**: Everyone
 **Example**: `/manufacturer Anvil`
 
 ### Trade Commands
 
 #### `/trade`
 
-**Description**: Trading information and routes  
-**Usage**: `/trade [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Trading information and routes
+**Usage**: `/trade [subcommand]`
+**Permissions**: Everyone
 **Example**: `/trade routes`
 
 ### Mining Commands
 
 #### `/mining`
 
-**Description**: Mining locations and resources  
-**Usage**: `/mining [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Mining locations and resources
+**Usage**: `/mining [subcommand]`
+**Permissions**: Everyone
 **Example**: `/mining locations`
 
 ### Station Commands
 
 #### `/station`
 
-**Description**: Station information and services  
-**Usage**: `/station <name>`  
-**Permissions**: Everyone  
+**Description**: Station information and services
+**Usage**: `/station <name>`
+**Permissions**: Everyone
 **Example**: `/station Port Olisar`
 
 ### Hangar Commands
 
 #### `/hangar`
 
-**Description**: Personal hangar management  
-**Usage**: `/hangar [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Personal hangar management
+**Usage**: `/hangar [subcommand]`
+**Permissions**: Everyone
 **Example**: `/hangar list`
 
 ### Verification Commands
 
 #### `/verify`
 
-**Description**: Account verification system  
-**Usage**: `/verify [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Account verification system
+**Usage**: `/verify [subcommand]`
+**Permissions**: Everyone
 **Example**: `/verify status`
 
 ### Role Commands
 
 #### `/roles`
 
-**Description**: Role management and assignment  
-**Usage**: `/roles [subcommand]`  
-**Permissions**: Moderator+  
+**Description**: Role management and assignment
+**Usage**: `/roles [subcommand]`
+**Permissions**: Moderator+
 **Example**: `/roles assign @user`
 
 ### Nickname Commands
 
 #### `/nickname`
 
-**Description**: Nickname formatting and management  
-**Usage**: `/nickname [subcommand]`  
-**Permissions**: Moderator+  
+**Description**: Nickname formatting and management
+**Usage**: `/nickname [subcommand]`
+**Permissions**: Moderator+
 **Example**: `/nickname set @user`
 
 ---
@@ -210,9 +210,9 @@
 
 #### `/custom`
 
-**Description**: Server-specific command creation and management  
-**Usage**: `/custom [subcommand]`  
-**Permissions**: Server Admin+  
+**Description**: Server-specific command creation and management
+**Usage**: `/custom [subcommand]`
+**Permissions**: Server Admin+
 **Subcommands**:
 
 - `create <name> <response>` - Create custom command
@@ -230,9 +230,9 @@
 
 #### `/webhook`
 
-**Description**: Webhook endpoint management  
-**Usage**: `/webhook [subcommand]`  
-**Permissions**: Server Admin+  
+**Description**: Webhook endpoint management
+**Usage**: `/webhook [subcommand]`
+**Permissions**: Server Admin+
 **Subcommands**:
 
 - `create <name> <url>` - Create webhook
@@ -252,9 +252,9 @@
 
 #### `/analytics`
 
-**Description**: Detailed analytics and statistics  
-**Usage**: `/analytics [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Detailed analytics and statistics
+**Usage**: `/analytics [subcommand]`
+**Permissions**: Everyone
 **Subcommands**:
 
 - `kills` - Kill analytics
@@ -272,9 +272,9 @@
 
 #### `/mission`
 
-**Description**: Mission tracking and management  
-**Usage**: `/mission [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Mission tracking and management
+**Usage**: `/mission [subcommand]`
+**Permissions**: Everyone
 **Subcommands**:
 
 - `start <title> <description>` - Start mission
@@ -296,9 +296,9 @@
 
 #### `/achievements`
 
-**Description**: Achievement system management  
-**Usage**: `/achievements [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Achievement system management
+**Usage**: `/achievements [subcommand]`
+**Permissions**: Everyone
 **Subcommands**:
 
 - `list` - List achievements
@@ -316,9 +316,9 @@
 
 #### `/tournament`
 
-**Description**: Tournament management and participation  
-**Usage**: `/tournament [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Tournament management and participation
+**Usage**: `/tournament [subcommand]`
+**Permissions**: Everyone
 **Subcommands**:
 
 - `create <name> <type>` - Create tournament
@@ -340,9 +340,9 @@
 
 #### `/voice`
 
-**Description**: Voice channel management and TTS  
-**Usage**: `/voice [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Voice channel management and TTS
+**Usage**: `/voice [subcommand]`
+**Permissions**: Everyone
 **Subcommands**:
 
 - `join` - Join voice channel
@@ -362,9 +362,9 @@
 
 #### `/stream`
 
-**Description**: Stream overlay and integration management  
-**Usage**: `/stream [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Stream overlay and integration management
+**Usage**: `/stream [subcommand]`
+**Permissions**: Everyone
 **Subcommands**:
 
 - `overlay <type>` - Generate overlay URL
@@ -382,9 +382,9 @@
 
 #### `/killfeed`
 
-**Description**: Advanced kill feed management  
-**Usage**: `/killfeed [subcommand]`  
-**Permissions**: Moderator+  
+**Description**: Advanced kill feed management
+**Usage**: `/killfeed [subcommand]`
+**Permissions**: Moderator+
 **Subcommands**:
 
 - `setup <channel> <format>` - Setup kill feed
@@ -415,9 +415,9 @@
 
 #### `/friend`
 
-**Description**: Friend list management  
-**Usage**: `/friend [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Friend list management
+**Usage**: `/friend [subcommand]`
+**Permissions**: Everyone
 **Subcommands**:
 
 - `add <user>` - Add friend
@@ -435,9 +435,9 @@
 
 #### `/group`
 
-**Description**: Group creation and management  
-**Usage**: `/group [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Group creation and management
+**Usage**: `/group [subcommand]`
+**Permissions**: Everyone
 **Subcommands**:
 
 - `create <name>` - Create group
@@ -459,9 +459,9 @@
 
 #### `/marketplace`
 
-**Description**: Virtual item trading and marketplace  
-**Usage**: `/marketplace [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Virtual item trading and marketplace
+**Usage**: `/marketplace [subcommand]`
+**Permissions**: Everyone
 **Subcommands**:
 
 - `browse [category]` - Browse marketplace
@@ -483,9 +483,9 @@
 
 #### `/events`
 
-**Description**: Community event management  
-**Usage**: `/events [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Community event management
+**Usage**: `/events [subcommand]`
+**Permissions**: Everyone
 **Subcommands**:
 
 - `create <title> <description>` - Create event
@@ -512,9 +512,9 @@
 
 #### `/time`
 
-**Description**: Time conversion and timezone utilities  
-**Usage**: `/time [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Time conversion and timezone utilities
+**Usage**: `/time [subcommand]`
+**Permissions**: Everyone
 **Subcommands**:
 
 - `convert <time> <timezone>` - Convert time
@@ -530,27 +530,27 @@
 
 #### `/calc`
 
-**Description**: Mathematical calculations  
-**Usage**: `/calc <expression>`  
-**Permissions**: Everyone  
+**Description**: Mathematical calculations
+**Usage**: `/calc <expression>`
+**Permissions**: Everyone
 **Example**: `/calc 2 + 2 * 3`
 
 ### Random Commands
 
 #### `/random`
 
-**Description**: Random number generation  
-**Usage**: `/random [min] [max]`  
-**Permissions**: Everyone  
+**Description**: Random number generation
+**Usage**: `/random [min] [max]`
+**Permissions**: Everyone
 **Example**: `/random 1 100`
 
 ### Text Commands
 
 #### `/text`
 
-**Description**: Text manipulation utilities  
-**Usage**: `/text [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Text manipulation utilities
+**Usage**: `/text [subcommand]`
+**Permissions**: Everyone
 **Subcommands**:
 
 - `reverse <text>` - Reverse text
@@ -568,9 +568,9 @@
 
 #### `/url`
 
-**Description**: URL utilities and shorteners  
-**Usage**: `/url [subcommand]`  
-**Permissions**: Everyone  
+**Description**: URL utilities and shorteners
+**Usage**: `/url [subcommand]`
+**Permissions**: Everyone
 **Subcommands**:
 
 - `shorten <url>` - Shorten URL
@@ -586,72 +586,72 @@
 
 #### `/weather`
 
-**Description**: Weather information  
-**Usage**: `/weather <location>`  
-**Permissions**: Everyone  
+**Description**: Weather information
+**Usage**: `/weather <location>`
+**Permissions**: Everyone
 **Example**: `/weather New York`
 
 ### Unit Conversion
 
 #### `/convert`
 
-**Description**: Unit conversion utilities  
-**Usage**: `/convert <value> <unit>`  
-**Permissions**: Everyone  
+**Description**: Unit conversion utilities
+**Usage**: `/convert <value> <unit>`
+**Permissions**: Everyone
 **Example**: `/convert 100 km miles`
 
 ### Color Commands
 
 #### `/color`
 
-**Description**: Color information and utilities  
-**Usage**: `/color <hex>`  
-**Permissions**: Everyone  
+**Description**: Color information and utilities
+**Usage**: `/color <hex>`
+**Permissions**: Everyone
 **Example**: `/color #FF0000`
 
 ### Hash Commands
 
 #### `/hash`
 
-**Description**: Hash generation utilities  
-**Usage**: `/hash <text> <algorithm>`  
-**Permissions**: Everyone  
+**Description**: Hash generation utilities
+**Usage**: `/hash <text> <algorithm>`
+**Permissions**: Everyone
 **Example**: `/hash "Hello" md5`
 
 ### Base64 Commands
 
 #### `/base64`
 
-**Description**: Base64 encoding and decoding  
-**Usage**: `/base64 [encode/decode] <text>`  
-**Permissions**: Everyone  
+**Description**: Base64 encoding and decoding
+**Usage**: `/base64 [encode/decode] <text>`
+**Permissions**: Everyone
 **Example**: `/base64 encode "Hello World"`
 
 ### UUID Commands
 
 #### `/uuid`
 
-**Description**: UUID generation  
-**Usage**: `/uuid [count]`  
-**Permissions**: Everyone  
+**Description**: UUID generation
+**Usage**: `/uuid [count]`
+**Permissions**: Everyone
 **Example**: `/uuid 5`
 
 ### Password Commands
 
 #### `/password`
 
-**Description**: Password generation  
-**Usage**: `/password [length] [options]`  
-**Permissions**: Everyone  
+**Description**: Password generation
+**Usage**: `/password [length] [options]`
+**Permissions**: Everyone
 **Example**: `/password 16`
 
 ### Reminder Commands
 
 #### `/reminder`
 
-**Description**: Reminder system  
-**Usage**: `/reminder [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Reminder system
+**Usage**: `/reminder [subcommand]`
+**Permissions**: Everyone
 **Subcommands**:
 
 - `create <message> <time>` - Create reminder
@@ -678,9 +678,9 @@
 
 #### `/rules`
 
-**Description**: Server rules management  
-**Usage**: `/rules [subcommand]`  
-**Permissions**: Moderator+  
+**Description**: Server rules management
+**Usage**: `/rules [subcommand]`
+**Permissions**: Moderator+
 **Subcommands**:
 
 - `setup` - Setup rules system
@@ -710,9 +710,9 @@
 
 #### `/automod`
 
-**Description**: Auto-moderation configuration  
-**Usage**: `/automod [subcommand]`  
-**Permissions**: Server Admin+  
+**Description**: Auto-moderation configuration
+**Usage**: `/automod [subcommand]`
+**Permissions**: Server Admin+
 **Subcommands**:
 
 - `setup` - Setup auto-moderation
@@ -728,9 +728,9 @@
 
 #### `/mod`
 
-**Description**: Moderation actions  
-**Usage**: `/mod [subcommand]`  
-**Permissions**: Moderator+  
+**Description**: Moderation actions
+**Usage**: `/mod [subcommand]`
+**Permissions**: Moderator+
 **Subcommands**:
 
 - `warn <user> <reason>` - Issue warning
@@ -761,90 +761,90 @@
 
 #### `/8ball`
 
-**Description**: Magic 8-ball fortune telling  
-**Usage**: `/8ball <question>`  
-**Permissions**: Everyone  
+**Description**: Magic 8-ball fortune telling
+**Usage**: `/8ball <question>`
+**Permissions**: Everyone
 **Example**: `/8ball "Will I win today?"`
 
 ### Jokes
 
 #### `/joke`
 
-**Description**: Random jokes  
-**Usage**: `/joke`  
-**Permissions**: Everyone  
+**Description**: Random jokes
+**Usage**: `/joke`
+**Permissions**: Everyone
 **Example**: `/joke`
 
 ### Dice Rolling
 
 #### `/roll`
 
-**Description**: Dice rolling  
-**Usage**: `/roll [sides]`  
-**Permissions**: Everyone  
+**Description**: Dice rolling
+**Usage**: `/roll [sides]`
+**Permissions**: Everyone
 **Example**: `/roll 20`
 
 ### Coin Flipping
 
 #### `/flip`
 
-**Description**: Coin flipping  
-**Usage**: `/flip`  
-**Permissions**: Everyone  
+**Description**: Coin flipping
+**Usage**: `/flip`
+**Permissions**: Everyone
 **Example**: `/flip`
 
 ### Random Choice
 
 #### `/choose`
 
-**Description**: Random choice selection  
-**Usage**: `/choose <options>`  
-**Permissions**: Everyone  
+**Description**: Random choice selection
+**Usage**: `/choose <options>`
+**Permissions**: Everyone
 **Example**: `/choose "Option 1, Option 2, Option 3"`
 
 ### Memes
 
 #### `/meme`
 
-**Description**: Random memes  
-**Usage**: `/meme`  
-**Permissions**: Everyone  
+**Description**: Random memes
+**Usage**: `/meme`
+**Permissions**: Everyone
 **Example**: `/meme`
 
 ### Quotes
 
 #### `/quote`
 
-**Description**: Random quotes  
-**Usage**: `/quote`  
-**Permissions**: Everyone  
+**Description**: Random quotes
+**Usage**: `/quote`
+**Permissions**: Everyone
 **Example**: `/quote`
 
 ### Facts
 
 #### `/fact`
 
-**Description**: Random facts  
-**Usage**: `/fact`  
-**Permissions**: Everyone  
+**Description**: Random facts
+**Usage**: `/fact`
+**Permissions**: Everyone
 **Example**: `/fact`
 
 ### Trivia
 
 #### `/trivia`
 
-**Description**: Trivia questions  
-**Usage**: `/trivia`  
-**Permissions**: Everyone  
+**Description**: Trivia questions
+**Usage**: `/trivia`
+**Permissions**: Everyone
 **Example**: `/trivia`
 
 ### Riddles
 
 #### `/riddle`
 
-**Description**: Riddles  
-**Usage**: `/riddle`  
-**Permissions**: Everyone  
+**Description**: Riddles
+**Usage**: `/riddle`
+**Permissions**: Everyone
 **Example**: `/riddle`
 
 ---
@@ -856,101 +856,101 @@
 
 #### `/play`
 
-**Description**: Play music  
-**Usage**: `/play <query>`  
-**Permissions**: Everyone  
+**Description**: Play music
+**Usage**: `/play <query>`
+**Permissions**: Everyone
 **Example**: `/play "Never Gonna Give You Up"`
 
 #### `/skip`
 
-**Description**: Skip current track  
-**Usage**: `/skip`  
-**Permissions**: Everyone  
+**Description**: Skip current track
+**Usage**: `/skip`
+**Permissions**: Everyone
 **Example**: `/skip`
 
 #### `/stop`
 
-**Description**: Stop music  
-**Usage**: `/stop`  
-**Permissions**: Everyone  
+**Description**: Stop music
+**Usage**: `/stop`
+**Permissions**: Everyone
 **Example**: `/stop`
 
 #### `/pause`
 
-**Description**: Pause music  
-**Usage**: `/pause`  
-**Permissions**: Everyone  
+**Description**: Pause music
+**Usage**: `/pause`
+**Permissions**: Everyone
 **Example**: `/pause`
 
 #### `/resume`
 
-**Description**: Resume music  
-**Usage**: `/resume`  
-**Permissions**: Everyone  
+**Description**: Resume music
+**Usage**: `/resume`
+**Permissions**: Everyone
 **Example**: `/resume`
 
 ### Queue Management
 
 #### `/queue`
 
-**Description**: View music queue  
-**Usage**: `/queue`  
-**Permissions**: Everyone  
+**Description**: View music queue
+**Usage**: `/queue`
+**Permissions**: Everyone
 **Example**: `/queue`
 
 #### `/clear`
 
-**Description**: Clear music queue  
-**Usage**: `/clear`  
-**Permissions**: Everyone  
+**Description**: Clear music queue
+**Usage**: `/clear`
+**Permissions**: Everyone
 **Example**: `/clear`
 
 #### `/remove`
 
-**Description**: Remove track from queue  
-**Usage**: `/remove <position>`  
-**Permissions**: Everyone  
+**Description**: Remove track from queue
+**Usage**: `/remove <position>`
+**Permissions**: Everyone
 **Example**: `/remove 3`
 
 ### Volume Control
 
 #### `/volume`
 
-**Description**: Adjust volume  
-**Usage**: `/volume <level>`  
-**Permissions**: Everyone  
+**Description**: Adjust volume
+**Usage**: `/volume <level>`
+**Permissions**: Everyone
 **Example**: `/volume 50`
 
 ### Playback Options
 
 #### `/loop`
 
-**Description**: Toggle loop mode  
-**Usage**: `/loop`  
-**Permissions**: Everyone  
+**Description**: Toggle loop mode
+**Usage**: `/loop`
+**Permissions**: Everyone
 **Example**: `/loop`
 
 #### `/shuffle`
 
-**Description**: Shuffle queue  
-**Usage**: `/shuffle`  
-**Permissions**: Everyone  
+**Description**: Shuffle queue
+**Usage**: `/shuffle`
+**Permissions**: Everyone
 **Example**: `/shuffle`
 
 ### Information
 
 #### `/nowplaying`
 
-**Description**: Current track information  
-**Usage**: `/nowplaying`  
-**Permissions**: Everyone  
+**Description**: Current track information
+**Usage**: `/nowplaying`
+**Permissions**: Everyone
 **Example**: `/nowplaying`
 
 #### `/lyrics`
 
-**Description**: Get song lyrics  
-**Usage**: `/lyrics [song]`  
-**Permissions**: Everyone  
+**Description**: Get song lyrics
+**Usage**: `/lyrics [song]`
+**Permissions**: Everyone
 **Example**: `/lyrics`
 
 ---
@@ -962,64 +962,64 @@
 
 #### `/rank`
 
-**Description**: View user rank and level  
-**Usage**: `/rank [user]`  
-**Permissions**: Everyone  
+**Description**: View user rank and level
+**Usage**: `/rank [user]`
+**Permissions**: Everyone
 **Example**: `/rank @username`
 
 #### `/leaderboard`
 
-**Description**: Level leaderboard  
-**Usage**: `/leaderboard`  
-**Permissions**: Everyone  
+**Description**: Level leaderboard
+**Usage**: `/leaderboard`
+**Permissions**: Everyone
 **Example**: `/leaderboard`
 
 ### XP Management
 
 #### `/xp-give`
 
-**Description**: Award XP to user  
-**Usage**: `/xp-give <user> <amount>`  
-**Permissions**: Moderator+  
+**Description**: Award XP to user
+**Usage**: `/xp-give <user> <amount>`
+**Permissions**: Moderator+
 **Example**: `/xp-give @user 100`
 
 #### `/xp-remove`
 
-**Description**: Remove XP from user  
-**Usage**: `/xp-remove <user> <amount>`  
-**Permissions**: Moderator+  
+**Description**: Remove XP from user
+**Usage**: `/xp-remove <user> <amount>`
+**Permissions**: Moderator+
 **Example**: `/xp-remove @user 50`
 
 ### Configuration
 
 #### `/level-config`
 
-**Description**: Level system configuration  
-**Usage**: `/level-config [subcommand]`  
-**Permissions**: Server Admin+  
+**Description**: Level system configuration
+**Usage**: `/level-config [subcommand]`
+**Permissions**: Server Admin+
 **Example**: `/level-config xp-rate 10`
 
 #### `/role-rewards`
 
-**Description**: Role reward configuration  
-**Usage**: `/role-rewards [subcommand]`  
-**Permissions**: Server Admin+  
+**Description**: Role reward configuration
+**Usage**: `/role-rewards [subcommand]`
+**Permissions**: Server Admin+
 **Example**: `/role-rewards add @role 10`
 
 ### Statistics
 
 #### `/level-stats`
 
-**Description**: Level system statistics  
-**Usage**: `/level-stats`  
-**Permissions**: Everyone  
+**Description**: Level system statistics
+**Usage**: `/level-stats`
+**Permissions**: Everyone
 **Example**: `/level-stats`
 
 #### `/level-reset`
 
-**Description**: Reset user levels  
-**Usage**: `/level-reset <user>`  
-**Permissions**: Server Admin+  
+**Description**: Reset user levels
+**Usage**: `/level-reset <user>`
+**Permissions**: Server Admin+
 **Example**: `/level-reset @user`
 
 ---
@@ -1031,9 +1031,9 @@
 
 #### `/giveaway`
 
-**Description**: Giveaway creation and management  
-**Usage**: `/giveaway [subcommand]`  
-**Permissions**: Moderator+  
+**Description**: Giveaway creation and management
+**Usage**: `/giveaway [subcommand]`
+**Permissions**: Moderator+
 **Subcommands**:
 
 - `create <prize> <duration>` - Create giveaway
@@ -1051,25 +1051,25 @@
 
 #### `/quick-giveaway`
 
-**Description**: Quick giveaway creation  
-**Usage**: `/quick-giveaway <prize> <duration>`  
-**Permissions**: Moderator+  
+**Description**: Quick giveaway creation
+**Usage**: `/quick-giveaway <prize> <duration>`
+**Permissions**: Moderator+
 **Example**: `/quick-giveaway "Game Key" "30 minutes"`
 
 ### Templates and Analytics
 
 #### `/giveaway-template`
 
-**Description**: Giveaway template management  
-**Usage**: `/giveaway-template [subcommand]`  
-**Permissions**: Server Admin+  
+**Description**: Giveaway template management
+**Usage**: `/giveaway-template [subcommand]`
+**Permissions**: Server Admin+
 **Example**: `/giveaway-template create "Nitro Giveaway"`
 
 #### `/giveaway-analytics`
 
-**Description**: Giveaway analytics  
-**Usage**: `/giveaway-analytics`  
-**Permissions**: Server Admin+  
+**Description**: Giveaway analytics
+**Usage**: `/giveaway-analytics`
+**Permissions**: Server Admin+
 **Example**: `/giveaway-analytics`
 
 ---
@@ -1081,9 +1081,9 @@
 
 #### `/news`
 
-**Description**: Star Citizen news and updates  
-**Usage**: `/news [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Star Citizen news and updates
+**Usage**: `/news [subcommand]`
+**Permissions**: Everyone
 **Subcommands**:
 
 - `latest` - Latest news
@@ -1101,9 +1101,9 @@
 
 #### `/patchnotes`
 
-**Description**: Star Citizen patch notes  
-**Usage**: `/patchnotes [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Star Citizen patch notes
+**Usage**: `/patchnotes [subcommand]`
+**Permissions**: Everyone
 **Subcommands**:
 
 - `latest` - Latest patch notes
@@ -1126,9 +1126,9 @@
 
 #### `/logs`
 
-**Description**: Log management and configuration  
-**Usage**: `/logs [subcommand]`  
-**Permissions**: Server Admin+  
+**Description**: Log management and configuration
+**Usage**: `/logs [subcommand]`
+**Permissions**: Server Admin+
 **Subcommands**:
 
 - `setup` - Setup log channels
@@ -1154,9 +1154,9 @@
 
 #### `/logmonitor`
 
-**Description**: Log monitoring and alerts  
-**Usage**: `/logmonitor [subcommand]`  
-**Permissions**: Server Admin+  
+**Description**: Log monitoring and alerts
+**Usage**: `/logmonitor [subcommand]`
+**Permissions**: Server Admin+
 **Subcommands**:
 
 - `start` - Start log monitoring
@@ -1179,9 +1179,9 @@
 
 #### `/feedback`
 
-**Description**: User feedback submission  
-**Usage**: `/feedback [subcommand]`  
-**Permissions**: Everyone  
+**Description**: User feedback submission
+**Usage**: `/feedback [subcommand]`
+**Permissions**: Everyone
 **Subcommands**:
 
 - `submit <type> <message>` - Submit feedback
@@ -1199,9 +1199,9 @@
 
 #### `/support`
 
-**Description**: Support ticket system  
-**Usage**: `/support [subcommand]`  
-**Permissions**: Everyone  
+**Description**: Support ticket system
+**Usage**: `/support [subcommand]`
+**Permissions**: Everyone
 **Subcommands**:
 
 - `ticket <type> <subject>` - Create support ticket
@@ -1297,6 +1297,6 @@
 
 ---
 
-*Command Reference completed on: December 20, 2024*  
-*Discord Commands Reference by: AI Assistant*  
+*Command Reference completed on: December 20, 2024*
+*Discord Commands Reference by: AI Assistant*
 *Status: ✅ COMPLETE COMMAND REFERENCE*

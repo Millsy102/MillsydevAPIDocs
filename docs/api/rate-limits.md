@@ -147,43 +147,43 @@ class RateLimitHandler {
   constructor() {
     this.requests = new Map();
   }
-  
+
   async makeRequest(url, options) {
     const key = this.getRateLimitKey(url);
     const now = Date.now();
-    
+
     // Check if we're within rate limits
     if (this.isRateLimited(key, now)) {
       const resetTime = this.getResetTime(key);
       const waitTime = resetTime - now;
-      
+
       console.log(`Rate limited. Waiting ${waitTime}ms`);
       await new Promise(resolve => setTimeout(resolve, waitTime));
     }
-    
+
     // Make the request
     const response = await fetch(url, options);
-    
+
     // Update rate limit info
     this.updateRateLimitInfo(key, response.headers);
-    
+
     return response;
   }
-  
+
   isRateLimited(key, now) {
     const info = this.requests.get(key);
     if (!info) return false;
-    
+
     return info.remaining <= 0 && now < info.resetTime;
   }
-  
+
   updateRateLimitInfo(key, headers) {
     const info = {
       limit: parseInt(headers.get('X-RateLimit-Limit')),
       remaining: parseInt(headers.get('X-RateLimit-Remaining')),
       resetTime: parseInt(headers.get('X-RateLimit-Reset')) * 1000
     };
-    
+
     this.requests.set(key, info);
   }
 }
@@ -195,21 +195,21 @@ async function apiRequestWithBackoff(url, options, maxRetries = 3) {
   for (let i = 0; i < maxRetries; i++) {
     try {
       const response = await fetch(url, options);
-      
+
       if (response.status === 429) {
         const error = await response.json();
         const waitTime = error.retry_after * 1000;
-        
+
         console.log(`Rate limited. Waiting ${waitTime}ms`);
         await new Promise(resolve => setTimeout(resolve, waitTime));
         continue;
       }
-      
+
       return response;
-      
+
     } catch (error) {
       if (i === maxRetries - 1) throw error;
-      
+
       // Exponential backoff
       const waitTime = Math.pow(2, i) * 1000;
       await new Promise(resolve => setTimeout(resolve, waitTime));
@@ -227,27 +227,27 @@ class RequestBatcher {
     this.queue = [];
     this.timer = null;
   }
-  
+
   addRequest(request) {
     this.queue.push(request);
-    
+
     if (this.queue.length >= this.batchSize) {
       this.processBatch();
     } else if (!this.timer) {
       this.timer = setTimeout(() => this.processBatch(), this.batchDelay);
     }
   }
-  
+
   async processBatch() {
     if (this.timer) {
       clearTimeout(this.timer);
       this.timer = null;
     }
-    
+
     const batch = this.queue.splice(0, this.batchSize);
     await this.executeBatch(batch);
   }
-  
+
   async executeBatch(batch) {
     // Execute batch requests
     const promises = batch.map(request => this.executeRequest(request));
@@ -315,19 +315,19 @@ class ApiCache {
     this.cache = new Map();
     this.ttl = ttl;
   }
-  
+
   get(key) {
     const item = this.cache.get(key);
     if (!item) return null;
-    
+
     if (Date.now() - item.timestamp > this.ttl) {
       this.cache.delete(key);
       return null;
     }
-    
+
     return item.data;
   }
-  
+
   set(key, data) {
     this.cache.set(key, {
       data,

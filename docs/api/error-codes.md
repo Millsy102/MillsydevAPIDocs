@@ -414,25 +414,25 @@ All API errors follow this standardized format:
 ```javascript
 async function handleApiError(response) {
   const error = await response.json();
-  
+
   switch (error.code) {
     case 'RATE_LIMIT_EXCEEDED':
       // Wait and retry
-      await new Promise(resolve => 
+      await new Promise(resolve =>
         setTimeout(resolve, error.retry_after * 1000)
       );
       break;
-      
+
     case 'INVALID_API_KEY':
       // Redirect to login or refresh key
       redirectToLogin();
       break;
-      
+
     case 'VALIDATION_ERROR':
       // Show field-specific errors
       showValidationErrors(error.details);
       break;
-      
+
     default:
       // Show generic error
       showError(error.message);
@@ -446,30 +446,30 @@ async function apiRequest(url, options, maxRetries = 3) {
   for (let i = 0; i < maxRetries; i++) {
     try {
       const response = await fetch(url, options);
-      
+
       if (response.ok) {
         return response;
       }
-      
+
       if (response.status === 429) {
         const error = await response.json();
-        await new Promise(resolve => 
+        await new Promise(resolve =>
           setTimeout(resolve, error.retry_after * 1000)
         );
         continue;
       }
-      
+
       if (response.status >= 500) {
         // Retry on server errors
-        await new Promise(resolve => 
+        await new Promise(resolve =>
           setTimeout(resolve, Math.pow(2, i) * 1000)
         );
         continue;
       }
-      
+
       // Don't retry on client errors
       throw new Error(`API Error: ${response.status}`);
-      
+
     } catch (error) {
       if (i === maxRetries - 1) throw error;
     }

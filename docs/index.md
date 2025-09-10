@@ -186,14 +186,11 @@ Our kill tracking system automatically detects and records your Star Citizen gam
 - [Statistics & Analytics](./api/) - Understanding your data
 
 ### Technical Documentation
-- [Implementation Guide](./technical/STAR_CITIZEN_IMPLEMENTATION_GUIDE.md) - How the system works
-- [Security & Privacy](./technical/SECURITY_AUDIT.md) - Data protection and security
 - [Deployment Guide](./technical/deployment.md) - Self-hosting instructions
 
 ### Support & Help
 - [FAQ](./help/faq.md) - Frequently asked questions
 - [Troubleshooting](./help/troubleshooting.md) - Common issues and solutions
-- [Contributing](./help/contributing.md) - How to contribute to the project
 
 ## Privacy & Security
 

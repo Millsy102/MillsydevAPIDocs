@@ -93,19 +93,6 @@ pages:
     type: "reference"
     tags: ["technical", "architecture", "security", "deployment", "database"]
 
-  - title: "Star Citizen Implementation Guide"
-    url: "/technical/STAR_CITIZEN_IMPLEMENTATION_GUIDE.md"
-    content: "Core implementation details for Star Citizen integration. Game API integration, data processing, real-time updates, system architecture."
-    section: "technical"
-    type: "guide"
-    tags: ["star citizen", "implementation", "game api", "integration", "real-time"]
-
-  - title: "Security Audit"
-    url: "/technical/SECURITY_AUDIT.md"
-    content: "Comprehensive security analysis and audit report. Security measures, vulnerability assessment, best practices, compliance."
-    section: "technical"
-    type: "reference"
-    tags: ["security", "audit", "vulnerability", "compliance", "best practices"]
 
   - title: "Deployment Guide"
     url: "/technical/deployment.md"
@@ -177,12 +164,6 @@ pages:
     type: "guide"
     tags: ["troubleshooting", "debugging", "errors", "solutions", "recovery"]
 
-  - title: "Contributing"
-    url: "/help/contributing.md"
-    content: "How to contribute to the project. Development setup, coding standards, pull requests, issue reporting, community guidelines."
-    section: "help"
-    type: "guide"
-    tags: ["contributing", "development", "pull requests", "issues", "community"]
 
   - title: "Status"
     url: "/status/"

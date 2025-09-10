@@ -196,7 +196,7 @@
 
 ### **Q: Can I contribute to the project?**
 
-**A:** Absolutely! We welcome contributions. Check the [Contributing Guide](./contributing.md) for how to get started.
+**A:** Absolutely! We welcome contributions. Please reach out through our Discord community or GitHub issues to get started.
 
 ## Privacy & Security Questions
 
@@ -375,8 +375,6 @@
 
 
 ### **Want to Contribute?**
-
-- <i class="fas fa-book"></i> **Read the Contributing Guide** - Learn how to help
 
 - <i class="fas fa-bug"></i> **Fix bugs** - Help improve the project
 

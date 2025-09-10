@@ -924,7 +924,8 @@ const KillTrackerApp = () => {
 
   const recordKill = async () => {
     if (!victimId || !weapon) {
-      Alert.alert('Error', 'Please fill in victim and weapon');
+      // Show error message to user
+      setError('Please fill in victim and weapon');
       return;
     }
 
@@ -936,7 +937,8 @@ const KillTrackerApp = () => {
         isPvP: true
       });
 
-      Alert.alert('Success', `Kill recorded: ${kill.id}`);
+      // Show success message to user
+      setSuccess(`Kill recorded: ${kill.id}`);
       
       // Clear form
       setVictimId('');
@@ -947,7 +949,8 @@ const KillTrackerApp = () => {
       const newStats = await api.users.getStats('USER_ID');
       setStats(newStats);
     } catch (error) {
-      Alert.alert('Error', 'Failed to record kill');
+      // Show error message to user
+      setError('Failed to record kill');
       console.error(error);
     }
   };

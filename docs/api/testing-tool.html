@@ -437,12 +437,12 @@
             const requestBody = document.getElementById('request-body').value;
             
             if (!apiKey) {
-                alert('Please enter an API key (test key only!)');
+                showNotification('Please enter an API key (test key only!)', 'error');
                 return;
             }
             
             if (!endpoint) {
-                alert('Please enter an endpoint');
+                showNotification('Please enter an endpoint', 'error');
                 return;
             }
             

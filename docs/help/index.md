@@ -13,7 +13,6 @@ Welcome to the help section for the Star Citizen Kill Tracker. Here you'll find 
 ### Documentation
 - [FAQ](./faq.md) - Frequently asked questions and answers
 - [Troubleshooting](./troubleshooting.md) - Common issues and solutions
-- [Contributing](./contributing.md) - How to contribute to the project
 
 ### Support Channels
 - **GitHub Issues** - Report bugs and request features
@@ -29,7 +28,6 @@ Welcome to the help section for the Star Citizen Kill Tracker. Here you'll find 
 
 ### For Developers
 - [Technical Documentation](../technical/) - Technical implementation details
-- [Security Guidelines](../technical/SECURITY_AUDIT.md) - Security best practices
 - [Deployment Guide](../technical/deployment.md) - Deployment instructions
 
 ## Common Issues

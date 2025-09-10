@@ -19,9 +19,9 @@ title: "API Documentation"
 
 ## <i class="fas fa-rocket"></i> Quick Start
 
-**Base URL:** `https://api.millsy.dev`  
-**API Version:** v1.0.0  
-**Authentication:** API Key Required (All endpoints secured)  
+**Base URL:** `https://api.millsy.dev`
+**API Version:** v1.0.0
+**Authentication:** API Key Required (All endpoints secured)
 
 ### 1. Get API Access
 
@@ -321,7 +321,7 @@ async function recordKill(victimId, weapon, location, isPvP = true) {
       isEnvironmental: false
     })
   });
-  
+
   return await response.json();
 }
 
@@ -332,7 +332,7 @@ async function getUserStats(userId) {
       'Authorization': `Bearer ${API_KEY}`
     }
   });
-  
+
   return await response.json();
 }
 ```

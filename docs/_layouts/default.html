@@ -59,6 +59,14 @@
         </div>
     </div>
     
+    <!-- Failsafe: Hide loader if JavaScript fails -->
+    <noscript>
+        <style>
+            .enhanced-loader { display: none !important; }
+            .loading-progress { display: none !important; }
+        </style>
+    </noscript>
+    
     <!-- Development Warning -->
     {% include development-warning.html %}
     
@@ -569,7 +577,11 @@
 
             displayResults(results) {
                 if (results.length === 0) {
-                    this.searchResults.innerHTML = '<div class="search-no-results">No results found</div>';
+                    this.searchResults.textContent = '';
+                    const noResults = document.createElement('div');
+                    noResults.className = 'search-no-results';
+                    noResults.textContent = 'No results found';
+                    this.searchResults.appendChild(noResults);
                     return;
                 }
 
@@ -594,7 +606,10 @@
                 
                 const copyButton = document.createElement('button');
                 copyButton.className = 'copy-button';
-                copyButton.innerHTML = '<i class="fas fa-copy"></i>';
+                copyButton.textContent = '';
+                const icon = document.createElement('i');
+                icon.className = 'fas fa-copy';
+                copyButton.appendChild(icon);
                 copyButton.title = 'Copy to clipboard';
                 
                 copyButton.addEventListener('click', async () => {
@@ -613,7 +628,6 @@
                             copyButton.classList.remove('copied');
                         }, 2000);
                     } catch (err) {
-                        console.error('Failed to copy text: ', err);
                         // Fallback: show error state
                         copyButton.innerHTML = '<i class="fas fa-times"></i>';
                         copyButton.classList.add('error');
@@ -727,6 +741,21 @@
         } else {
             initializeFeatures();
         }
+        
+        // Failsafe: Ensure loader is hidden after 5 seconds regardless of any issues
+        setTimeout(() => {
+            const loader = document.getElementById('enhanced-loader');
+            const progress = document.getElementById('loading-progress');
+            if (loader && loader.style.display !== 'none') {
+                // Failsafe: Force hiding loader after 5 seconds
+                loader.style.display = 'none';
+                loader.style.opacity = '0';
+                loader.style.visibility = 'hidden';
+            }
+            if (progress) {
+                progress.style.display = 'none';
+            }
+        }, 5000);
 
         // Lazy load images
         function lazyLoadImages() {
@@ -853,13 +882,13 @@
             
             // Check if elements exist
             if (!progressBar || !progressContainer || !enhancedLoader) {
-                console.warn('Loader elements not found, skipping loader initialization');
+                // Loader elements not found, skipping initialization
                 return;
             }
             
             let isLoaderHidden = false;
             let progressInterval = null;
-            let maxLoadTimeout = null;
+            let hideTimeout = null;
             
             // Show enhanced loader initially
             enhancedLoader.style.display = 'flex';
@@ -872,21 +901,15 @@
                 isLoaderHidden = true;
                 
                 try {
-                // Clear all timers and intervals
-                timerManager.clearInterval('loader-progress');
-                timerManager.clearTimeout('loader-max-timeout');
-                timerManager.clearTimeout('loader-hide');
-                timerManager.clearTimeout('loader-ready-complete');
-                timerManager.clearTimeout('loader-window-load');
-                timerManager.clearTimeout('loader-dom-ready');
-                timerManager.clearTimeout('loader-emergency');
-                
-                if (progressInterval) {
-                    progressInterval = null;
-                }
-                if (maxLoadTimeout) {
-                    maxLoadTimeout = null;
-                }
+                    // Clear all timers and intervals
+                    if (progressInterval) {
+                        clearInterval(progressInterval);
+                        progressInterval = null;
+                    }
+                    if (hideTimeout) {
+                        clearTimeout(hideTimeout);
+                        hideTimeout = null;
+                    }
                     
                     // Hide loader with smooth transition
                     enhancedLoader.style.opacity = '0';
@@ -904,7 +927,6 @@
                         }
                     }, 200);
                 } catch (error) {
-                    console.error('Error hiding loader:', error);
                     // Force hide as fallback
                     if (enhancedLoader) {
                         enhancedLoader.style.display = 'none';
@@ -917,7 +939,7 @@
             
             // Simulate loading progress with more predictable behavior
             let progress = 0;
-            progressInterval = timerManager.setInterval('loader-progress', () => {
+            progressInterval = setInterval(() => {
                 try {
                     // More controlled progress increments
                     const increment = Math.min(Math.random() * 15 + 5, 100 - progress);
@@ -928,50 +950,44 @@
                         if (progressBar) {
                             progressBar.style.width = '100%';
                         }
-                        timerManager.clearInterval('loader-progress');
+                        clearInterval(progressInterval);
                         progressInterval = null;
                         
                         // Hide loader after progress completes
-                        timerManager.setTimeout('loader-hide', hideLoader, 200);
+                        hideTimeout = setTimeout(hideLoader, 200);
                     } else {
                         if (progressBar) {
                             progressBar.style.width = progress + '%';
                         }
                     }
                 } catch (error) {
-                    console.error('Error updating progress:', error);
-                    timerManager.clearInterval('loader-progress');
+                    clearInterval(progressInterval);
                     progressInterval = null;
                     hideLoader();
                 }
             }, 100);
             
-            // Maximum load time fallback (reduced from 3s to 2.5s)
-            maxLoadTimeout = timerManager.setTimeout('loader-max-timeout', hideLoader, 2500);
-            
-            // Hide loader when page is fully loaded
-            if (document.readyState === 'complete') {
-                timerManager.setTimeout('loader-ready-complete', hideLoader, 300);
-            } else {
-                window.addEventListener('load', () => {
-                    timerManager.setTimeout('loader-window-load', hideLoader, 300);
-                });
+            // Single fallback - hide loader when page is fully loaded
+            function checkPageLoad() {
+                if (document.readyState === 'complete') {
+                    hideTimeout = setTimeout(hideLoader, 300);
+                } else {
+                    window.addEventListener('load', () => {
+                        hideTimeout = setTimeout(hideLoader, 300);
+                    });
+                }
             }
             
-            // Additional fallback - hide loader when DOM is ready
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', () => {
-                    timerManager.setTimeout('loader-dom-ready', hideLoader, 800);
-                });
-            }
+            // Check page load state
+            checkPageLoad();
             
-            // Emergency fallback - hide loader after 5 seconds no matter what
-            timerManager.setTimeout('loader-emergency', () => {
+            // Emergency fallback - hide loader after 3 seconds no matter what
+            setTimeout(() => {
                 if (!isLoaderHidden) {
-                    console.warn('Loader still visible after 5 seconds, forcing hide');
+                    // Loader still visible after 3 seconds, forcing hide
                     hideLoader();
                 }
-            }, 5000);
+            }, 3000);
         }
 
         // Enhanced Search with Suggestions
@@ -1065,7 +1081,6 @@
                             copyButton.classList.remove('copied');
                         }, 2000);
                     } catch (err) {
-                        console.error('Failed to copy text: ', err);
                         copyButton.innerHTML = '<i class="fas fa-times"></i> Failed';
                         copyButton.classList.add('error');
                         timerManager.setTimeout('copy-button-error-reset-2', () => {
@@ -1164,7 +1179,7 @@
             
             // Check if required elements exist
             if (!searchModal || !searchToggle || !searchInput) {
-                console.warn('Search system elements not found, skipping initialization');
+                // Search system elements not found, skipping initialization
                 return;
             }
             
@@ -1460,7 +1475,7 @@
             
             // Check if required elements exist
             if (!themeToggle || !themeSelector) {
-                console.warn('Theme system elements not found, skipping initialization');
+                // Theme system elements not found, skipping initialization
                 return;
             }
             
@@ -1772,7 +1787,7 @@
             
             // Check if required elements exist
             if (!tutorialContainer || !tutorialOverlay) {
-                console.warn('Tutorial system elements not found, skipping initialization');
+                // Tutorial system elements not found, skipping initialization
                 return;
             }
             
@@ -2233,7 +2248,7 @@
                         }
                     };
                 } catch (error) {
-                    console.error('Failed to load translations:', error);
+                    // Failed to load translations
                 }
             }
 
@@ -2299,7 +2314,7 @@
 
             applyLanguage(langCode) {
                 if (!this.translations[langCode]) {
-                    console.warn(`Language ${langCode} not supported`);
+                    // Language not supported
                     return;
                 }
 
@@ -2860,7 +2875,6 @@
                                 await navigator.clipboard.writeText(codeElement.textContent);
                                 this.showCopyFeedback(e.target);
                             } catch (err) {
-                                console.error('Failed to copy code: ', err);
                                 this.showCopyFeedback(e.target, false);
                             }
                         }
@@ -2894,7 +2908,6 @@
                         await navigator.clipboard.writeText(responseText);
                         this.showCopyFeedback(copyBtn);
                     } catch (err) {
-                        console.error('Failed to copy response: ', err);
                         this.showCopyFeedback(copyBtn, false);
                     }
                 });
@@ -2972,7 +2985,7 @@
                 
                 code += `\n});\n\n`;
                 code += `const data = await response.json();\n`;
-                code += `console.log(data);`;
+                code += `// Process data here`;
 
                 codeElement.textContent = code;
             }

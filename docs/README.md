@@ -64,7 +64,6 @@ curl -H "Authorization: Bearer YOUR_API_KEY" \
 ### Help & Support
 - [Troubleshooting](./help/troubleshooting.md) - Common API issues and solutions
 - [FAQ](./help/faq.md) - Frequently asked questions
-- [Contributing](./help/contributing.md) - Documentation contribution guide
 
 ## API Features
 
