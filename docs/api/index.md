@@ -33,14 +33,14 @@ title: "API Documentation"
 
 **⚠️ SECURITY WARNING: Never hardcode API keys in your code!**
 
-{% include api-copy-button.html 
-    code='# Use environment variables for API keys
+```bash
+# Use environment variables for API keys
 export API_KEY="your_api_key_here"
 
 curl -H "Authorization: Bearer $API_KEY" \
      -H "Content-Type: application/json" \
-     https://api.millsy.dev/api/kills/user/YOUR_USER_ID?limit=10'
-    language="bash" %}
+     https://api.millsy.dev/api/kills/user/YOUR_USER_ID?limit=10
+```
 
 ## 🔑 Authentication
 
@@ -209,16 +209,16 @@ Authorization: Bearer $API_KEY
 ### Secure API Key Management
 
 **❌ NEVER DO THIS:**
-{% include api-copy-button.html 
-    code='// DON\'T: Hardcode API keys in source code
-const apiKey = "sk-1234567890abcdef"; // SECURITY RISK!'
-    language="javascript" %}
+```javascript
+// DON'T: Hardcode API keys in source code
+const apiKey = "sk-1234567890abcdef"; // SECURITY RISK!
+```
 
 **✅ DO THIS INSTEAD:**
-{% include api-copy-button.html 
-    code='// DO: Use environment variables
-const apiKey = process.env.API_KEY; // Secure'
-    language="javascript" %}
+```javascript
+// DO: Use environment variables
+const apiKey = process.env.API_KEY; // Secure
+```
 
 ### Environment Variable Setup
 
