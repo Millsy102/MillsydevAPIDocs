@@ -1,0 +1,5 @@
+[33m0a8df9d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m fix: Jekyll build issues and add test page
+[33m7d91179[m fix: Jekyll configuration for GitHub Pages compatibility
+[33m4781094[m fix: Remove GitHub Actions, use free GitHub Pages deployment
+[33m1e2b906[m fix: GitHub Pages deployment configuration
+[33mc45c749[m feat: Major documentation site improvements
