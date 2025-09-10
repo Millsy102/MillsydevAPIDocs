@@ -49,9 +49,7 @@ tutorials:
                   <i class="fas fa-copy"></i>
                 </button>
               </div>
-              <pre><code id="curl-example">curl -X GET "https://api.millsydev.com/v1/profile" \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json"</code></pre>
+              <pre><code id="curl-example">curl -X GET "https://api.millsydev.com/v1/profile" -H "Authorization: Bearer YOUR_API_KEY" -H "Content-Type: application/json"</code></pre>
             </div>
             <div class="tutorial-check">
               <label class="tutorial-checkbox">
@@ -170,7 +168,7 @@ tutorials:
     steps:
       - id: "authentication"
         title: "API Authentication"
-        content: |
+        content: >
           <div class="tutorial-step-content">
             <h3>API Authentication</h3>
             <p>Learn how to authenticate with the Kill Tracker API using your API key.</p>
@@ -182,14 +180,14 @@ tutorials:
                 </button>
               </div>
               <pre><code id="auth-example">const apiKey = 'your-api-key-here';
-const headers = {
-  'Authorization': `Bearer ${apiKey}`,
-  'Content-Type': 'application/json'
-};
-
-fetch('https://api.millsydev.com/v1/profile', { headers })
-  .then(response => response.json())
-  .then(data => console.log(data));</code></pre>
+              const headers = {
+                'Authorization': 'Bearer ' + apiKey,
+                'Content-Type': 'application/json'
+              };
+              
+              fetch('https://api.millsydev.com/v1/profile', { headers })
+                .then(response => response.json())
+                .then(data => console.log(data));</code></pre>
             </div>
           </div>
         type: "code"
