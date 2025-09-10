@@ -7,7 +7,7 @@ title: "Rate Limits & Quotas"
 
 > **Comprehensive rate limiting, quotas, and usage policies for the Star Citizen Kill Tracker API**
 
-## 📊 Rate Limit Overview
+## <i class="fas fa-chart-bar"></i> Rate Limit Overview
 
 ### Current Limits
 - **All API requests**: 1000 requests/hour
@@ -109,7 +109,7 @@ When rate limits are exceeded:
 3. **Optimize Requests**: Reduce unnecessary calls
 4. **Batch Operations**: Combine multiple requests
 
-## 📊 Quota Management
+## <i class="fas fa-chart-bar"></i> Quota Management
 
 ### Daily Quotas
 - **Free Tier**: 10,000 requests/day
@@ -252,7 +252,7 @@ class RequestBatcher {
 }
 ```
 
-## 📊 Usage Monitoring
+## <i class="fas fa-chart-line"></i> Usage Monitoring
 
 ### Check Current Usage
 ```bash
@@ -295,7 +295,7 @@ curl -H "Authorization: Bearer $API_KEY" \
 }
 ```
 
-## 🚀 Rate Limit Optimization
+## <i class="fas fa-rocket"></i> Rate Limit Optimization
 
 ### Efficient API Usage
 1. **Cache Responses**: Cache frequently accessed data
@@ -374,7 +374,7 @@ const webhook = await fetch('https://api.millsy.dev/api/webhooks', {
 - **Features**: Custom features, dedicated support
 - **Support**: Dedicated support, custom SLA
 
-## 🔧 Rate Limit Testing
+## <i class="fas fa-tools"></i> Rate Limit Testing
 
 ### Test Rate Limits
 ```bash

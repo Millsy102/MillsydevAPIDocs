@@ -9,14 +9,14 @@ title: "Integration Examples & Code Samples"
 
 ## 🔒 Security First
 
-**⚠️ CRITICAL SECURITY WARNING:**
+**<i class="fas fa-exclamation-triangle"></i> CRITICAL SECURITY WARNING:**
 - **Never hardcode API keys** in your source code
 - **Always use environment variables** for API keys
 - **Add .env files to .gitignore** to prevent accidental commits
 - **Use secure key management** for production applications
 - **Rotate API keys regularly** (every 90 days recommended)
 
-## 🚀 Quick Start Examples
+## <i class="fas fa-rocket"></i> Quick Start Examples
 
 ### JavaScript/TypeScript Integration
 
@@ -196,7 +196,7 @@ stats = api.get_user_stats('USER_ID')
 print(f'User stats: {stats["totalKills"]} kills, {stats["totalDeaths"]} deaths, KDR: {stats["killDeathRatio"]}')
 ```
 
-## 🔧 Advanced Integration Examples
+## <i class="fas fa-tools"></i> Advanced Integration Examples
 
 ### Kill Tracker Application Integration
 
@@ -870,7 +870,7 @@ describe('KillTrackerAPI', () => {
 });
 ```
 
-## 📱 Mobile App Integration
+## <i class="fas fa-mobile-alt"></i> Mobile App Integration
 
 ### React Native Example
 ```javascript
@@ -1006,7 +1006,7 @@ const KillTrackerApp = () => {
 export default KillTrackerApp;
 ```
 
-## 🚀 Deployment Examples
+## <i class="fas fa-rocket"></i> Deployment Examples
 
 ### Docker Configuration
 ```dockerfile

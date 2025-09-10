@@ -1,4 +1,4 @@
-# 🌐 Web Dashboard Guide
+# <i class="fas fa-globe"></i> Web Dashboard Guide
 
 
 > **Master the Star Citizen Kill Tracker web dashboard**
@@ -7,15 +7,15 @@
 
 The web dashboard is your **control center** for the Star Citizen Kill Tracker. It's a website where you can:
 
-- 📊 **View your kill statistics** and leaderboards
+- <i class="fas fa-chart-bar"></i> **View your kill statistics** and leaderboards
 
-- ⚙️ **Configure bot settings** for your servers
+- <i class="fas fa-cog"></i> **Configure bot settings** for your servers
 
-- 👥 **Manage users** and permissions
+- <i class="fas fa-users"></i> **Manage users** and permissions
 
-- 📈 **See analytics** and trends
+- <i class="fas fa-chart-line"></i> **See analytics** and trends
 
-- 🔧 **Control the bot** remotely
+- <i class="fas fa-tools"></i> **Control the bot** remotely
 
 
 ## Getting Started
@@ -38,11 +38,11 @@ The web dashboard is your **control center** for the Star Citizen Kill Tracker. 
 
 The dashboard adapts based on your role:
 
-- **👑 Bot Owner** - Full system access
+- **<i class="fas fa-crown"></i> Bot Owner** - Full system access
 
-- **🛡️ Server Admin** - Server-specific management
+- **<i class="fas fa-shield-alt"></i> Server Admin** - Server-specific management
 
-- **👤 User** - Personal stats and settings
+- **<i class="fas fa-user"></i> User** - Personal stats and settings
 
 
 ## Dashboard Sections
@@ -54,13 +54,13 @@ The dashboard adapts based on your role:
 
 ## Features:
 
-- 📊 **Personal Stats** - Your kills, deaths, K/D ratio
+- <i class="fas fa-chart-bar"></i> **Personal Stats** - Your kills, deaths, K/D ratio
 
-- 🏆 **Recent Kills** - Latest kill events
+- <i class="fas fa-trophy"></i> **Recent Kills** - Latest kill events
 
-- 📈 **Server Stats** - Server-wide statistics
+- <i class="fas fa-chart-line"></i> **Server Stats** - Server-wide statistics
 
-- 🔔 **Notifications** - Recent bot events
+- <i class="fas fa-bell"></i> **Notifications** - Recent bot events
 
 
 ## Example:
@@ -80,19 +80,19 @@ Recent Activity:
 
 ```text
 
-### **🎮 Servers**
+### **<i class="fas fa-gamepad"></i> Servers**
 
 **What you see:** Manage your Discord servers and bot settings
 
 ## Features:
 
-- 📋 **Server List** - All servers where bot is active
+- <i class="fas fa-list"></i> **Server List** - All servers where bot is active
 
-- ⚙️ **Server Settings** - Configure bot per server
+- <i class="fas fa-cog"></i> **Server Settings** - Configure bot per server
 
-- 👥 **User Management** - Manage server members
+- <i class="fas fa-users"></i> **User Management** - Manage server members
 
-- 📊 **Server Analytics** - Server-specific statistics
+- <i class="fas fa-chart-bar"></i> **Server Analytics** - Server-specific statistics
 
 
 ## Server Settings:
@@ -123,13 +123,13 @@ Channels:
 
 ## Features:
 
-- 📋 **Kill History** - All your recorded kills
+- <i class="fas fa-list"></i> **Kill History** - All your recorded kills
 
-- 🔍 **Search & Filter** - Find specific kills
+- <i class="fas fa-search"></i> **Search & Filter** - Find specific kills
 
-- 📊 **Kill Analytics** - Detailed statistics
+- <i class="fas fa-chart-bar"></i> **Kill Analytics** - Detailed statistics
 
-- 🏆 **Achievements** - Unlock badges and rewards
+- <i class="fas fa-trophy"></i> **Achievements** - Unlock badges and rewards
 
 
 ## Kill Details:
@@ -152,28 +152,28 @@ Kill #127
 
 ## Features:
 
-- 📋 **User List** - All registered users
+- <i class="fas fa-list"></i> **User List** - All registered users
 
-- 🔍 **User Search** - Find specific users
+- <i class="fas fa-search"></i> **User Search** - Find specific users
 
-- ⚙️ **Permission Management** - Set user roles
+- <i class="fas fa-cog"></i> **Permission Management** - Set user roles
 
-- 📊 **User Analytics** - User activity statistics
+- <i class="fas fa-chart-bar"></i> **User Analytics** - User activity statistics
 
 
-### **⚙️ Settings**
+### **<i class="fas fa-cog"></i> Settings**
 
 **What you see:** Configure your personal preferences
 
 ## Features:
 
-- 🔒 **Privacy Settings** - Control data visibility
+- <i class="fas fa-lock"></i> **Privacy Settings** - Control data visibility
 
-- 🔔 **Notification Preferences** - Set notification types
+- <i class="fas fa-bell"></i> **Notification Preferences** - Set notification types
 
-- 🎨 **Theme Settings** - Customize appearance
+- <i class="fas fa-palette"></i> **Theme Settings** - Customize appearance
 
-- 🔧 **Account Settings** - Manage your account
+- <i class="fas fa-tools"></i> **Account Settings** - Manage your account
 
 
 ## Privacy Options:
@@ -203,15 +203,15 @@ Notifications:
 
 ## Features:
 
-- 📊 **System Statistics** - Overall bot performance
+- <i class="fas fa-chart-bar"></i> **System Statistics** - Overall bot performance
 
-- 🖥️ **Server Monitoring** - All connected servers
+- <i class="fas fa-desktop"></i> **Server Monitoring** - All connected servers
 
-- 👥 **User Management** - Global user administration
+- <i class="fas fa-users"></i> **User Management** - Global user administration
 
-- 🔧 **Bot Control** - Start/stop/restart bot
+- <i class="fas fa-tools"></i> **Bot Control** - Start/stop/restart bot
 
-- 📈 **Analytics** - Detailed system analytics
+- <i class="fas fa-chart-line"></i> **Analytics** - Detailed system analytics
 
 
 ## System Overview:
@@ -233,25 +233,25 @@ Resource Usage:
 
 ```text
 
-### **🛡️ Server Owner Dashboard**
+### **<i class="fas fa-shield-alt"></i> Server Owner Dashboard**
 
 **What you see:** Manage your specific servers
 
 ## Features:
 
-- ⚙️ **Server Configuration** - Bot settings per server
+- <i class="fas fa-cog"></i> **Server Configuration** - Bot settings per server
 
-- 👥 **Member Management** - Server member administration
+- <i class="fas fa-users"></i> **Member Management** - Server member administration
 
-- 📊 **Server Analytics** - Server-specific statistics
+- <i class="fas fa-chart-bar"></i> **Server Analytics** - Server-specific statistics
 
-- 💬 **Message Broadcasting** - Send messages to Discord
+- <i class="fas fa-comment"></i> **Message Broadcasting** - Send messages to Discord
 
 
 ## Advanced Features
 
 
-### **📊 Analytics**
+### **<i class="fas fa-chart-bar"></i> Analytics**
 
 **What you see:** Detailed statistics and trends
 
@@ -259,7 +259,7 @@ Resource Usage:
 
 - 📈 **Kill Trends** - Kill patterns over time
 
-- 🎯 **Weapon Statistics** - Most used weapons
+- <i class="fas fa-crosshairs"></i> **Weapon Statistics** - Most used weapons
 
 - 🗺️ **Location Data** - Popular kill locations
 
@@ -272,28 +272,28 @@ Resource Usage:
 
 ## Features:
 
-- 🎛️ **Bot Control** - Start/stop bot remotely
+- <i class="fas fa-sliders-h"></i> **Bot Control** - Start/stop bot remotely
 
-- 📡 **Real-time Updates** - Live bot status
+- <i class="fas fa-broadcast-tower"></i> **Real-time Updates** - Live bot status
 
-- 💬 **Message Sending** - Send messages to Discord
+- <i class="fas fa-comment"></i> **Message Sending** - Send messages to Discord
 
-- 🔔 **Event Monitoring** - Bot events and logs
+- <i class="fas fa-bell"></i> **Event Monitoring** - Bot events and logs
 
 
-### **📱 Mobile Responsive**
+### **<i class="fas fa-mobile-alt"></i> Mobile Responsive**
 
 **What you see:** Dashboard works on all devices
 
 ## Features:
 
-- 📱 **Mobile Optimized** - Works on phones/tablets
+- <i class="fas fa-mobile-alt"></i> **Mobile Optimized** - Works on phones/tablets
 
-- 🖥️ **Desktop Enhanced** - Full features on desktop
+- <i class="fas fa-desktop"></i> **Desktop Enhanced** - Full features on desktop
 
-- 📊 **Responsive Charts** - Charts adapt to screen size
+- <i class="fas fa-chart-bar"></i> **Responsive Charts** - Charts adapt to screen size
 
-- 🎨 **Touch Friendly** - Easy to use on touch devices
+- <i class="fas fa-palette"></i> **Touch Friendly** - Easy to use on touch devices
 
 
 ## Tips & Tricks
@@ -398,15 +398,15 @@ location.reload();
 
 ### **Planned Features**
 
-- 📱 **Native Mobile App** - iOS and Android
+- <i class="fas fa-mobile-alt"></i> **Native Mobile App** - iOS and Android
 
-- 🔔 **Push Notifications** - Real-time alerts
+- <i class="fas fa-bell"></i> **Push Notifications** - Real-time alerts
 
-- 📊 **Offline Mode** - View cached data
+- <i class="fas fa-chart-bar"></i> **Offline Mode** - View cached data
 
-- 🎮 **Game Integration** - Direct Star Citizen connection
+- <i class="fas fa-gamepad"></i> **Game Integration** - Direct Star Citizen connection
 
 
 ---
 
-*Master the dashboard and become a kill tracking expert! 🎯*
+*Master the dashboard and become a kill tracking expert! <i class="fas fa-crosshairs"></i>*

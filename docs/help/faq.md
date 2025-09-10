@@ -365,26 +365,26 @@
 
 ### **Can't Find Your Answer?**
 
-- 🔍 **Search the documentation** - Use Ctrl+F to search
+- <i class="fas fa-search"></i> **Search the documentation** - Use Ctrl+F to search
 
-- 🐛 **Check GitHub issues** - Someone might have asked the same question
+- <i class="fas fa-bug"></i> **Check GitHub issues** - Someone might have asked the same question
 
-- 💬 **Join our Discord** - Get help from the community
+- <i class="fab fa-discord"></i> **Join our Discord** - Get help from the community
 
-- 📝 **Create an issue** - Ask your question on GitHub
+- <i class="fas fa-edit"></i> **Create an issue** - Ask your question on GitHub
 
 
 ### **Want to Contribute?**
 
-- 📖 **Read the Contributing Guide** - Learn how to help
+- <i class="fas fa-book"></i> **Read the Contributing Guide** - Learn how to help
 
-- 🐛 **Fix bugs** - Help improve the project
+- <i class="fas fa-bug"></i> **Fix bugs** - Help improve the project
 
-- ✨ **Add features** - Implement new functionality
+- <i class="fas fa-star"></i> **Add features** - Implement new functionality
 
-- 📚 **Improve docs** - Make the documentation better
+- <i class="fas fa-book"></i> **Improve docs** - Make the documentation better
 
 
 ---
 
-*Don't see your question? Ask us! We're here to help. 🤝*
+*Don't see your question? Ask us! We're here to help. <i class="fas fa-handshake"></i>*

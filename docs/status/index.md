@@ -7,20 +7,20 @@ title: "API Status & Uptime"
 
 > **Real-time status monitoring for the Star Citizen Kill Tracker API**
 
-## 📊 Current Status
+## <i class="fas fa-chart-bar"></i> Current Status
 
-### 🟢 All Systems Operational
+### <i class="fas fa-check-circle" style="color: #22c55e;"></i> All Systems Operational
 **Last Updated**: January 9, 2025 12:00 UTC
 
 | Service | Status | Response Time | Uptime |
 |---------|--------|---------------|---------|
-| **API Server** | 🟢 Operational | 45ms | 99.9% |
-| **Database** | 🟢 Operational | 12ms | 99.9% |
-| **WebSocket** | 🟢 Operational | 25ms | 99.8% |
-| **Webhooks** | 🟢 Operational | 180ms | 99.7% |
-| **Analytics** | 🟢 Operational | 85ms | 99.9% |
+| **API Server** | <i class="fas fa-check-circle" style="color: #22c55e;"></i> Operational | 45ms | 99.9% |
+| **Database** | <i class="fas fa-check-circle" style="color: #22c55e;"></i> Operational | 12ms | 99.9% |
+| **WebSocket** | <i class="fas fa-check-circle" style="color: #22c55e;"></i> Operational | 25ms | 99.8% |
+| **Webhooks** | <i class="fas fa-check-circle" style="color: #22c55e;"></i> Operational | 180ms | 99.7% |
+| **Analytics** | <i class="fas fa-check-circle" style="color: #22c55e;"></i> Operational | 85ms | 99.9% |
 
-## 📈 Performance Metrics
+## <i class="fas fa-chart-line"></i> Performance Metrics
 
 ### Response Times (Last 24 Hours)
 - **Average Response Time**: 65ms
@@ -51,7 +51,7 @@ No maintenance windows are currently scheduled.
 - **Discord Notifications**: [Join our Discord](https://discord.gg/sa9ENVmJvg)
 - **Email Alerts**: Subscribe to status updates
 
-## 📊 Historical Uptime
+## <i class="fas fa-chart-bar"></i> Historical Uptime
 
 ### Last 30 Days
 - **API Server**: 99.9% uptime

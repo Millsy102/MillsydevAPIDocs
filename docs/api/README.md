@@ -603,7 +603,7 @@ Authorization: Bearer YOUR_JWT_TOKEN
 
 ```text
 
-### **📊 Analytics**
+### **<i class="fas fa-chart-bar"></i> Analytics**
 
 
 #### **Get Kill Analytics**
@@ -1025,4 +1025,4 @@ tracker.getUserStats().then(stats => {
 
 ---
 
-## Ready to integrate with the Star Citizen Kill Tracker API? Start building amazing applications! 🚀
+## Ready to integrate with the Star Citizen Kill Tracker API? Start building amazing applications! <i class="fas fa-rocket"></i>

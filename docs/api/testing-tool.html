@@ -299,17 +299,17 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🔧 API Testing Tool</h1>
+            <h1><i class="fas fa-tools"></i> API Testing Tool</h1>
             <p>Interactive testing interface for the Star Citizen Kill Tracker API</p>
         </div>
         
         <div class="warning">
-            <strong>⚠️ SECURITY WARNING:</strong> Never enter real API keys in this tool. Use environment variables in your actual applications. This tool is for testing purposes only.
+            <strong><i class="fas fa-exclamation-triangle"></i> SECURITY WARNING:</strong> Never enter real API keys in this tool. Use environment variables in your actual applications. This tool is for testing purposes only.
         </div>
         
         <div class="endpoint-selector">
             <div class="endpoint-group">
-                <h3>🔑 Authentication</h3>
+                <h3><i class="fas fa-key"></i> Authentication</h3>
                 <a href="#" class="endpoint-option" data-endpoint="/api/api-keys/validate" data-method="GET">
                     GET /api/api-keys/validate
                 </a>
@@ -319,7 +319,7 @@
             </div>
             
             <div class="endpoint-group">
-                <h3>⚔️ Kill Tracking</h3>
+                <h3><i class="fas fa-crosshairs"></i> Kill Tracking</h3>
                 <a href="#" class="endpoint-option" data-endpoint="/api/kills" data-method="GET">
                     GET /api/kills
                 </a>
@@ -332,7 +332,7 @@
             </div>
             
             <div class="endpoint-group">
-                <h3>📊 Statistics</h3>
+                <h3><i class="fas fa-chart-bar"></i> Statistics</h3>
                 <a href="#" class="endpoint-option" data-endpoint="/api/stats/user/{userId}" data-method="GET">
                     GET /api/stats/user/{userId}
                 </a>
@@ -353,7 +353,7 @@
         </div>
         
         <div class="request-builder">
-            <h3>🔧 Request Builder</h3>
+            <h3><i class="fas fa-tools"></i> Request Builder</h3>
             
             <div class="form-group">
                 <label for="api-key">API Key (Test Only)</label>
@@ -377,15 +377,15 @@
                 <textarea id="request-body" rows="6" placeholder='{"victimId": "EnemyPlayer", "weapon": "Laser Cannon", "location": "Stanton System", "isPvP": true}'></textarea>
             </div>
             
-            <button class="send-btn" onclick="sendRequest()">🚀 Send Request</button>
+            <button class="send-btn" onclick="sendRequest()"><i class="fas fa-paper-plane"></i> Send Request</button>
         </div>
         
         <div class="loading" id="loading">
-            <p>⏳ Sending request...</p>
+            <p><i class="fas fa-spinner fa-spin"></i> Sending request...</p>
         </div>
         
         <div class="response-section" id="response-section" style="display: none;">
-            <h3>📥 Response</h3>
+            <h3><i class="fas fa-download"></i> Response</h3>
             
             <div class="response-info" id="response-info">
                 <!-- Response info will be populated here -->

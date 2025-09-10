@@ -9,7 +9,7 @@ tutorials:
         title: "Welcome to Kill Tracker API"
         content: |
           <div class="tutorial-step-content">
-            <h3>Welcome to the Kill Tracker API! 🚀</h3>
+            <h3>Welcome to the Kill Tracker API! <i class="fas fa-rocket"></i></h3>
             <p>This tutorial will guide you through setting up and using the Kill Tracker API for Star Citizen.</p>
             <div class="tutorial-highlight">
               <i class="fas fa-info-circle"></i>

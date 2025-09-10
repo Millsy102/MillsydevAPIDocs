@@ -78,7 +78,7 @@ Get current authenticated user information.
 
 **Headers:** `Authorization: Bearer YOUR_JWT_TOKEN`
 
-## 🎯 Kill Tracking Endpoints
+## <i class="fas fa-crosshairs"></i> Kill Tracking Endpoints
 
 ### POST /api/kills
 
@@ -440,7 +440,7 @@ Revoke API key.
 }
 ```
 
-## 📊 Analytics Endpoints
+## <i class="fas fa-chart-bar"></i> Analytics Endpoints
 
 ### GET /api/analytics/dashboard
 
@@ -666,7 +666,7 @@ Get available webhook events.
 ]
 ```
 
-## 🚀 Star Citizen Integration Endpoints
+## <i class="fas fa-rocket"></i> Star Citizen Integration Endpoints
 
 ### GET /api/sc/ships
 

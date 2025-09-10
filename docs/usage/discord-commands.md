@@ -1,4 +1,4 @@
-# 🤖 Discord Commands Guide
+# <i class="fas fa-robot"></i> Discord Commands Guide
 
 
 > **All the commands your Star Citizen Kill Tracker bot can do**
@@ -545,4 +545,4 @@
 
 ---
 
-*Master these commands and become a kill tracking pro! 🎯*
+*Master these commands and become a kill tracking pro! <i class="fas fa-crosshairs"></i>*

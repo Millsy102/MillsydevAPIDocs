@@ -31,7 +31,7 @@ title: "API Documentation"
 
 ### 2. Make Your First Request
 
-**⚠️ SECURITY WARNING: Never hardcode API keys in your code!**
+**<i class="fas fa-exclamation-triangle"></i> SECURITY WARNING: Never hardcode API keys in your code!**
 
 ```bash
 # Use environment variables for API keys
@@ -416,7 +416,7 @@ curl -X GET "https://api.millsy.dev/api/leaderboard/kills?limit=10" \
 - **Rate Limits**: [Rate Limiting & Quotas](./rate-limits.md)
 - **API Versioning**: [Versioning & Changelog](./versioning.md)
 - **Testing Tool**: [Interactive API Tester](./testing-tool.html)
-- **GitHub Issues**: [Report bugs or request features](https://github.com/millsy/dbot2/issues)
+- **GitHub Issues**: [Report bugs or request features](https://github.com/Millsy102)
 - **Discord Support**: [Join our Discord server](https://discord.gg/sa9ENVmJvg) (community help)
 - **Email**: api-support@millsy.dev (one-man team, may take time to respond)
 - **Status Page**: [API Status & Uptime](../status/)

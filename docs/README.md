@@ -25,32 +25,17 @@ The Star Citizen Kill Tracker is a complete ecosystem designed for Star Citizen 
 ### Installation
 
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd dbot2
-
-# Install all dependencies
-npm run install:all
-
-# Configure environment
-cp env.example .env
-# Edit .env with your configuration
-
-# Initialize database
-npm run db:migrate
-npm run db:seed
-
-# Start development environment
-npm run dev
+# This is documentation for the Star Citizen Kill Tracker system
+# The software itself is closed-source and not available for download
 ```
 
-### Services
+### Live Services
 
-After installation, the following services will be available:
+The Star Citizen Kill Tracker system provides these live services:
 
-- **Web Dashboard**: http://localhost:3000
-- **API Server**: http://localhost:3001
-- **Desktop Application**: Launches automatically
+- **Web Dashboard**: https://millsy.dev
+- **API Server**: https://api.millsy.dev
+- **Discord Bot**: Available for server integration
 
 ## Documentation Structure
 
@@ -115,5 +100,7 @@ For additional support:
 
 ## License
 
-MIT License - See LICENSE file for complete terms.
+**Documentation**: MIT License - This documentation is open source and available for public use.
+
+**Software**: Closed Source - The Star Citizen Kill Tracker software itself is proprietary and not available for download or modification.
 

@@ -348,13 +348,18 @@ a:hover {
     opacity: 0.8;
 }
 
-.nav-menu {
+.nav-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+}
+
+.nav-utilities {
     display: flex;
     gap: 0.5rem;
     align-items: center;
-    flex: 1;
-    justify-content: flex-end;
-    flex-wrap: wrap;
 }
 
 .nav-link {
@@ -399,6 +404,8 @@ a:hover {
 .main-content {
     margin-top: 70px;
     min-height: calc(100vh - 70px);
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 /* Hero Section */
@@ -669,6 +676,8 @@ a:hover {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem 1rem 1rem;
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 .content-layout {
@@ -7861,7 +7870,6 @@ body.accessibility-text-largest {
 .llm-disclaimer {
     margin-top: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid var(--border-color);
     font-size: 0.75rem;
     color: var(--text-secondary);
     display: flex;

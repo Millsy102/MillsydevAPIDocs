@@ -4,7 +4,7 @@ title: "Advanced Features"
 description: "Advanced features and configuration for the Star Citizen Kill Tracker system"
 ---
 
-# 🚀 Advanced Features
+# <i class="fas fa-rocket"></i> Advanced Features
 
 > **Advanced configuration, integration, and customization options for power users**
 
@@ -57,7 +57,7 @@ description: "Advanced features and configuration for the Star Citizen Kill Trac
 - **Technical Documentation**: [Technical Docs](../technical/)
 - **API Reference**: [Complete API Docs](../api/)
 - **Community Support**: [Discord Server](https://discord.gg/sa9ENVmJvg)
-- **GitHub Issues**: [Report Issues](https://github.com/millsydev)
+- **GitHub Issues**: [Report Issues](https://github.com/Millsy102)
 
 ## Related Documentation
 

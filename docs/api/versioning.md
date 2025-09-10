@@ -46,7 +46,7 @@ https://api.millsy.dev/v2/endpoint
 - **Star Citizen Integration** - Game data and log parsing
 - **Snare Planner** - Interdiction planning tools
 
-#### 🔧 API Endpoints
+#### <i class="fas fa-tools"></i> API Endpoints
 - **Kill Tracking**: 8 endpoints for kill management
 - **User Management**: 6 endpoints for user operations
 - **Statistics**: 4 endpoints for analytics
@@ -64,13 +64,13 @@ https://api.millsy.dev/v2/endpoint
 - **Discord OAuth** - Secure user authentication
 - **HTTPS Only** - All communications encrypted
 
-#### 📊 Rate Limits
+#### <i class="fas fa-chart-bar"></i> Rate Limits
 - **All API requests**: 1000 requests/hour
 - **Kill tracking**: 500 requests/hour
 - **Admin operations**: 10 requests/minute
 - **API Key operations**: 5 requests/minute
 
-#### 🛠️ Developer Tools
+#### <i class="fas fa-wrench"></i> Developer Tools
 - **Postman Collection** - Complete API collection
 - **Code Examples** - JavaScript, Python, C# examples
 - **Interactive Documentation** - Try-it-now functionality
@@ -110,7 +110,7 @@ https://api.millsy.dev/v2/endpoint
 - **Documentation**: Clear deprecation notices
 - **Migration Guides**: Step-by-step migration instructions
 
-## 🔧 Version Detection
+## <i class="fas fa-tools"></i> Version Detection
 
 ### HTTP Headers
 ```http
@@ -148,7 +148,7 @@ curl -H "Authorization: Bearer $API_KEY" \
 }
 ```
 
-## 📊 Version Statistics
+## <i class="fas fa-chart-bar"></i> Version Statistics
 
 ### API Usage by Version
 - **v1.0.0**: 100% (current)

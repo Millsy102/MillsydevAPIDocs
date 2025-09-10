@@ -1,4 +1,4 @@
-# 🤝 Contributing Guide
+# <i class="fas fa-handshake"></i> Contributing Guide
 
 > **Help make the Star Citizen Kill Tracker even better!**
 
@@ -8,7 +8,7 @@ We welcome contributions from everyone! Whether you're fixing bugs, adding featu
 
 ## Ways to Contribute
 
-### **🐛 Bug Fixes**
+### **<i class="fas fa-bug"></i> Bug Fixes**
 
 - Fix bugs you encounter
 
@@ -19,7 +19,7 @@ We welcome contributions from everyone! Whether you're fixing bugs, adding featu
 - Optimize performance
 
 
-### **✨ New Features**
+### **<i class="fas fa-star"></i> New Features**
 
 - Add new Discord commands
 
@@ -30,7 +30,7 @@ We welcome contributions from everyone! Whether you're fixing bugs, adding featu
 - Add new integrations
 
 
-### **📚 Documentation**
+### **<i class="fas fa-book"></i> Documentation**
 
 - Improve existing guides
 
@@ -579,4 +579,4 @@ Thank you for considering contributing to the Star Citizen Kill Tracker! Your co
 
 ---
 
-*Together, we can build something amazing! 🚀*
+*Together, we can build something amazing! <i class="fas fa-rocket"></i>*

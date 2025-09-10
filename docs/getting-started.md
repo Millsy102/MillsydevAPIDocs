@@ -4,7 +4,7 @@ title: "Getting Started with MILLSY.dev API"
 description: "Quick start guide for integrating with the MILLSY.dev Star Citizen Kill Tracker API"
 ---
 
-# 🚀 Getting Started with MILLSY.dev API
+# <i class="fas fa-rocket"></i> Getting Started with MILLSY.dev API
 
 > **Start integrating with our Star Citizen Kill Tracker API in minutes**
 

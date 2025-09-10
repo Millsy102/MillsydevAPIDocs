@@ -48,7 +48,7 @@ Usage: {% include github-pages-features.html %}
             <a href="https://discord.gg/sa9ENVmJvg" class="community-button discord" target="_blank">
                 <i class="fab fa-discord"></i> Discord Server
             </a>
-            <a href="https://github.com/millsydev" class="community-button github" target="_blank">
+            <a href="https://github.com/Millsy102" class="community-button github" target="_blank">
                 <i class="fab fa-github"></i> GitHub
             </a>
             <a href="https://twitter.com/millsydev" class="community-button twitter" target="_blank">
@@ -88,9 +88,10 @@ Usage: {% include github-pages-features.html %}
 .demo-buttons {
     display: flex;
     gap: 12px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: flex-start;
     max-width: 600px;
+    align-items: center;
 }
 
 .demo-button {
@@ -129,8 +130,8 @@ Usage: {% include github-pages-features.html %}
 }
 
 .quick-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    display: flex;
+    justify-content: space-between;
     gap: 20px;
     margin: 32px 0;
     padding: 20px;
@@ -264,7 +265,8 @@ Usage: {% include github-pages-features.html %}
     }
     
     .quick-stats {
-        grid-template-columns: repeat(2, 1fr);
+        flex-direction: column;
+        gap: 15px;
     }
 }
 </style>

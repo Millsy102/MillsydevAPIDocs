@@ -25,7 +25,7 @@ The Star Citizen Kill Tracker is a comprehensive ecosystem consisting of:
 - **[Advanced Features](./docs/advanced/)** - Advanced configuration and customization
 - **[Help & Support](./docs/help/)** - Troubleshooting and FAQ
 
-## 🚀 Local Development
+## <i class="fas fa-rocket"></i> Local Development
 
 To run the documentation locally:
 
