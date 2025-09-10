@@ -530,6 +530,7 @@ a:hover {
     position: relative;
     overflow: hidden;
     min-width: 180px;
+    min-height: 44px;
     justify-content: center;
 }
 
@@ -1302,19 +1303,21 @@ li {
     
     .features-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 2rem;
     }
 }
 
 @media (max-width: 1024px) and (min-width: 769px) {
     .features-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
     }
 }
 
 @media (max-width: 1200px) and (min-width: 1025px) {
     .features-grid {
         grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
     }
 }
 
@@ -1375,6 +1378,8 @@ li {
     height: 100%;
     position: relative;
     overflow: hidden;
+    animation: staggerFadeIn 0.8s ease forwards;
+    opacity: 0;
 }
 
 .feature-card:hover {
@@ -1522,16 +1527,12 @@ li {
 .features-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+    gap: 2rem;
     margin: 2rem auto;
-    max-width: 1000px;
+    max-width: 1200px;
     justify-content: center;
 }
 
-.feature-card {
-    animation: staggerFadeIn 0.8s ease forwards;
-    opacity: 0;
-}
 
 .feature-card:nth-child(1) { animation-delay: 0.1s; }
 .feature-card:nth-child(2) { animation-delay: 0.2s; }
@@ -1925,11 +1926,6 @@ li {
 }
 
 /* Enhanced Buttons */
-.btn {
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s var(--animation-smooth);
-}
 
 .btn::before {
     content: '';
@@ -2013,10 +2009,6 @@ li {
 }
 
 /* Enhanced Feature Cards */
-.feature-card {
-    position: relative;
-    overflow: hidden;
-}
 
 /* Status Badges */
 .status-badge {
@@ -2166,50 +2158,26 @@ li {
     will-change: auto;
 }
 
-/* Only apply will-change to elements that are actively animating */
-.hero:hover, 
-.feature-card:hover, 
-.btn:hover, 
-.tech-badge:hover, 
-.nav-link:hover {
+/* Performance optimization - only apply will-change when needed */
+.feature-card:hover {
     will-change: transform;
 }
 
-/* Remove will-change after animation completes */
-.hero:not(:hover), 
-.feature-card:not(:hover), 
-.btn:not(:hover), 
-.tech-badge:not(:hover), 
-.nav-link:not(:hover) {
+.feature-card:not(:hover) {
     will-change: auto;
 }
 
-/* GPU Acceleration for Smooth Animations - Only for elements that need it */
-.hero-card,
-.feature-card,
-.btn,
-.nav-link,
-.search-results,
-.tech-badge {
-    /* Only apply GPU acceleration when needed */
+/* GPU Acceleration - Optimized for Performance */
+.feature-card:hover {
     backface-visibility: hidden;
-}
-
-/* Apply transform only during animations */
-.hero-card:hover,
-.feature-card:hover,
-.btn:hover,
-.nav-link:hover,
-.tech-badge:hover {
     transform: translateZ(0);
 }
 
-/* Optimize Font Loading */
-@font-face {
-    font-family: 'Inter';
-    font-display: swap;
-    src: url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+.hero-card:hover {
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
+
 
 @font-face {
     font-family: 'Orbitron';
@@ -3416,23 +3384,7 @@ img[data-src].loaded {
     }
 }
 
-/* GPU Acceleration for Smooth Animations */
-.hero-card,
-.feature-card,
-.btn,
-.nav-link,
-.search-results {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    perspective: 1000px;
-}
 
-/* Optimize Font Loading */
-@font-face {
-    font-family: 'Inter';
-    font-display: swap;
-    src: url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-}
 
 @font-face {
     font-family: 'Orbitron';
@@ -3489,10 +3441,6 @@ img[data-src].loaded {
         border: 2px solid currentColor;
     }
     
-    .feature-card,
-    .hero-card {
-        border: 2px solid var(--border-color);
-    }
 }
 
 /* Screen Reader Only Content */
@@ -3520,13 +3468,6 @@ a:not(.btn):not(.nav-link):not(.breadcrumb-item):hover {
 }
 
 /* Improved Button Accessibility */
-.btn {
-    min-height: 44px;
-    min-width: 44px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
 
 .btn:focus-visible {
     outline: 3px solid var(--primary-red);
