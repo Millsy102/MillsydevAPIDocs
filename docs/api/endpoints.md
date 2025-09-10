@@ -797,6 +797,3 @@ Parse log file for kills.
 | `429` | Too Many Requests |
 | `500` | Internal Server Error |
 
----
-
-*© 2025 MILLSY.dev | Star Citizen Kill Tracker API v1.0*

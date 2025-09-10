@@ -514,6 +514,3 @@ Include:
 - **Discord**: Real-time help
 - **Email**: Technical support
 
----
-
-*© 2025 MILLSY.dev | Professional API Service*

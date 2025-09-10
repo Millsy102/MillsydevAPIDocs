@@ -44,6 +44,3 @@ description: "Complete usage guides for the Star Citizen Kill Tracker system"
 - [**Technical Docs**](../technical/) - Implementation details
 - [**Advanced Features**](../advanced/) - Advanced configuration
 
----
-
-*© 2025 MILLSY.dev | Professional API Service*

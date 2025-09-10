@@ -412,6 +412,3 @@ curl -H "Authorization: Bearer $API_KEY" \
 - **Upgrade Plan**: Move to higher tier
 - **Custom Limits**: Enterprise solutions
 
----
-
-*© 2025 MILLSY.dev | Professional API Service*

@@ -1064,6 +1064,3 @@ spec:
           value: "https://api.millsy.dev"
 ```
 
----
-
-*© 2025 MILLSY.dev | Star Citizen Kill Tracker API SDK Examples*

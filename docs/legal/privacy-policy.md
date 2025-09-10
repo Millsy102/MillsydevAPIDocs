@@ -229,6 +229,3 @@ For GDPR-related inquiries, contact our Data Protection Officer at dpo@millsy.de
 - **"Processor"** means the entity that processes personal information on behalf of the controller
 - **"Data Subject"** means the individual whose personal information is processed
 
----
-
-*© 2025 MILLSY.dev | Professional API Service*

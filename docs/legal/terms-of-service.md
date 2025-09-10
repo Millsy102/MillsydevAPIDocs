@@ -182,6 +182,3 @@ For questions about these Terms, please contact us:
 - **"Service"** means the API and related services provided by MILLSY.dev
 - **"Data"** means any information obtained through the API
 
----
-
-*© 2025 MILLSY.dev | Professional API Service*

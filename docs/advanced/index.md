@@ -66,6 +66,3 @@ description: "Advanced features and configuration for the Star Citizen Kill Trac
 - [**Technical Documentation**](../technical/) - Implementation details
 - [**Help & Support**](../help/) - Troubleshooting and FAQ
 
----
-
-*© 2025 MILLSY.dev | Professional API Service*

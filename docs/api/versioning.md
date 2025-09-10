@@ -194,6 +194,3 @@ curl -H "Authorization: Bearer $API_KEY" \
 - [Rate Limits](./rate-limits.md) - Rate limiting information
 - [Authentication](./index.md#authentication) - Authentication guide
 
----
-
-*© 2025 MILLSY.dev | Professional API Service*

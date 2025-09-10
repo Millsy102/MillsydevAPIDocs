@@ -840,6 +840,7 @@
             function hideLoader() {
                 enhancedLoader.style.opacity = '0';
                 enhancedLoader.style.visibility = 'hidden';
+                enhancedLoader.classList.add('hidden');
                 
                 setTimeout(() => {
                     progressContainer.style.opacity = '0';
@@ -873,6 +874,11 @@
                     setTimeout(hideLoader, 500);
                 });
             }
+            
+            // Additional fallback - hide loader when DOM is ready and after a short delay
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(hideLoader, 1000);
+            });
         }
 
         // Enhanced Search with Suggestions
@@ -3050,6 +3056,12 @@
 
         // Initialize performance optimizations
         initPerformanceOptimizations();
+        
+        // Initialize Language Manager
+        document.addEventListener('DOMContentLoaded', () => {
+            const languageManager = new LanguageManager();
+            languageManager.init();
+        });
     </script>
 </body>
 </html>

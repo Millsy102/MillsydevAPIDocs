@@ -428,6 +428,3 @@ curl -X GET "https://api.millsy.dev/api/leaderboard/kills?limit=10" \
 - **Rate Limits**: Generous limits for all endpoints
 - **WebSocket Support**: Real-time events and updates
 
----
-
-*© 2025 MILLSY.dev | Star Citizen Kill Tracker API v1.0*

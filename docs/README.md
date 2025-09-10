@@ -117,6 +117,3 @@ For additional support:
 
 MIT License - See LICENSE file for complete terms.
 
----
-
-*© 2025 MILLSY.dev | Professional Star Citizen Integration Solutions*

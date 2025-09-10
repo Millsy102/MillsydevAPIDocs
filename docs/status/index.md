@@ -90,6 +90,3 @@ No maintenance windows are currently scheduled.
 - **FAQ**: [Frequently Asked Questions](../help/faq.md)
 - **Support**: [Get Help](../help/index.md)
 
----
-
-*© 2025 MILLSY.dev | Professional API Service*
