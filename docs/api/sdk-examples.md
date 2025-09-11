@@ -969,34 +969,34 @@ const KillTrackerApp = () => {
   }, [api]);
 
   return (
-    <View style={{ padding: 20 }}>
-      <Text style={{ fontSize: 24, marginBottom: 20 }}>Kill Tracker</Text>
+    <View style={{"{"}} padding: 20 {"}"}}>
+      <Text style={{"{"}} fontSize: 24, marginBottom: 20 {"}"}}>Kill Tracker</Text>
       
       <TextInput
         placeholder="Victim Name"
         value={victimId}
         onChangeText={setVictimId}
-        style={{ borderWidth: 1, padding: 10, marginBottom: 10 }}
+        style={{"{"}} borderWidth: 1, padding: 10, marginBottom: 10 {"}"}}
       />
       
       <TextInput
         placeholder="Weapon"
         value={weapon}
         onChangeText={setWeapon}
-        style={{ borderWidth: 1, padding: 10, marginBottom: 10 }}
+        style={{"{"}} borderWidth: 1, padding: 10, marginBottom: 10 {"}"}}
       />
       
       <TextInput
         placeholder="Location (optional)"
         value={location}
         onChangeText={setLocation}
-        style={{ borderWidth: 1, padding: 10, marginBottom: 20 }}
+        style={{"{"}} borderWidth: 1, padding: 10, marginBottom: 20 {"}"}}
       />
       
       <Button title="Record Kill" onPress={recordKill} />
       
       {stats && (
-        <View style={{ marginTop: 20 }}>
+        <View style={{"{"}} marginTop: 20 {"}"}}>
           <Text>Kills: {stats.totalKills}</Text>
           <Text>Deaths: {stats.totalDeaths}</Text>
           <Text>K/D Ratio: {stats.killDeathRatio.toFixed(2)}</Text>

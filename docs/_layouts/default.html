@@ -819,12 +819,30 @@
             initializeFeatures();
         }
         
-        // Failsafe: Ensure loader is hidden after 5 seconds regardless of any issues
+        // Immediate loader hide for fast-loading pages
+        if (document.readyState === 'complete') {
+            setTimeout(() => {
+                const loader = document.getElementById('enhanced-loader');
+                const progress = document.getElementById('loading-progress');
+                if (loader && loader.style.display !== 'none') {
+                    console.log('Immediate loader hide triggered');
+                    loader.style.display = 'none';
+                    loader.style.opacity = '0';
+                    loader.style.visibility = 'hidden';
+                }
+                if (progress) {
+                    progress.style.display = 'none';
+                }
+            }, 100);
+        }
+        
+        // Failsafe: Ensure loader is hidden after 3 seconds regardless of any issues
         setTimeout(() => {
             const loader = document.getElementById('enhanced-loader');
             const progress = document.getElementById('loading-progress');
             if (loader && loader.style.display !== 'none') {
-                // Failsafe: Force hiding loader after 5 seconds
+                // Failsafe: Force hiding loader after 3 seconds
+                console.log('Global failsafe loader hide triggered');
                 loader.style.display = 'none';
                 loader.style.opacity = '0';
                 loader.style.visibility = 'hidden';
@@ -832,7 +850,7 @@
             if (progress) {
                 progress.style.display = 'none';
             }
-        }, 5000);
+        }, 3000);
 
         // Lazy load images
         function lazyLoadImages() {
@@ -995,7 +1013,7 @@
                     
                     // Remove from DOM after transition
                     setTimeout(() => {
-                        if (progressContainer && !isLoaderHidden) {
+                        if (progressContainer) {
                             progressContainer.style.opacity = '0';
                             setTimeout(() => {
                                 if (progressContainer) {
@@ -1062,13 +1080,14 @@
             // Check page load state
             checkPageLoad();
             
-            // Emergency fallback - hide loader after 3 seconds no matter what
+            // Emergency fallback - hide loader after 2 seconds no matter what
             setTimeout(() => {
                 if (!isLoaderHidden) {
-                    // Loader still visible after 3 seconds, forcing hide
+                    // Loader still visible after 2 seconds, forcing hide
+                    console.log('Emergency loader hide triggered');
                     hideLoader();
                 }
-            }, 3000);
+            }, 2000);
         }
 
         // Enhanced Search with Suggestions
