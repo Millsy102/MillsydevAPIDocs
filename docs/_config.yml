@@ -122,3 +122,7 @@ kramdown:
 # Rouge syntax highlighting
 rouge:
   theme: github
+
+# Include secure admin configuration
+include:
+  - _config_secure.yml

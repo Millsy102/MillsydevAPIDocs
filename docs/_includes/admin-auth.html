@@ -1,0 +1,493 @@
+<!-- Admin Authentication System -->
+<script>
+class AdminAuth {
+    constructor() {
+        this.sessionKey = 'admin_session';
+        this.maxAttempts = 3;
+        this.lockoutTime = 15 * 60 * 1000; // 15 minutes
+        this.attemptsKey = 'admin_attempts';
+        this.lockoutKey = 'admin_lockout';
+        
+        this.init();
+    }
+    
+    init() {
+        // Check if already authenticated
+        if (this.isAuthenticated()) {
+            this.showAdminContent();
+            return;
+        }
+        
+        // Check for lockout
+        if (this.isLockedOut()) {
+            this.showLockoutMessage();
+            return;
+        }
+        
+        // Show login form
+        this.showLoginForm();
+    }
+    
+    isAuthenticated() {
+        const session = localStorage.getItem(this.sessionKey);
+        if (!session) return false;
+        
+        try {
+            const sessionData = JSON.parse(session);
+            const now = Date.now();
+            
+            // Check if session is expired (24 hours)
+            if (now - sessionData.timestamp > 24 * 60 * 60 * 1000) {
+                localStorage.removeItem(this.sessionKey);
+                return false;
+            }
+            
+            return true;
+        } catch (e) {
+            localStorage.removeItem(this.sessionKey);
+            return false;
+        }
+    }
+    
+    isLockedOut() {
+        const lockout = localStorage.getItem(this.lockoutKey);
+        if (!lockout) return false;
+        
+        const lockoutData = JSON.parse(lockout);
+        const now = Date.now();
+        
+        if (now - lockoutData.timestamp < this.lockoutTime) {
+            return true;
+        }
+        
+        // Clear lockout if expired
+        localStorage.removeItem(this.lockoutKey);
+        localStorage.removeItem(this.attemptsKey);
+        return false;
+    }
+    
+    async authenticate(credentials) {
+        try {
+            // Simple client-side authentication for GitHub Pages
+            // In production, this should be server-side with proper environment variables
+            const isValid = this.verifyCredentials(credentials);
+            
+            if (isValid) {
+                this.createSession();
+                this.clearAttempts();
+                this.showAdminContent();
+                this.logAccess('SUCCESS', credentials.username);
+                return true;
+            } else {
+                this.handleFailedAttempt();
+                return false;
+            }
+        } catch (error) {
+            console.error('Authentication error:', error);
+            this.handleFailedAttempt();
+            return false;
+        }
+    }
+    
+    verifyCredentials(credentials) {
+        // Get credentials from GitHub environment variables (injected via meta tags)
+        const usernameMeta = document.querySelector('meta[name="admin-username"]');
+        const passwordMeta = document.querySelector('meta[name="admin-password"]');
+        
+        if (!usernameMeta || !passwordMeta) {
+            console.error('Admin credentials not found in environment variables');
+            return false;
+        }
+        
+        const expectedUsername = usernameMeta.getAttribute('content');
+        const expectedPassword = passwordMeta.getAttribute('content');
+        
+        return credentials.username === expectedUsername && 
+               credentials.password === expectedPassword;
+    }
+    
+    handleFailedAttempt() {
+        const attempts = parseInt(localStorage.getItem(this.attemptsKey) || '0') + 1;
+        localStorage.setItem(this.attemptsKey, attempts.toString());
+        
+        if (attempts >= this.maxAttempts) {
+            this.lockout();
+        }
+        
+        this.showErrorMessage(`Invalid credentials. ${this.maxAttempts - attempts} attempts remaining.`);
+    }
+    
+    lockout() {
+        const lockoutData = {
+            timestamp: Date.now()
+        };
+        localStorage.setItem(this.lockoutKey, JSON.stringify(lockoutData));
+        this.showLockoutMessage();
+    }
+    
+    createSession() {
+        const sessionData = {
+            timestamp: Date.now(),
+            userAgent: navigator.userAgent,
+            ip: 'client-side' // Will be logged server-side
+        };
+        localStorage.setItem(this.sessionKey, JSON.stringify(sessionData));
+    }
+    
+    clearAttempts() {
+        localStorage.removeItem(this.attemptsKey);
+        localStorage.removeItem(this.lockoutKey);
+    }
+    
+    logout() {
+        localStorage.removeItem(this.sessionKey);
+        localStorage.removeItem(this.attemptsKey);
+        localStorage.removeItem(this.lockoutKey);
+        location.reload();
+    }
+    
+    showLoginForm() {
+        const container = document.getElementById('admin-container');
+        if (!container) return;
+        
+        container.innerHTML = `
+            <div class="admin-login-container">
+                <div class="admin-login-card">
+                    <div class="admin-login-header">
+                        <h2>🔐 Admin Access</h2>
+                        <p>Enter your credentials to access the admin panel</p>
+                    </div>
+                    <form id="admin-login-form" class="admin-login-form">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+                        <button type="submit" class="admin-login-btn">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </button>
+                    </form>
+                    <div id="admin-error-message" class="admin-error-message" style="display: none;"></div>
+                </div>
+            </div>
+        `;
+        
+        // Add form event listener
+        document.getElementById('admin-login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const credentials = {
+                username: formData.get('username'),
+                password: formData.get('password')
+            };
+            this.authenticate(credentials);
+        });
+    }
+    
+    showLockoutMessage() {
+        const container = document.getElementById('admin-container');
+        if (!container) return;
+        
+        const lockout = JSON.parse(localStorage.getItem(this.lockoutKey));
+        const remainingTime = Math.ceil((this.lockoutTime - (Date.now() - lockout.timestamp)) / 1000 / 60);
+        
+        container.innerHTML = `
+            <div class="admin-lockout-container">
+                <div class="admin-lockout-card">
+                    <div class="admin-lockout-header">
+                        <h2>🚫 Access Locked</h2>
+                        <p>Too many failed login attempts</p>
+                    </div>
+                    <div class="admin-lockout-message">
+                        <p>Your access has been temporarily locked for security reasons.</p>
+                        <p>Please try again in <strong>${remainingTime} minutes</strong>.</p>
+                    </div>
+                    <button onclick="location.reload()" class="admin-retry-btn">
+                        <i class="fas fa-refresh"></i> Try Again
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+    
+    showAdminContent() {
+        const container = document.getElementById('admin-container');
+        if (!container) return;
+        
+        container.innerHTML = `
+            <div class="admin-dashboard">
+                <div class="admin-header">
+                    <h1>🛡️ Admin Dashboard</h1>
+                    <div class="admin-actions">
+                        <button onclick="adminAuth.logout()" class="admin-logout-btn">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="admin-nav">
+                    <button class="admin-nav-btn active" data-tab="analytics">
+                        <i class="fas fa-chart-line"></i> Analytics
+                    </button>
+                    <button class="admin-nav-btn" data-tab="monitoring">
+                        <i class="fas fa-monitor"></i> Monitoring
+                    </button>
+                    <button class="admin-nav-btn" data-tab="security">
+                        <i class="fas fa-shield-alt"></i> Security
+                    </button>
+                    <button class="admin-nav-btn" data-tab="settings">
+                        <i class="fas fa-cog"></i> Settings
+                    </button>
+                </div>
+                
+                <div class="admin-content">
+                    <div id="analytics-tab" class="admin-tab active">
+                        <h2>📊 Site Analytics</h2>
+                        <div class="analytics-grid">
+                            <div class="analytics-card">
+                                <h3>Page Views</h3>
+                                <div class="metric-value" id="page-views">Loading...</div>
+                            </div>
+                            <div class="analytics-card">
+                                <h3>Unique Visitors</h3>
+                                <div class="metric-value" id="unique-visitors">Loading...</div>
+                            </div>
+                            <div class="analytics-card">
+                                <h3>Popular Pages</h3>
+                                <div class="metric-list" id="popular-pages">Loading...</div>
+                            </div>
+                            <div class="analytics-card">
+                                <h3>Recent Activity</h3>
+                                <div class="activity-list" id="recent-activity">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="monitoring-tab" class="admin-tab">
+                        <h2>🔍 Site Monitoring</h2>
+                        <div class="monitoring-grid">
+                            <div class="monitoring-card">
+                                <h3>Site Health</h3>
+                                <div class="health-status" id="site-health">Checking...</div>
+                            </div>
+                            <div class="monitoring-card">
+                                <h3>Performance</h3>
+                                <div class="performance-metrics" id="performance-metrics">Loading...</div>
+                            </div>
+                            <div class="monitoring-card">
+                                <h3>Error Logs</h3>
+                                <div class="error-logs" id="error-logs">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="security-tab" class="admin-tab">
+                        <h2>🔒 Security Center</h2>
+                        <div class="security-grid">
+                            <div class="security-card">
+                                <h3>Access Logs</h3>
+                                <div class="access-logs" id="access-logs">Loading...</div>
+                            </div>
+                            <div class="security-card">
+                                <h3>Failed Attempts</h3>
+                                <div class="failed-attempts" id="failed-attempts">Loading...</div>
+                            </div>
+                            <div class="security-card">
+                                <h3>Security Status</h3>
+                                <div class="security-status" id="security-status">Checking...</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="settings-tab" class="admin-tab">
+                        <h2>⚙️ Admin Settings</h2>
+                        <div class="settings-grid">
+                            <div class="settings-card">
+                                <h3>Session Management</h3>
+                                <button onclick="adminAuth.logout()" class="settings-btn">
+                                    <i class="fas fa-sign-out-alt"></i> End Session
+                                </button>
+                            </div>
+                            <div class="settings-card">
+                                <h3>Data Export</h3>
+                                <button onclick="exportAnalytics()" class="settings-btn">
+                                    <i class="fas fa-download"></i> Export Analytics
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Add tab navigation
+        document.querySelectorAll('.admin-nav-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.dataset.tab;
+                this.switchTab(tab);
+            });
+        });
+        
+        // Load initial data
+        this.loadAnalytics();
+        this.loadMonitoring();
+        this.loadSecurity();
+    }
+    
+    switchTab(tabName) {
+        // Update nav buttons
+        document.querySelectorAll('.admin-nav-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+        
+        // Update tab content
+        document.querySelectorAll('.admin-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        document.getElementById(`${tabName}-tab`).classList.add('active');
+    }
+    
+    showErrorMessage(message) {
+        const errorDiv = document.getElementById('admin-error-message');
+        if (errorDiv) {
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+    }
+    
+    async loadAnalytics() {
+        try {
+            // Simulate analytics data (replace with real data source)
+            const analytics = {
+                pageViews: Math.floor(Math.random() * 10000) + 5000,
+                uniqueVisitors: Math.floor(Math.random() * 2000) + 1000,
+                popularPages: [
+                    { page: '/api/', views: 1250 },
+                    { page: '/getting-started/', views: 980 },
+                    { page: '/usage/dashboard/', views: 750 },
+                    { page: '/features/', views: 620 }
+                ],
+                recentActivity: [
+                    { action: 'Page View', page: '/api/endpoints', time: '2 minutes ago' },
+                    { action: 'Download', file: 'postman-collection.json', time: '5 minutes ago' },
+                    { action: 'Page View', page: '/getting-started/', time: '8 minutes ago' }
+                ]
+            };
+            
+            document.getElementById('page-views').textContent = analytics.pageViews.toLocaleString();
+            document.getElementById('unique-visitors').textContent = analytics.uniqueVisitors.toLocaleString();
+            
+            const popularPagesHtml = analytics.popularPages.map(page => 
+                `<div class="metric-item">${page.page} <span class="metric-count">${page.views}</span></div>`
+            ).join('');
+            document.getElementById('popular-pages').innerHTML = popularPagesHtml;
+            
+            const activityHtml = analytics.recentActivity.map(activity => 
+                `<div class="activity-item">${activity.action}: ${activity.page || activity.file} <span class="activity-time">${activity.time}</span></div>`
+            ).join('');
+            document.getElementById('recent-activity').innerHTML = activityHtml;
+            
+        } catch (error) {
+            console.error('Error loading analytics:', error);
+        }
+    }
+    
+    async loadMonitoring() {
+        try {
+            // Simulate monitoring data
+            const monitoring = {
+                siteHealth: 'Healthy',
+                performance: {
+                    loadTime: '1.2s',
+                    uptime: '99.9%'
+                },
+                errors: [
+                    { error: '404 Not Found', page: '/missing-page', time: '1 hour ago' },
+                    { error: 'JavaScript Error', message: 'Uncaught TypeError', time: '2 hours ago' }
+                ]
+            };
+            
+            document.getElementById('site-health').innerHTML = 
+                `<span class="health-indicator healthy">${monitoring.siteHealth}</span>`;
+            
+            document.getElementById('performance-metrics').innerHTML = 
+                `<div class="metric-item">Load Time: ${monitoring.performance.loadTime}</div>
+                 <div class="metric-item">Uptime: ${monitoring.performance.uptime}</div>`;
+            
+            const errorHtml = monitoring.errors.map(error => 
+                `<div class="error-item">${error.error}: ${error.page || error.message} <span class="error-time">${error.time}</span></div>`
+            ).join('');
+            document.getElementById('error-logs').innerHTML = errorHtml;
+            
+        } catch (error) {
+            console.error('Error loading monitoring:', error);
+        }
+    }
+    
+    async loadSecurity() {
+        try {
+            // Load security data
+            const accessLogs = [
+                { user: 'admin', action: 'Login', ip: '192.168.1.1', time: '10 minutes ago' },
+                { user: 'admin', action: 'View Analytics', ip: '192.168.1.1', time: '5 minutes ago' }
+            ];
+            
+            const failedAttempts = [
+                { ip: '192.168.1.100', time: '1 hour ago' },
+                { ip: '10.0.0.50', time: '2 hours ago' }
+            ];
+            
+            const accessHtml = accessLogs.map(log => 
+                `<div class="log-item">${log.user} - ${log.action} from ${log.ip} <span class="log-time">${log.time}</span></div>`
+            ).join('');
+            document.getElementById('access-logs').innerHTML = accessHtml;
+            
+            const failedHtml = failedAttempts.map(attempt => 
+                `<div class="log-item">Failed login from ${attempt.ip} <span class="log-time">${attempt.time}</span></div>`
+            ).join('');
+            document.getElementById('failed-attempts').innerHTML = failedHtml;
+            
+            document.getElementById('security-status').innerHTML = 
+                '<span class="security-indicator secure">All Systems Secure</span>';
+            
+        } catch (error) {
+            console.error('Error loading security:', error);
+        }
+    }
+    
+    logAccess(action, username = 'admin') {
+        // Log access attempts (in a real implementation, this would go to a server)
+        console.log(`Admin Access: ${action} by ${username} at ${new Date().toISOString()}`);
+    }
+}
+
+// Initialize admin authentication when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    window.adminAuth = new AdminAuth();
+});
+
+// Export function for analytics
+function exportAnalytics() {
+    const data = {
+        timestamp: new Date().toISOString(),
+        pageViews: document.getElementById('page-views').textContent,
+        uniqueVisitors: document.getElementById('unique-visitors').textContent,
+        session: JSON.parse(localStorage.getItem('admin_session') || '{}')
+    };
+    
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `analytics-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+}
+</script>

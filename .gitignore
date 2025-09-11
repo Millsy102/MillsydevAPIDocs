@@ -75,3 +75,9 @@ Thumbs.db
 
 # Local development
 .snapshots/
+
+# Admin Panel Configuration (contains sensitive data)
+docs/_config_admin.yml
+_config_admin.yml
+docs/_config_secure.yml
+_config_secure.yml
